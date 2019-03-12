@@ -1,7 +1,7 @@
 package fr.jdbc.computerdatabase;
 
 
-import model.ComputerDB;
+import ui.InterfaceConsole;
 
 /**
  * Hello world!
@@ -13,8 +13,8 @@ public class App
     {	
     	System.out.println( "Hello World!" );
     	try {
-			ComputerDB db = new ComputerDB();
-			db.showCompDetails(3);
+			InterfaceConsole i = new InterfaceConsole();
+			i.start();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

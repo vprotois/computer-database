@@ -1,72 +1,79 @@
 package controler;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+
+import model.ComputerBuilder;
+import model.ComputerDB;
 
 public class ConsoleControler {
 
+	private ComputerDB db;
+
 	public ConsoleControler() {
-		
+		db = new ComputerDB();
 	}
 	
-	public static Integer getInputInt() {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		Integer inputInt = null;
-		System.out.println("Enter a number");
-		try {
-			inputInt = Integer.parseInt(br.readLine());
-		} catch (NumberFormatException e) {
-			System.out.println("Error format, null will be taken");
-		} catch (IOException e) {
-			System.out.println("Error IOstream, null will be taken");
+	
+	
+	public void buildComp() throws SQLException {
+		ComputerBuilder c = new ComputerBuilder();
+		System.out.println("ID :");
+		c.withId(InputControler.getInputInt());
+		System.out.println("Name :");
+		c.withName(InputControler.getInputStringNotNull());
+		System.out.println("Introduced (can be null) :");
+		Long l1 = InputControler.getInputLong();
+		if (l1!=null) {
+			c.withIntroduced(new Timestamp(l1));
+			System.out.println("Discontinued (can be null/have to be greater than Introduced) :");
+			Long l2 = InputControler.getInputLong();
+			if (l1.compareTo(l2)<=0) {
+				c.withIntroduced(new Timestamp(l2));
+			}
 		}
-		return inputInt;
-
+		System.out.println("Company id :");
+		c.withId(InputControler.getInputInt());
+		db.createComputer(c.build());
 	}
 	
-	public static Long getInputLong() {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		Long inputInt = null;
-		System.out.println("Enter a number");
-		try {
-			inputInt = Long.parseLong(br.readLine());
-		} catch (NumberFormatException e) {
-			System.out.println("Error format, null will be taken");
-		} catch (IOException e) {
-			System.out.println("Error IOstream, null will be taken");
+	public void listComputer() throws SQLException {
+		ResultSet results = db.listComputers();
+		while (results.next()) {
+			System.out.println(results.getInt("id")+" "
+					+ results.getString("name") + " "
+					+ results.getTimestamp("introduced") + " "
+					+ results.getTimestamp("discontinued") + " "
+					+ results.getInt("company_id")
+					);
 		}
-		return inputInt;
-
 	}
 	
-	public static int getInputInt(int min, int max) {
-		Integer inputInt;
-		do {
-			inputInt = getInputInt();
-		}while (inputInt == null || 
-				inputInt.intValue() < min ||
-				inputInt.intValue() > max);
-		return inputInt.intValue();
-	}
-	
-	public static String getInputString() {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String inputString = null;
-		System.out.println("Input String");
-		try {
-			inputString = br.readLine();
-		} catch (IOException e) {
-			System.out.println("Error IOstream");
+	public void listCompanies() throws SQLException {
+		ResultSet results = db.listCompanies(); 
+		while (results.next()) {
+			System.out.println(results.getInt("id")+" "
+					+ results.getString("name")
+					);
 		}
-		return inputString;
 	}
 	
-	public static String getInputStringNotNull() {
-		String inputString = null;
-		do {
-			inputString = getInputString();
-		}while(inputString == null);
-		return inputString;
+	public void showCompDetails(int i) throws SQLException {
+		ResultSet results = db.getCompDetails(i); 
+		while (results.next()) {
+			System.out.println(results.getInt("id")+" "
+					+ results.getString("name") + " "
+					+ results.getTimestamp("introduced") + " "
+					+ results.getTimestamp("discontinued") + " "
+					+ results.getInt("company_id")
+					);
+		}
 	}
+	
+	public void deleteComputer(int id) throws SQLException {
+		db.deleteComputer(id);
+	}
+	
+	
 }

@@ -32,47 +32,24 @@ public class ComputerDB {
 	}
 
 
-	public void listComputers() throws SQLException {
-
+	public ResultSet listComputers() throws SQLException {
 		String query = "SELECT * FROM computer;";
 		Statement stmt = conn.createStatement();
-		ResultSet results = stmt.executeQuery(query);
-		while (results.next()) {
-
-			System.out.println(results.getInt("id")+" "
-					+ results.getString("name") + " "
-					+ results.getTimestamp("introduced") + " "
-					+ results.getTimestamp("discontinued") + " "
-					+ results.getInt("company_id")
-					);
-		}
+		return stmt.executeQuery(query);
 	}
 
-	public void listCompanies() throws SQLException {
+	public ResultSet listCompanies() throws SQLException {
 
 		String query = "SELECT * FROM company;";
 		Statement stmt = conn.createStatement();
-		ResultSet results = stmt.executeQuery(query);
-		while (results.next()) {
-
-			System.out.println(results.getInt("id")+" "
-					+ results.getString("name")
-					);
-		}
+		return stmt.executeQuery(query);
+		
 	}
 	
-	public void showCompDetails(int id) throws SQLException {
+	public ResultSet getCompDetails(int id) throws SQLException {
 		String query = "SELECT * FROM computer WHERE id ="+id+";";
 		Statement stmt = conn.createStatement();
-		ResultSet results = stmt.executeQuery(query);
-		while (results.next()) {
-			System.out.println(results.getInt("id")+" "
-					+ results.getString("name") + " "
-					+ results.getTimestamp("introduced") + " "
-					+ results.getTimestamp("discontinued") + " "
-					+ results.getInt("company_id")
-					);
-		}
+		return stmt.executeQuery(query);
 	}
 	
 	public void createComputer(Computer c) throws SQLException {
