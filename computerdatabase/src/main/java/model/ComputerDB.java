@@ -73,14 +73,18 @@ public class ComputerDB {
 		stmt.executeUpdate(query);
 	}
 	
-//	public void updateComputer(int id) {
-//		String query = "SELECT * FROM computer WHERE id ="+id+";";
-//		Statement stmt = conn.createStatement();
-//		ResultSet results = stmt.executeQuery(query);
-//		while (results.next()) {
-//			
-//		}
-//	}
+	public void updateComputer(int id,String colonne, String value) throws SQLException {
+		String query = "SELECT * FROM computer WHERE id ="+id+";";
+		Statement stmt = conn.createStatement();
+		ResultSet results = stmt.executeQuery(query);
+		while (results.next()) {
+			PreparedStatement prep1 = conn.prepareStatement("UPDATE computer SET ?=? WHERE id = ?");
+			prep1.setString(1,colonne);
+			prep1.setString(2,value);
+			prep1.setInt(3,id);
+			prep1.executeUpdate();
+		}
+	}
 	
 
 }
