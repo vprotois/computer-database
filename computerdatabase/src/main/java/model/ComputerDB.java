@@ -6,10 +6,18 @@ import java.sql.*;
 public class ComputerDB {
 	private Connection conn;
 
-	public ComputerDB() throws ClassNotFoundException, SQLException {
-		Class.forName("com.mysql.cj.jdbc.Driver");
+	public ComputerDB() {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		String url = "jdbc:mysql://127.0.0.1:3306/computer-database-db";
-		conn  = DriverManager.getConnection(url,"admincdb","qwerty1234");
+		try {
+			conn  = DriverManager.getConnection(url,"admincdb","qwerty1234");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 
 	}
@@ -68,16 +76,24 @@ public class ComputerDB {
 	}
 	
 	public void createComputer(Computer c) throws SQLException {
-		String query = "INSERT INTO computer VALUES (" + c.toString() +");";
-		Statement stmt = conn.createStatement();
-		stmt.executeUpdate(query);
+		
+		PreparedStatement prep = conn.prepareStatement(
+				"INSERT INTO computer "
+				+ "(id, name, introduced, discontinued,company_id) VALUES "
+				+ "(?,?,?,?,?);");
+		prep.setInt(1,c.getId());
+		prep.setString(2,c.getName());
+		prep.setTimestamp(3,c.getIntroduced());
+		prep.setTimestamp(4,c.getDiscontinued());
+		prep.setString(5,c.getName());
+		prep.executeUpdate();
 	}
 	
 	public void updateComputer(int id,String colonne, String value) throws SQLException {
 		String query = "SELECT * FROM computer WHERE id ="+id+";";
 		Statement stmt = conn.createStatement();
 		ResultSet results = stmt.executeQuery(query);
-		while (results.next()) {
+		if (results.next()) {
 			PreparedStatement prep1 = conn.prepareStatement("UPDATE computer SET ?=? WHERE id = ?");
 			prep1.setString(1,colonne);
 			prep1.setString(2,value);
@@ -86,5 +102,10 @@ public class ComputerDB {
 		}
 	}
 	
+	public void deleteComputer(int id) throws SQLException {
+		String query = "DELETE FROM computer WHERE id ="+id+";";
+		Statement stmt = conn.createStatement();
+		stmt.executeUpdate(query);
+	}
 
 }
