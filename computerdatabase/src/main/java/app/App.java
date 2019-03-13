@@ -1,4 +1,4 @@
-package fr.jdbc.computerdatabase;
+package app;
 
 
 import ui.InterfaceConsole;
