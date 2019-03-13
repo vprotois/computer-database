@@ -2,22 +2,22 @@ package model;
 
 import java.sql.Timestamp;
 
-public class Computer {
-	private Long id;
+public class Computer extends Entity{
 	private String name;
 	private Company company;
-	private Timestamp introduced;
-	private Timestamp discontinued;
+	private Timestamp introduced, discontinued;
+	private Long companyId;
 	
 	public Computer() {
 	}
 
-	public Computer(Long id, String name, Company company, Timestamp introduced, Timestamp discontinued) {
+	public Computer(Long id, String name, Company company, Timestamp introduced, Timestamp discontinued,Long companyId) {
 		this.id = id;
 		this.name = name;
 		this.company = company;
 		this.introduced = introduced;
 		this.discontinued = discontinued;
+		this.companyId = companyId;
 	}
 	
 	@Override
@@ -26,12 +26,9 @@ public class Computer {
 				this.getName() + "','" +
 				this.getIntroduced() + "','" +
 				this.getDiscontinued() + "','" +
-				this.getCompany_id()+"'";
+				this.getCompany().getId().longValue()+"'";
 	}
 	
-	public Long getId() {
-		return id;
-	}
 
 	public void setId(Long id) {
 		this.id = id;
@@ -49,9 +46,6 @@ public class Computer {
 		return company;
 	}
 	
-	public Integer getCompany_id() {
-		return company.getId();
-	}
 
 	public void setCompany(Company company) {
 		this.company = company;
@@ -71,6 +65,14 @@ public class Computer {
 
 	public void setDiscontinued(Timestamp discontinued) {
 		this.discontinued = discontinued;
+	}
+
+	public Long getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
 	}
 
 	

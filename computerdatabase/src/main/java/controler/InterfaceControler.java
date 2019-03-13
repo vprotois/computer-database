@@ -6,43 +6,49 @@ import ui.InterfaceConsole;
 
 public class InterfaceControler {
 	
-	private DBControler cont = new DBControler();
+	private ComputerControler CompuCont = new ComputerControler();
+	private CompanyControler CompaCont = new CompanyControler();
 
 	public void start() {
-		int menuInput = InputControler.getInputInt(1,6);
+		
 		Long input;
 		String[] inputArgs;
-		try {
+		int menuInput = 0; 
+		do {
 			InterfaceConsole.displayMenu();
-			switch (menuInput) {
-			case 1:
-				cont.listComputer();
-				break;
-			case 2:
-				cont.listCompanies();
-				break;
-			case 3:
-				input = InputControler.getInputLong();
-				cont.showCompDetails(input);
-				break;
-			case 4:
-				inputArgs = InputControler.getInputString(5);
-				cont.buildComputer(inputArgs);
-				break;
-			case 5:
-				inputArgs = InputControler.getInputString(3);
-				cont.updateComputer(inputArgs);
-				break;
-			case 6:
-				input = InputControler.getInputLong();
-				cont.deleteComputer(input);
-				break;
-			default:
-				System.out.println("bad input");
+			menuInput = InputControler.getInputInt(1,6);
+			try {
+				
+				switch (menuInput) {
+				case 1:
+					CompuCont.listComputer();
+					break;
+				case 2:
+					CompaCont.listCompanies();
+					break;
+				case 3:
+					input = InputControler.getInputLong();
+					CompuCont.showCompDetails(input);
+					break;
+				case 4:
+					inputArgs = InputControler.getInputString(5);
+					CompuCont.buildComputer(inputArgs);
+					break;
+				case 5:
+					inputArgs = InputControler.getInputString(3);
+					CompuCont.updateComputer(inputArgs);
+					break;
+				case 6:
+					input = InputControler.getInputLong();
+					CompuCont.deleteComputer(input);
+					break;
+				default:
+					System.out.println("bad input");
+				}
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
 			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
+		}while(menuInput!=0);
 
 
 	}

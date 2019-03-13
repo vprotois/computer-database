@@ -7,18 +7,23 @@ public class ComputerBuilder {
 	private Long id;
 	private String name;
 	private Company company;
-	private Timestamp introduced;
-	private Timestamp discontinued;
+	private Timestamp introduced,discontinued;
+	private Long companyId;
 	
 	public ComputerBuilder(){
 		
 	}
 	
 	public Computer build() {
-		return new Computer(id,name,company,introduced,discontinued);
+		return new Computer(id,name,company,introduced,discontinued,companyId);
 	}
 	
 	public ComputerBuilder withId(Long i) {
+		this.id = i;
+		return this;
+	}
+	
+	public ComputerBuilder withCompanyId(Long i) {
 		this.id = i;
 		return this;
 	}

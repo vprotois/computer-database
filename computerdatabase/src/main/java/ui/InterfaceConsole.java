@@ -1,6 +1,6 @@
 package ui;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class InterfaceConsole {
@@ -21,8 +21,12 @@ public class InterfaceConsole {
 		System.out.println("6 - Delete computer");
 	}
 	
-	public static void displayList(ArrayList<String> list) {
-		for (String s : list) {
+	public static void display(Object o) {
+		System.out.println(o.toString());
+	}
+	
+	public static <T> void displayList(List<T> list) {
+		for (T s : list) {
 			System.out.println(s);
 		}
 	}
