@@ -70,7 +70,28 @@ public class ComputerControler {
 
 	public void updateComputer(String[] args) throws SQLException {
 		DAOcomputer daoComputer = new DAOcomputer();
-		daoComputer.updateComputer(Long.parseLong(args[0]),args[1],args[2]);
+		Long id = Long.parseLong(args[0]);
+		Computer c = daoComputer.getCompDetails(id);
+		switch (args[1]) {
+		case "name":
+			c.setName(args[2]);
+			break;
+		case "introduced":
+			c.setIntroduced(stringToTimestamp(args[2]));
+			break;
+		case "discontinued":
+			Timestamp t = stringToTimestamp(args[2]);
+			if(t.compareTo(c.getIntroduced())> 0) {
+				c.setDiscontinued(t);
+			}
+			break;
+		case "company_id":
+			c.setCompanyId(Long.parseLong(args[2]));
+			break;
+		default:
+			break;
+		}
+		daoComputer.updateComputer(c);
 	}
 
 }

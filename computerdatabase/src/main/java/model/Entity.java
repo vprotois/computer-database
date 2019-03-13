@@ -8,6 +8,10 @@ public abstract class Entity {
 		return id;
 	}
 	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public abstract String toString();
 	
 }

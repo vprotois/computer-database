@@ -26,7 +26,7 @@ public class Computer extends Entity{
 				this.getName() + "','" +
 				this.getIntroduced() + "','" +
 				this.getDiscontinued() + "','" +
-				this.getCompany().getId().longValue()+"'";
+				this.getCompanyId()+"'";
 	}
 	
 

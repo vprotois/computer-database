@@ -14,11 +14,17 @@ public class DAOcomputer extends DAOentity{
 
 	}
 	
+	private static String selectAllComp = "SELECT id,name,introduced,discontinued,company_id FROM computer;";
+	private static String selectCompWithId  = "SELECT id,name,introduced,discontinued,company_id FROM computer WHERE id =?;";
+	private static String InsertComputer = "INSERT INTO computer "
+			+ "(id, name, introduced, discontinued,company_id) VALUES "
+			+ "(?,?,?,?,?);";
+	private static String update = "UPDATE computer SET name=?,introduced=?,discontinued=?,company_id=? WHERE id = ?;";
 	
 	public List<Computer> listComputers() throws SQLException {
-		String query = "SELECT id,name,introduced,discontinued,company_id FROM computer;";
+		
 		Statement stmt = conn.createStatement();
-		ResultSet results = stmt.executeQuery(query);
+		ResultSet results = stmt.executeQuery(selectAllComp);
 		List<Computer> list = new ArrayList<Computer>();
 		while (results.next()) {
 			list.add(new Computer(results.getLong("id"),
@@ -33,9 +39,9 @@ public class DAOcomputer extends DAOentity{
 
 	
 	public Computer getCompDetails(Long id) throws SQLException {
-		String query = "SELECT * FROM computer WHERE id ="+id.longValue()+";";
-		Statement stmt = conn.createStatement();
-		ResultSet results = stmt.executeQuery(query);
+		PreparedStatement stmt = conn.prepareStatement(selectCompWithId);
+		stmt.setLong(1,id);
+		ResultSet results = stmt.executeQuery();
 		while (results.next()) {
 			return new Computer(results.getLong("id"),
 					results.getString("name"), null,
@@ -49,10 +55,7 @@ public class DAOcomputer extends DAOentity{
 	
 	public void createComputer(Computer c) throws SQLException {
 		
-		PreparedStatement prep = conn.prepareStatement(
-				"INSERT INTO computer "
-				+ "(id, name, introduced, discontinued,company_id) VALUES "
-				+ "(?,?,?,?,?);");
+		PreparedStatement prep = conn.prepareStatement(InsertComputer);
 		prep.setLong(1,c.getId());
 		prep.setString(2,c.getName());
 		prep.setTimestamp(3,c.getIntroduced());
@@ -61,18 +64,15 @@ public class DAOcomputer extends DAOentity{
 		prep.executeUpdate();
 	}
 	
-	public void updateComputer(Long id,String colonne, String value) throws SQLException {
-		String query = "SELECT id,name,introduced,discontinued,company_id FROM computer WHERE id ="+id.longValue()+";";
-		Statement stmt = conn.createStatement();
-		ResultSet results = stmt.executeQuery(query);
-		if (results.next()) {
-			PreparedStatement prep1 = conn.prepareStatement("UPDATE computer SET "+colonne+"=? WHERE id = ?;");
-			prep1.setString(1,colonne);
-			prep1.setString(2,value);
-			prep1.setLong(3,id);
-			prep1.executeUpdate();
+	public void updateComputer(Computer c) throws SQLException {
+			PreparedStatement prep = conn.prepareStatement(update);
+			prep.setString(1,c.getName());
+			prep.setTimestamp(2,c.getIntroduced());
+			prep.setTimestamp(3,c.getDiscontinued());
+			prep.setLong(4,c.getCompanyId());
+			prep.setLong(5,c.getId());
+			prep.executeUpdate();
 		}
-	}
 	
 	public void deleteComputer(Long id) throws SQLException {
 		String query = "DELETE FROM computer WHERE id ="+id.longValue()+";";

@@ -9,8 +9,6 @@ import ui.InterfaceConsole;
 
 public class CompanyControler {
 
-	
-	
 	public void listCompanies() throws SQLException {
 		DAOcompany daoCompany = new DAOcompany();
 		List<Company> companies = daoCompany.getCompanies();
