@@ -18,5 +18,9 @@ public class Company {
 		this.name = name;
 	}
 	
+	public String toString() {
+		return ""+id+" : "+name;
+	}
+	
 	
 }

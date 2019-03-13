@@ -3,19 +3,19 @@ package model;
 import java.sql.Timestamp;
 
 public class Computer {
-	private Integer id;
+	private Long id;
 	private String name;
-	private Integer company_id;
+	private Company company;
 	private Timestamp introduced;
 	private Timestamp discontinued;
 	
 	public Computer() {
 	}
 
-	public Computer(int id, String name, int company_id, Timestamp introduced, Timestamp discontinued) {
+	public Computer(Long id, String name, Company company, Timestamp introduced, Timestamp discontinued) {
 		this.id = id;
 		this.name = name;
-		this.company_id = company_id;
+		this.company = company;
 		this.introduced = introduced;
 		this.discontinued = discontinued;
 	}
@@ -29,11 +29,11 @@ public class Computer {
 				this.getCompany_id()+"'";
 	}
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -45,12 +45,16 @@ public class Computer {
 		this.name = name;
 	}
 
+	public Company getCompany() {
+		return company;
+	}
+	
 	public Integer getCompany_id() {
-		return company_id;
+		return company.getId();
 	}
 
-	public void setCompany_id(Integer company_id) {
-		this.company_id = company_id;
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 	public Timestamp getIntroduced() {
@@ -69,6 +73,7 @@ public class Computer {
 		this.discontinued = discontinued;
 	}
 
+	
 	
 	
 	

@@ -4,37 +4,47 @@ import java.sql.Timestamp;
 
 public class ComputerBuilder {
 
-	private Computer c;
+	private Long id;
+	private String name;
+	private Company company;
+	private Timestamp introduced;
+	private Timestamp discontinued;
 	
 	public ComputerBuilder(){
-		c = new Computer();
+		
 	}
 	
 	public Computer build() {
-		if(c.getId() == null || c.getName() == null) {
-			return null;
+		return new Computer(id,name,company,introduced,discontinued);
+	}
+	
+	public ComputerBuilder withId(Long i) {
+		this.id = i;
+		return this;
+	}
+	
+	public ComputerBuilder withName(String name) {
+		this.name = name;
+		return this;
+	}
+	
+	public ComputerBuilder withCompany(Company co) {
+		this.company = co;
+		return this;
+	}
+	
+	public ComputerBuilder withIntroduced(Timestamp t) {
+		this.introduced = t;
+		return this;
+	}
+	
+	public ComputerBuilder withDiscontinued(Timestamp t) {
+		if (introduced == null || introduced.compareTo(t)>0) {
+			return this;
 		}
-		return c;
+		this.discontinued = t;
+		return this;
 	}
 	
-	public void withId(Integer i) {
-		c.setId(i);
-	}
-	
-	public void withName(String name) {
-		c.setName(name);
-	}
-	
-	public void withCompanyID(Integer i) {
-		c.setCompany_id(i);
-	}
-	
-	public void withIntroduced(Timestamp t) {
-		c.setIntroduced(t);
-	}
-	
-	public void withDiscontinued(Timestamp t) {
-		c.setDiscontinued(t);
-	}
 	
 }
