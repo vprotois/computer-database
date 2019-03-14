@@ -9,6 +9,8 @@ import java.util.List;
 
 import mapper.EntityMapper;
 import model.Company;
+import model.Page;
+import model.PageFactory;
 
 public class DAOCompany {
 		
@@ -42,5 +44,11 @@ public class DAOCompany {
 		}
 		return companies;			
 
+	}
+	
+	public Page<Company> pageListCompany(){
+		return new PageFactory<Company>()
+				.withData(getCompanies())
+				.build();
 	}
 }

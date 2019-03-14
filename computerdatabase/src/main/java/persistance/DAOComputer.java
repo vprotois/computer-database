@@ -5,6 +5,8 @@ import java.util.List;
 
 import mapper.EntityMapper;
 import model.Computer;
+import model.Page;
+import model.PageFactory;
 
 
 
@@ -26,21 +28,21 @@ public class DAOComputer {
 
 	public List<Computer> listComputers(){
 		List<Computer> list = new ArrayList<Computer>();
-		
 		try (Connection conn = DAOFactory.getConnection()) {
-			
 			Statement stmt = conn.createStatement();
 			ResultSet results = stmt.executeQuery(selectAllComp);
 			list = EntityMapper.mapComputerList(results);
-			
 		}catch(SQLException e){
 			System.out.println(e.getMessage());
 		}
-
 		return list;
-
 	}
 
+	public Page<Computer> pageListComputer(){
+		return new PageFactory<Computer>()
+				.withData(listComputers())
+				.build();
+	}
 
 	public Computer getCompDetails(Long id){
 		try (Connection conn = DAOFactory.getConnection()) {

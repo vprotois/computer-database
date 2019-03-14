@@ -7,6 +7,7 @@ import java.util.List;
 
 import model.Computer;
 import model.ComputerFactory;
+import model.Page;
 import persistance.DAOCompany;
 import persistance.DAOComputer;
 import persistance.DAOFactory;
@@ -56,6 +57,12 @@ public class ComputerControler {
 		List<Computer> list = daoComputer.listComputers();
 		InterfaceConsole.displayList(list);
 	}
+	
+	public void pageListComputer() {
+		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
+		Page <Computer> list = daoComputer.pageListComputer();
+		InterfaceControler.pageMenu(list);
+	}
 
 	
 	public void showCompDetails(Long i) {
@@ -100,5 +107,6 @@ public class ComputerControler {
 		}
 		daoComputer.updateComputer(c);
 	}
+	
 
 }
