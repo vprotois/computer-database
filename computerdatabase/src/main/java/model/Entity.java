@@ -9,7 +9,7 @@ public abstract class Entity {
 	}
 	
 	public void setId(Long id) {
-		this.id = id;
+		this.id = new Long(id);
 	}
 	
 	public abstract String toString();

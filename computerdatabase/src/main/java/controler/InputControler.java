@@ -56,6 +56,7 @@ public class InputControler {
 			inputString = br.readLine();
 		} catch (IOException e) {
 			System.out.println("Error IOstream");
+			System.out.println(e.getMessage());
 		}
 		return inputString;
 	}
@@ -64,11 +65,11 @@ public class InputControler {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String[] inputString = null;
 		do {
-			System.out.println("Input String with "+number+"arguments");
+			System.out.println("Input String with "+number+" arguments");
 			try {
 				inputString = br.readLine().split(" ");
 			} catch (IOException e) {
-				System.out.println("Error IOstream");
+				System.out.println(e.getMessage());
 			}
 		}
 		while (inputString.length != number);

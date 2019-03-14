@@ -1,13 +1,12 @@
 package controler;
 
 import java.util.Date;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 import model.Computer;
-import model.ComputerBuilder;
+import model.ComputerFactory;
 import persistance.DAOCompany;
 import persistance.DAOComputer;
 import persistance.DAOFactory;
@@ -19,18 +18,18 @@ public class ComputerControler {
 		
 	}
 
-	public void buildComputer(String[] args) throws SQLException {
-		ComputerBuilder c = new ComputerBuilder()
+	public void buildComputer(String[] args) {
+		ComputerFactory c = new ComputerFactory()
 				.withId(Long.parseLong(args[0]))
 				.withName(args[1])
 				.withIntroduced(stringToTimestamp(args[2]))
 				.withDiscontinued(stringToTimestamp(args[3]))
 				.withCompanyId(Long.parseLong(args[4]));
 		
-		DAOCompany daoCompany =  (DAOCompany) DAOFactory.create("company");
+		DAOCompany daoCompany =  (DAOCompany) DAOFactory.createDAOcompany();
 		c = c.withCompany(daoCompany.getCompany(Long.parseLong(args[4])));
 		
-		DAOComputer daoComputer = (DAOComputer) DAOFactory.create("computer");
+		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		daoComputer.createComputer(c.build());
 
 	}
@@ -52,15 +51,15 @@ public class ComputerControler {
 	}
 
 
-	public void listComputer() throws SQLException {
-		DAOComputer daoComputer = (DAOComputer) DAOFactory.create("computer");
+	public void listComputer() {
+		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		List<Computer> list = daoComputer.listComputers();
 		InterfaceConsole.displayList(list);
 	}
 
 	
-	public void showCompDetails(Long i) throws SQLException {
-		DAOComputer daoComputer = (DAOComputer) DAOFactory.create("computer");
+	public void showCompDetails(Long i) {
+		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		Computer c = daoComputer.getCompDetails(i);
 		if(c!=null) {
 			InterfaceConsole.display(c);			
@@ -70,13 +69,13 @@ public class ComputerControler {
 		}
 	}
 
-	public void deleteComputer(Long id) throws SQLException {
-		DAOComputer daoComputer = (DAOComputer) DAOFactory.create("computer");
+	public void deleteComputer(Long id)  {
+		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		daoComputer.deleteComputer(id);
 	}
 
-	public void updateComputer(String[] args) throws SQLException {
-		DAOComputer daoComputer = (DAOComputer) DAOFactory.create("computer");
+	public void updateComputer(String[] args){
+		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		Long id = Long.parseLong(args[0]);
 		Computer c = daoComputer.getCompDetails(id);
 		switch (args[1]) {
@@ -96,7 +95,8 @@ public class ComputerControler {
 			c.setCompanyId(Long.parseLong(args[2]));
 			break;
 		default:
-			break;
+			System.out.println("Not a valid column");
+			return;
 		}
 		daoComputer.updateComputer(c);
 	}

@@ -1,6 +1,5 @@
 package controler;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import model.Company;
@@ -10,8 +9,8 @@ import ui.InterfaceConsole;
 
 public class CompanyControler {
 
-	public void listCompanies() throws SQLException {
-		DAOCompany daoCompany = (DAOCompany) DAOFactory.create("company");
+	public void listCompanies() {
+		DAOCompany daoCompany = (DAOCompany) DAOFactory.createDAOcompany();
 		List<Company> companies = daoCompany.getCompanies();
 		InterfaceConsole.displayList(companies);
 	}

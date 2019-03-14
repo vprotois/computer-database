@@ -22,16 +22,11 @@ public class Computer extends Entity{
 	
 	@Override
 	public String toString() {
-		return "'" +this.getId().toString() + "','" +
+		return "'" +this.getId().longValue() + "','" +
 				this.getName() + "','" +
 				this.getIntroduced() + "','" +
 				this.getDiscontinued() + "','" +
 				this.getCompanyId()+"'";
-	}
-	
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getName() {

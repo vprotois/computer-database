@@ -12,7 +12,7 @@ public class InterfaceConsole {
 	
 	public static void displayMenu() {
 		System.out.println("Choose input :");
-		System.out.println("0 - abort");
+		System.out.println("0 - Abort");
 		System.out.println("1 - List computers");
 		System.out.println("2 - List companies");
 		System.out.println("3 - Show computer details");
@@ -27,7 +27,7 @@ public class InterfaceConsole {
 	
 	public static <T> void displayList(List<T> list) {
 		for (T s : list) {
-			System.out.println(s);
+			System.out.println(s.toString());
 		}
 	}
 

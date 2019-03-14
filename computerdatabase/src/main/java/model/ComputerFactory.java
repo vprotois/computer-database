@@ -2,7 +2,7 @@ package model;
 
 import java.sql.Timestamp;
 
-public class ComputerBuilder {
+public class ComputerFactory {
 
 	private Long id;
 	private String name;
@@ -10,7 +10,7 @@ public class ComputerBuilder {
 	private Timestamp introduced,discontinued;
 	private Long companyId;
 	
-	public ComputerBuilder(){
+	public ComputerFactory(){
 		
 	}
 	
@@ -18,33 +18,33 @@ public class ComputerBuilder {
 		return new Computer(id,name,company,introduced,discontinued,companyId);
 	}
 	
-	public ComputerBuilder withId(Long i) {
-		this.id = i;
+	public ComputerFactory withId(Long i) {
+		this.id = new Long(i);
 		return this;
 	}
 	
-	public ComputerBuilder withCompanyId(Long i) {
-		this.id = i;
+	public ComputerFactory withCompanyId(Long i) {
+		this.companyId = new Long(i);
 		return this;
 	}
 	
-	public ComputerBuilder withName(String name) {
+	public ComputerFactory withName(String name) {
 		this.name = name;
 		return this;
 	}
 	
-	public ComputerBuilder withCompany(Company co) {
+	public ComputerFactory withCompany(Company co) {
 		this.company = co;
 		return this;
 	}
 	
-	public ComputerBuilder withIntroduced(Timestamp t) {
+	public ComputerFactory withIntroduced(Timestamp t) {
 		this.introduced = t;
 		return this;
 	}
 	
-	public ComputerBuilder withDiscontinued(Timestamp t) {
-		if (introduced == null || introduced.compareTo(t)>0) {
+	public ComputerFactory withDiscontinued(Timestamp t) {
+		if (t == null || introduced == null || introduced.compareTo(t)>0) {
 			return this;
 		}
 		this.discontinued = t;
