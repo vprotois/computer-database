@@ -8,8 +8,9 @@ import java.util.List;
 
 import model.Computer;
 import model.ComputerBuilder;
-import persistance.DAOcompany;
-import persistance.DAOcomputer;
+import persistance.DAOCompany;
+import persistance.DAOComputer;
+import persistance.DAOFactory;
 import ui.InterfaceConsole;
 
 public class ComputerControler {
@@ -26,9 +27,10 @@ public class ComputerControler {
 				.withDiscontinued(stringToTimestamp(args[3]))
 				.withCompanyId(Long.parseLong(args[4]));
 		
-		DAOcompany daoCompany =  new DAOcompany();
+		DAOCompany daoCompany =  (DAOCompany) DAOFactory.create("company");
 		c = c.withCompany(daoCompany.getCompany(Long.parseLong(args[4])));
-		DAOcomputer daoComputer = new DAOcomputer();
+		
+		DAOComputer daoComputer = (DAOComputer) DAOFactory.create("computer");
 		daoComputer.createComputer(c.build());
 
 	}
@@ -51,25 +53,30 @@ public class ComputerControler {
 
 
 	public void listComputer() throws SQLException {
-		DAOcomputer daoComputer = new DAOcomputer();
+		DAOComputer daoComputer = (DAOComputer) DAOFactory.create("computer");
 		List<Computer> list = daoComputer.listComputers();
 		InterfaceConsole.displayList(list);
 	}
 
 	
 	public void showCompDetails(Long i) throws SQLException {
-		DAOcomputer daoComputer = new DAOcomputer();
+		DAOComputer daoComputer = (DAOComputer) DAOFactory.create("computer");
 		Computer c = daoComputer.getCompDetails(i);
-		InterfaceConsole.display(c);
+		if(c!=null) {
+			InterfaceConsole.display(c);			
+		}else
+		{
+			InterfaceConsole.display("Computer not in base");
+		}
 	}
 
 	public void deleteComputer(Long id) throws SQLException {
-		DAOcomputer daoComputer = new DAOcomputer();
+		DAOComputer daoComputer = (DAOComputer) DAOFactory.create("computer");
 		daoComputer.deleteComputer(id);
 	}
 
 	public void updateComputer(String[] args) throws SQLException {
-		DAOcomputer daoComputer = new DAOcomputer();
+		DAOComputer daoComputer = (DAOComputer) DAOFactory.create("computer");
 		Long id = Long.parseLong(args[0]);
 		Computer c = daoComputer.getCompDetails(id);
 		switch (args[1]) {

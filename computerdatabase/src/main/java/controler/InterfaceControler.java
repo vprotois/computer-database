@@ -16,9 +16,8 @@ public class InterfaceControler {
 		int menuInput = 0; 
 		do {
 			InterfaceConsole.displayMenu();
-			menuInput = InputControler.getInputInt(1,6);
+			menuInput = InputControler.getInputInt(0,6);
 			try {
-				
 				switch (menuInput) {
 				case 1:
 					CompuCont.listComputer();
@@ -43,10 +42,10 @@ public class InterfaceControler {
 					CompuCont.deleteComputer(input);
 					break;
 				default:
-					System.out.println("bad input");
+					InterfaceConsole.display("bad input");
 				}
 			} catch (SQLException e) {
-				System.out.println(e.getMessage());
+				InterfaceConsole.display(e.getMessage());
 			}
 		}while(menuInput!=0);
 

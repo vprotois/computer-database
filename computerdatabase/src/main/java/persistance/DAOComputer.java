@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Computer;
+import model.ComputerBuilder;
 
 
 
-public class DAOcomputer extends DAOentity{
+public class DAOComputer extends DAOEntity{
 
-	public DAOcomputer() {
+	public DAOComputer() {
 		super();
 
 	}
@@ -20,6 +21,7 @@ public class DAOcomputer extends DAOentity{
 			+ "(id, name, introduced, discontinued,company_id) VALUES "
 			+ "(?,?,?,?,?);";
 	private static String update = "UPDATE computer SET name=?,introduced=?,discontinued=?,company_id=? WHERE id = ?;";
+	private static String delete = "DELETE FROM computer WHERE id =?;";
 	
 	public List<Computer> listComputers() throws SQLException {
 		
@@ -27,12 +29,13 @@ public class DAOcomputer extends DAOentity{
 		ResultSet results = stmt.executeQuery(selectAllComp);
 		List<Computer> list = new ArrayList<Computer>();
 		while (results.next()) {
-			list.add(new Computer(results.getLong("id"),
-					results.getString("name"), null,
-					results.getTimestamp("introduced"),
-					results.getTimestamp("discontinued"),
-					results.getLong("company_id")
-					));
+			list.add(new ComputerBuilder().withId(results.getLong("id"))
+					.withName(results.getString("name"))
+					.withIntroduced(results.getTimestamp("introduced"))
+					.withDiscontinued(results.getTimestamp("discontinued"))
+					.withCompanyId(results.getLong("company_id"))
+					.build()
+					);
 		}
 		return list;
 	}
@@ -43,12 +46,13 @@ public class DAOcomputer extends DAOentity{
 		stmt.setLong(1,id);
 		ResultSet results = stmt.executeQuery();
 		while (results.next()) {
-			return new Computer(results.getLong("id"),
-					results.getString("name"), null,
-					results.getTimestamp("introduced"),
-					results.getTimestamp("discontinued"),
-					results.getLong("company_id")
-					);
+			return new ComputerBuilder().withId(results.getLong("id"))
+					.withName(results.getString("name"))
+					.withIntroduced(results.getTimestamp("introduced"))
+					.withDiscontinued(results.getTimestamp("discontinued"))
+					.withCompanyId(results.getLong("company_id"))
+					.build()
+					;
 		}
 		return null;
 	}
@@ -75,9 +79,9 @@ public class DAOcomputer extends DAOentity{
 		}
 	
 	public void deleteComputer(Long id) throws SQLException {
-		String query = "DELETE FROM computer WHERE id ="+id.longValue()+";";
-		Statement stmt = conn.createStatement();
-		stmt.executeUpdate(query);
+		PreparedStatement stmt = conn.prepareStatement(delete);
+		stmt.setLong(1,id);
+		stmt.executeUpdate();
 	}
 
 }

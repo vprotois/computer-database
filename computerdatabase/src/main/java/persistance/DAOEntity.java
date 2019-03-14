@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public abstract class DAOentity {
+public abstract class DAOEntity {
 
 	protected Connection conn;
 	
-	public DAOentity(){
+	public DAOEntity(){
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -30,5 +30,6 @@ public abstract class DAOentity {
 				conn.close();
 		} catch (Exception e) {}
 	}
+
 	
 }

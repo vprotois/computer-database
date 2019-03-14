@@ -8,12 +8,12 @@ import java.util.List;
 
 import model.Company;
 
-public class DAOcompany extends DAOentity{
+public class DAOCompany extends DAOEntity{
 		
 	String selectAll ="SELECT id,name FROM company;";
 	String selectId = "SELECT id,name FROM company WHERE id = ?;";
 	
-	public DAOcompany() {
+	public DAOCompany() {
 		super();
 	}
 	
