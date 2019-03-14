@@ -6,7 +6,7 @@ import ui.InterfaceConsole;
 public class InterfaceControler {
 
 	private ComputerControler computerControler = new ComputerControler();
-	private CompanyControler companyControler = new CompanyControler();
+	private CompanyControler  companyControler  = new CompanyControler();
 
 	private static final int ABORT = 0;
 	private static final int LIST_COMPUTERS = 1;

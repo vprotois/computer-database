@@ -2,8 +2,12 @@ package controler;
 
 import java.util.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import model.Computer;
 import model.ComputerFactory;
@@ -15,6 +19,8 @@ import ui.InterfaceConsole;
 
 public class ComputerControler {
 
+	private static Logger log= LoggerFactory.getLogger(ComputerControler.class);
+	
 	public ComputerControler() {
 		
 	}
@@ -45,8 +51,9 @@ public class ComputerControler {
 				Timestamp timeStampDate = new Timestamp(date.getTime());
 				return timeStampDate;
 			}
-		} catch (Exception e) {
+		} catch (ParseException e) {
 			e.printStackTrace();
+			log.error("Error when parsing Timestamp format");
 		}
 		return null;
 	}
@@ -65,14 +72,14 @@ public class ComputerControler {
 	}
 
 	
-	public void showCompDetails(Long i) {
+	public void showCompDetails(Long id) {
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
-		Computer c = daoComputer.getCompDetails(i);
+		Computer c = daoComputer.getCompDetails(id);
 		if(c!=null) {
 			InterfaceConsole.display(c);			
 		}else
 		{
-			InterfaceConsole.display("Computer not in base");
+			log.error("Computer "+id+" not in base");
 		}
 	}
 
@@ -102,7 +109,7 @@ public class ComputerControler {
 			c.setCompanyId(Long.parseLong(args[2]));
 			break;
 		default:
-			System.out.println("Not a valid column");
+			log.error("Not a valid column");
 			return;
 		}
 		daoComputer.updateComputer(c);

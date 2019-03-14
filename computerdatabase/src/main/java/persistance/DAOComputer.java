@@ -3,6 +3,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import mapper.EntityMapper;
 import model.Computer;
 import model.Page;
@@ -13,9 +16,11 @@ import model.PageFactory;
 
 public class DAOComputer {
 
+	private static Logger log= LoggerFactory.getLogger(DAOComputer.class);
+	
 	public DAOComputer() {
 		super();
-
+		
 	}
 
 	private static String selectAllComp = "SELECT id,name,introduced,discontinued,company_id FROM computer;";
@@ -34,6 +39,7 @@ public class DAOComputer {
 			list = EntityMapper.mapComputerList(results);
 		}catch(SQLException e){
 			System.out.println(e.getMessage());
+			log.error("Error when getting the computer List");
 		}
 		return list;
 	}
@@ -52,6 +58,7 @@ public class DAOComputer {
 			EntityMapper.mapSingleComputer(results);
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
+			log.error("Error when getting the detail of computer : "+id);
 		}
 		return null;		
 	}
@@ -63,6 +70,7 @@ public class DAOComputer {
 			prep.executeUpdate();
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
+			log.error("Error when creating the computer : "+ c);
 		}
 
 	}
@@ -83,6 +91,7 @@ public class DAOComputer {
 			prep.executeUpdate();			
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
+			log.error("Error when updating computer : "+c);
 		}
 	}
 
@@ -102,6 +111,7 @@ public class DAOComputer {
 			stmt.executeUpdate();
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
+			log.error("Error when deleting computer : "+ id);
 		}
 	}
 
