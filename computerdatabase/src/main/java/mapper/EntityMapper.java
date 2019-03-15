@@ -6,16 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Company;
-import model.CompanyFactory;
+import model.CompanyBuilder;
 import model.Computer;
-import model.ComputerFactory;
+import model.ComputerBuilder;
 
 public class EntityMapper {
 	
 	public static List<Computer> mapComputerList(ResultSet results) throws SQLException{
 		List<Computer> list = new ArrayList<>();
 		while (results.next()) {
-			list.add(new ComputerFactory().withId(results.getLong("id"))
+			list.add(new ComputerBuilder().withId(results.getLong("id"))
 					.withName(results.getString("name"))
 					.withIntroduced(results.getTimestamp("introduced"))
 					.withDiscontinued(results.getTimestamp("discontinued"))
@@ -28,7 +28,7 @@ public class EntityMapper {
 	
 	public static Computer mapSingleComputer(ResultSet results) throws SQLException{
 		if (results.next()) {
-			return new ComputerFactory().withId(results.getLong("id"))
+			return new ComputerBuilder().withId(results.getLong("id"))
 					.withName(results.getString("name"))
 					.withIntroduced(results.getTimestamp("introduced"))
 					.withDiscontinued(results.getTimestamp("discontinued"))
@@ -41,7 +41,7 @@ public class EntityMapper {
 	public static List<Company> mapCompaniesList(ResultSet results) throws SQLException{
 		List<Company> list = new ArrayList<>();
 		while (results.next()) {
-			list.add(new CompanyFactory()
+			list.add(new CompanyBuilder()
 					.withId(results.getLong("id"))
 					.withName(results.getString("name"))
 					.build()
@@ -52,7 +52,7 @@ public class EntityMapper {
 	
 	public static Company mapSingleCompany(ResultSet results) throws SQLException{
 		if (results.next()) {
-			return new CompanyFactory()
+			return new CompanyBuilder()
 					.withId(results.getLong("id"))
 					.withName(results.getString("name"))
 					.build();

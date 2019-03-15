@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PageFactory<T> {
+public class PageBuilder<T> {
 
 	private List<T> data;
 	private Integer index;
@@ -22,12 +22,12 @@ public class PageFactory<T> {
 		return new Page<T>(data,index,size);
 	}
 	
-	public PageFactory<T> withData(List<T> list) {
+	public PageBuilder<T> withData(List<T> list) {
 		this.data = list;
 		return this;
 	}
 	
-	public PageFactory<T> withIndex(Integer index) {
+	public PageBuilder<T> withIndex(Integer index) {
 		return this;
 	}
 }

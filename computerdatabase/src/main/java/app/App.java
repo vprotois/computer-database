@@ -1,5 +1,8 @@
 package app;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import controler.InterfaceControler;
 
 /**
@@ -8,13 +11,13 @@ import controler.InterfaceControler;
  */
 public class App 
 {
-    public static void main( String[] args )
+	private static Logger log= LoggerFactory.getLogger(App.class);
+
+	
+	public static void main( String[] args )
     {	
-    	try {
+			log.info("App starting");
 			new InterfaceControler().start();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-        
+			log.info("App closing");
     }
 }

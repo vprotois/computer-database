@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import model.Computer;
-import model.ComputerFactory;
+import model.ComputerBuilder;
 import model.Page;
 import persistance.DAOCompany;
 import persistance.DAOComputer;
@@ -26,7 +26,7 @@ public class ComputerControler {
 	}
 
 	public void buildComputer(String[] args) {
-		ComputerFactory c = new ComputerFactory()
+		ComputerBuilder c = new ComputerBuilder()
 				.withId(Long.parseLong(args[0]))
 				.withName(args[1])
 				.withIntroduced(stringToTimestamp(args[2]))

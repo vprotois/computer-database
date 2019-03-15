@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import mapper.EntityMapper;
 import model.Company;
 import model.Page;
-import model.PageFactory;
+import model.PageBuilder;
 
 public class DAOCompany {
 		
@@ -54,7 +54,7 @@ public class DAOCompany {
 	}
 	
 	public Page<Company> pageListCompany(){
-		return new PageFactory<Company>()
+		return new PageBuilder<Company>()
 				.withData(getCompanies())
 				.build();
 	}

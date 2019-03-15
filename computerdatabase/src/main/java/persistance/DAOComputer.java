@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import mapper.EntityMapper;
 import model.Computer;
 import model.Page;
-import model.PageFactory;
+import model.PageBuilder;
 
 
 
@@ -45,7 +45,7 @@ public class DAOComputer {
 	}
 
 	public Page<Computer> pageListComputer(){
-		return new PageFactory<Computer>()
+		return new PageBuilder<Computer>()
 				.withData(listComputers())
 				.build();
 	}
