@@ -20,5 +20,14 @@ public class Company extends Entity {
 		return ""+id+" : "+name;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if(o instanceof Company) {
+			
+		}
+		return this.id.equals(((Company) o).id)
+				&& this.name.equals(((Company) o).name);
+	}
+	
 	
 }

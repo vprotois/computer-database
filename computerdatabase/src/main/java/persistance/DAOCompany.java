@@ -29,8 +29,8 @@ public class DAOCompany {
 	public Company getCompany(Long id){
 		try (Connection conn = DAOFactory.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(selectId);
-			ResultSet results =  stmt.executeQuery();
 			stmt.setLong(1,id);
+			ResultSet results =  stmt.executeQuery();
 			return EntityMapper.mapSingleCompany(results);
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
@@ -49,8 +49,7 @@ public class DAOCompany {
 			System.out.println(e.getMessage());
 			log.error("Error when getting company list");
 		}
-		return companies;			
-
+		return companies;
 	}
 	
 	public Page<Company> pageListCompany(){
@@ -58,4 +57,6 @@ public class DAOCompany {
 				.withData(getCompanies())
 				.build();
 	}
+
+	
 }

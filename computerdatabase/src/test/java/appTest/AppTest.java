@@ -1,4 +1,4 @@
-package fr.jdbc.computerdatabase;
+package appTest;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

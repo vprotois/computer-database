@@ -2,8 +2,14 @@ package model;
 
 import java.sql.Timestamp;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 public class ComputerBuilder {
 
+	private static Logger log= LoggerFactory.getLogger(ComputerBuilder.class);
+	
 	private Long id;
 	private String name;
 	private Company company;
@@ -44,7 +50,10 @@ public class ComputerBuilder {
 	}
 	
 	public ComputerBuilder withDiscontinued(Timestamp t) {
-		if (t == null || introduced == null || introduced.compareTo(t)>0) {
+		if (t == null )
+			return this;
+		if (introduced == null || introduced.compareTo(t)>0) {
+			log.warn("Invalid Discontinued");
 			return this;
 		}
 		this.discontinued = t;

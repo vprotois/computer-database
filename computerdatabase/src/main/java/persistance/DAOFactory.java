@@ -10,17 +10,26 @@ public class DAOFactory {
 	private static String login = "admincdb";
 	private static String password = "qwerty1234";
 	
+	private static DAOCompany daoCompany;
+	private static DAOComputer daoComputer;
+	
 	public DAOFactory() {
 		
 	}
 	
 	
 	public static DAOCompany createDAOcompany(){
-		return new DAOCompany();
+		if(daoCompany == null) {
+			daoCompany = new DAOCompany();
+		}
+		return daoCompany;
 	}
 	
 	public static DAOComputer createDAOcomputer(){
-		return new DAOComputer();
+		if(daoComputer == null) {
+			daoComputer = new DAOComputer();
+		}
+		return daoComputer;
 	}
 	
 	static Connection getConnection() throws SQLException {

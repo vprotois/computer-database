@@ -55,10 +55,10 @@ public class DAOComputer {
 			PreparedStatement stmt = conn.prepareStatement(selectCompWithId);
 			stmt.setLong(1,id);
 			ResultSet results = stmt.executeQuery();
-			EntityMapper.mapSingleComputer(results);
+			return EntityMapper.mapSingleComputer(results);
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
-			log.error("Error when getting the detail of computer : "+id);
+			log.error("Error when getting the details of computer : "+id);
 		}
 		return null;		
 	}
