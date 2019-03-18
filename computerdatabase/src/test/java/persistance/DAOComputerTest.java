@@ -3,11 +3,14 @@ package persistance;
 import java.util.List;
 
 import org.junit.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import junit.framework.TestCase;
 import model.Computer;
-import model.Page;
+import model.Pages;
 
+@ExtendWith(MockitoExtension.class)
 public class DAOComputerTest extends TestCase {
 
 	
@@ -39,7 +42,7 @@ public class DAOComputerTest extends TestCase {
 	@Test
 	public void pageListComputer() {
 		DAOComputer dao = DAOFactory.createDAOcomputer();
-		Page<Computer> p = dao.pageListComputer();
+		Pages<Computer> p = dao.pageListComputer();
 		assertNotNull(p);
 	}
 	

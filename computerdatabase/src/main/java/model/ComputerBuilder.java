@@ -21,6 +21,10 @@ public class ComputerBuilder {
 	}
 	
 	public Computer build() {
+		if(id == null || name == null) {
+			log.warn("id or name can't be null");
+			return null;
+		}
 		return new Computer(id,name,company,introduced,discontinued,companyId);
 	}
 	

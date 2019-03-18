@@ -16,17 +16,37 @@ public class Company extends Entity {
 		this.name = name;
 	}
 	
+	public Company() {
+		
+	}
+
+
 	public String toString() {
 		return ""+id+" : "+name;
 	}
 	
 	@Override
 	public boolean equals(Object o) {
-		if(o instanceof Company) {
-			
+		if(! (o instanceof Company)) {
+			return false;
 		}
-		return this.id.equals(((Company) o).id)
-				&& this.name.equals(((Company) o).name);
+		
+		return idEquals(o) && nameEquals(o);
+		
+	}
+	
+	private boolean idEquals(Object o) {
+		if (this.id == null)
+			return (((Company) o).id ==null);
+		else
+			return this.id.equals( ((Company) o).id);
+	}
+	
+	private boolean nameEquals(Object o) {
+		if (this.name == null)
+			return (((Company) o).name==null);
+		else
+			return this.name.equals( ((Company) o).name);
 	}
 	
 	

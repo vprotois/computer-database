@@ -3,7 +3,7 @@ package controler;
 import java.util.List;
 
 import model.Company;
-import model.Page;
+import model.Pages;
 import persistance.DAOCompany;
 import persistance.DAOFactory;
 import ui.InterfaceConsole;
@@ -18,7 +18,7 @@ public class CompanyControler {
 	
 	public void pageListCompanies() {
 		DAOCompany daoCompany = (DAOCompany) DAOFactory.createDAOcompany();
-		Page <Company> list = daoCompany.pageListCompany();
+		Pages <Company> list = daoCompany.pageListCompany();
 		InterfaceControler.pageMenu(list);
 	}
 }

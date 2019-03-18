@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import model.Computer;
 import model.ComputerBuilder;
-import model.Page;
+import model.Pages;
 import persistance.DAOCompany;
 import persistance.DAOComputer;
 import persistance.DAOFactory;
@@ -67,7 +67,7 @@ public class ComputerControler {
 	
 	public void pageListComputer() {
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
-		Page <Computer> list = daoComputer.pageListComputer();
+		Pages <Computer> list = daoComputer.pageListComputer();
 		InterfaceControler.pageMenu(list);
 	}
 

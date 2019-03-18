@@ -1,6 +1,6 @@
 package controler;
 
-import model.Page;
+import model.Pages;
 import ui.InterfaceConsole;
 
 public class InterfaceControler {
@@ -72,7 +72,7 @@ public class InterfaceControler {
 	
 	
 	
-	public static <T> void pageMenu(Page<T> pages) {
+	public static <T> void pageMenu(Pages<T> pages) {
 		Integer pageInput;
 		do {
 			InterfaceConsole.displayList(pages.getData());

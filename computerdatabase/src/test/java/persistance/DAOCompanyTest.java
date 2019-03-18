@@ -9,7 +9,7 @@ import java.util.List;
 import org.junit.Test;
 
 import model.Company;
-import model.Page;
+import model.Pages;
 
 
 public class DAOCompanyTest{
@@ -48,7 +48,7 @@ public class DAOCompanyTest{
 	@Test 
 	public void pageListCompany(){
 		DAOCompany dao = DAOFactory.createDAOcompany();
-		Page<Company> page = dao.pageListCompany();
+		Pages<Company> page = dao.pageListCompany();
 		assertNotNull(page);
 	}
 
