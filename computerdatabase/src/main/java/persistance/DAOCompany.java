@@ -10,7 +10,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import mapper.EntityMapper;
+import mapper.CompanyMapper;
 import model.Company;
 import model.Pages;
 import model.PagesBuilder;
@@ -31,7 +31,7 @@ public class DAOCompany {
 			PreparedStatement stmt = conn.prepareStatement(selectId);
 			stmt.setLong(1,id);
 			ResultSet results =  stmt.executeQuery();
-			return EntityMapper.mapSingleCompany(results);
+			return CompanyMapper.mapSingleCompany(results);
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 			log.error("Error when getting Company :" + id);
@@ -44,7 +44,7 @@ public class DAOCompany {
 		try (Connection conn = DAOFactory.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(selectAll);
 			ResultSet results =  stmt.executeQuery();
-			companies = EntityMapper.mapCompaniesList(results);
+			companies = CompanyMapper.mapCompaniesList(results);
 		}catch(SQLException e){
 			System.out.println(e.getMessage());
 			log.error("Error when getting company list");

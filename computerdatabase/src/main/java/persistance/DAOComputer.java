@@ -6,7 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import mapper.EntityMapper;
+import mapper.ComputerMapper;
 import model.Computer;
 import model.Pages;
 import model.PagesBuilder;
@@ -36,7 +36,7 @@ public class DAOComputer {
 		try (Connection conn = DAOFactory.getConnection()) {
 			Statement stmt = conn.createStatement();
 			ResultSet results = stmt.executeQuery(selectAllComp);
-			list = EntityMapper.mapComputerList(results);
+			list = ComputerMapper.mapComputerList(results);
 		}catch(SQLException e){
 			System.out.println(e.getMessage());
 			log.error("Error when getting the computer List");
@@ -55,7 +55,7 @@ public class DAOComputer {
 			PreparedStatement stmt = conn.prepareStatement(selectCompWithId);
 			stmt.setLong(1,id);
 			ResultSet results = stmt.executeQuery();
-			return EntityMapper.mapSingleComputer(results);
+			return ComputerMapper.mapSingleComputer(results);
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 			log.error("Error when getting the details of computer : "+id);
