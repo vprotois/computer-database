@@ -17,13 +17,16 @@ public class DAOComputerTest extends TestCase {
 	
 	
 	@Test
-	public void createComputer() {
-		fail("Not implemented");
-	}
-	
-	@Test
-	public void deleteComputer() {
-		fail("Not implemented");
+	public void testcreateUpdateDelete() {
+		DAOComputer dao = DAOFactory.createDAOcomputer();
+		Computer c = new Computer(-3L,"neg",null,null,null,2L);
+		dao.createComputer(c);
+		assertEquals(c,dao.getCompDetails(-3L));
+		c = new Computer(-3L,"neg",null,null,null,2L);
+		dao.updateComputer(c);
+		assertEquals(c,dao.getCompDetails(-3L));
+		dao.deleteComputer(-3L);
+		assertNull(dao.getCompDetails(-3L));
 	}
 	
 	@Test
@@ -48,9 +51,6 @@ public class DAOComputerTest extends TestCase {
 		assertNotNull(p);
 	}
 	
-	@Test
-	public void updateComputer() {
-		fail("Not implemented");
-	}
+	
 	
 }
