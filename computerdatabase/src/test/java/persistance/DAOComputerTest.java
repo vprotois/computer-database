@@ -20,7 +20,7 @@ public class DAOComputerTest extends TestCase {
 	public void testcreateUpdateDelete() {
 		DAOComputer dao = DAOFactory.createDAOcomputer();
 		Computer c = new Computer(-3L,"neg",null,null,null,2L);
-		dao.createComputer(c);
+		assertTrue(dao.createComputer(c));
 		assertEquals(c,dao.getCompDetails(-3L));
 		c = new Computer(-3L,"neg",null,null,null,2L);
 		dao.updateComputer(c);
@@ -28,6 +28,27 @@ public class DAOComputerTest extends TestCase {
 		dao.deleteComputer(-3L);
 		assertNull(dao.getCompDetails(-3L));
 	}
+	
+	public void testFailedCreate() {
+		DAOComputer dao = DAOFactory.createDAOcomputer();
+		//this id is already taken in the base
+		Computer c = new Computer(14L,"neg",null,null,null,2L);
+		assertFalse(dao.createComputer(c));
+	}
+	
+//	public void testFailedUpdate() {
+//		DAOComputer dao = DAOFactory.createDAOcomputer();
+//		//this computer isn't in the base
+//		Computer c = new Computer(-3L,"neg",null,null,null,2L);
+//		assertFalse(dao.updateComputer(c));
+//	}
+	
+//	public void testFailedDelete() {
+//		DAOComputer dao = DAOFactory.createDAOcomputer();
+//		//this computer isn't in the base
+//		assertFalse(dao.deleteComputer(-3L));
+//	}
+	
 	
 	@Test
 	public void testCompDetails() {
