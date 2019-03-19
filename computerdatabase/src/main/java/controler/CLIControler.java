@@ -3,7 +3,7 @@ package controler;
 import model.Pages;
 import ui.InterfaceConsole;
 
-public class InterfaceControler {
+public class CLIControler {
 
 	private ComputerControler computerControler = new ComputerControler();
 	private CompanyControler  companyControler  = new CompanyControler();

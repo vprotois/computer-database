@@ -47,9 +47,11 @@ public class DAOComputer {
 		return list;
 	}
 
-	public Pages<Computer> pageListComputer(){
+	public Pages<Computer> pageListComputer(Integer size,Integer index){
 		return new PagesBuilder<Computer>()
 				.withData(listComputers())
+				.withIndex(index)
+				.withSize(size)
 				.build();
 	}
 

@@ -68,7 +68,7 @@ public class DAOComputerTest extends TestCase {
 	@Test
 	public void pageListComputer() {
 		DAOComputer dao = DAOFactory.createDAOcomputer();
-		Pages<Computer> p = dao.pageListComputer();
+		Pages<Computer> p = dao.pageListComputer(null,null);
 		assertNotNull(p);
 	}
 	

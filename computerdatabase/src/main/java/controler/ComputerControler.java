@@ -65,10 +65,16 @@ public class ComputerControler {
 		InterfaceConsole.displayList(list);
 	}
 	
-	public void pageListComputer() {
+	void pageListComputer() {
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
-		Pages <Computer> list = daoComputer.pageListComputer();
-		InterfaceControler.pageMenu(list);
+		Pages <Computer> list = daoComputer.pageListComputer(null,null);
+		CLIControler.pageMenu(list);
+	}
+	
+	public Pages<Computer> getListComputer(Integer size, Integer index) {
+		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
+		Pages <Computer> list = daoComputer.pageListComputer(size,index);
+		return list;
 	}
 
 	

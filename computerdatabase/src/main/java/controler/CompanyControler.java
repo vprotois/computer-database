@@ -19,6 +19,6 @@ public class CompanyControler {
 	public void pageListCompanies() {
 		DAOCompany daoCompany = (DAOCompany) DAOFactory.createDAOcompany();
 		Pages <Company> list = daoCompany.pageListCompany();
-		InterfaceControler.pageMenu(list);
+		CLIControler.pageMenu(list);
 	}
 }
