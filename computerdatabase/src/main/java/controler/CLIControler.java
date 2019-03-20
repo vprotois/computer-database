@@ -3,8 +3,8 @@ package controler;
 import java.util.List;
 
 import exception.ComputerNotFoundException;
-import model.DTOComputer;
 import model.Pages;
+import model.dto.DTOComputer;
 import services.CompanyServices;
 import services.ComputerServices;
 import ui.InterfaceConsole;

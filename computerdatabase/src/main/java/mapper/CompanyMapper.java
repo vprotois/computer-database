@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Company;
-import model.CompanyBuilder;
+import model.builders.CompanyBuilder;
 
 public class CompanyMapper {
 

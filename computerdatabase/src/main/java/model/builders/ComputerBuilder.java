@@ -1,9 +1,12 @@
-package model;
+package model.builders;
 
 import java.sql.Timestamp;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import model.Company;
+import model.Computer;
 
 
 public class ComputerBuilder {

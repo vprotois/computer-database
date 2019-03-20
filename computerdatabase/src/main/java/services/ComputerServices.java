@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
 import exception.ComputerNotFoundException;
 import mapper.DTOComputerMapper;
 import model.Computer;
-import model.ComputerBuilder;
-import model.DTOComputer;
 import model.Pages;
+import model.builders.ComputerBuilder;
+import model.dto.DTOComputer;
 import persistance.DAOCompany;
 import persistance.DAOComputer;
 import persistance.DAOFactory;
@@ -61,7 +61,7 @@ public class ComputerServices {
 		return null;
 	}
 
-
+	
 	public List<Computer> listComputer() {
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		List<Computer> list = daoComputer.listComputers();

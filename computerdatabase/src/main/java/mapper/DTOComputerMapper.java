@@ -1,7 +1,7 @@
 package mapper;
 
 import model.Computer;
-import model.DTOComputer;
+import model.dto.DTOComputer;
 
 public class DTOComputerMapper {
 

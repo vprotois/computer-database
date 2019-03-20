@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Computer;
-import model.ComputerBuilder;
+import model.builders.ComputerBuilder;
 
 public class ComputerMapper {
 	

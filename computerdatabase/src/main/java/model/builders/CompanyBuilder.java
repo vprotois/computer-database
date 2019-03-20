@@ -1,7 +1,9 @@
-package model;
+package model.builders;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import model.Company;
 
 public class CompanyBuilder {
 

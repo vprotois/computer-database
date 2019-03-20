@@ -1,9 +1,11 @@
-package model;
+package model.builders;
 
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import model.Pages;
 
 public class PagesBuilder<T> {
 

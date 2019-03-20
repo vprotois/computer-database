@@ -6,6 +6,8 @@ import java.sql.Timestamp;
 
 import org.junit.Test;
 
+import model.builders.ComputerBuilder;
+
 public class ComputerBuilderTest {
 
 	@Test

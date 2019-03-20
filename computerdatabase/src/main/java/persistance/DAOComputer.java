@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import mapper.ComputerMapper;
 import model.Computer;
 import model.Pages;
-import model.PagesBuilder;
+import model.builders.PagesBuilder;
 
 
 

@@ -8,6 +8,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import model.builders.PagesBuilder;
+
 public class PagesBuilderTest {
 
 	List<String> list;
