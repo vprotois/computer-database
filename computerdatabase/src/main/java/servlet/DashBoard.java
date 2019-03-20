@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +12,7 @@ import controler.ComputerControler;
 import model.Computer;
 import model.Pages;
 
-
+@WebServlet("/DashBoardServlet")
 public class DashBoard extends HttpServlet {
 	
 	/**
@@ -19,9 +20,10 @@ public class DashBoard extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final String PAGES_COMPUTERS = "computerPages";
-	private static final String VUE_LIST_COMPUTERS = "/computerdatabase/WebContent/ressources/views/dashboard.jsp";
+	private static final String VUE_LIST_COMPUTERS = "/WebContent/ressources/views/dashboard.jsp";
 	private static final int DEFAULT_SIZE_PAGE = 10;
 	private static final int DEFAULT_INDEX_PAGE = 0;
+	private static final String NUMBER_COMPUTERS = "number_computer";
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 	
@@ -32,6 +34,7 @@ public class DashBoard extends HttpServlet {
 		Pages<Computer> p = cont.getListComputer(size, index);
 		
 		req.setAttribute(PAGES_COMPUTERS, p);
+		req.setAttribute(NUMBER_COMPUTERS, p.getDataSize());
 		
 		this.getServletContext().getRequestDispatcher(VUE_LIST_COMPUTERS).forward(req, resp);
 	}

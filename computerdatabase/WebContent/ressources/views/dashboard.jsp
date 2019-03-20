@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +22,7 @@
     <section id="main">
         <div class="container">
             <h1 id="homeTitle">
-                ${computerPages.getDataSize()} Computers found
+                ${number_computer} Computers found
             </h1>
             <div id="actions" class="form-horizontal">
                 <div class="pull-left">
@@ -80,7 +80,13 @@
                 <tbody id="results">
                		<c:forEach items = "${computerPages.getData() }" var = "computer">
                			<tr>
-               		
+               			 <td class="editMode">
+	                            <input type="checkbox" name="cb" class="cb" value="0">
+	                        </td>
+               				<td>${computer.getName()} </td>
+	                        <td>${computer.getIntroduced()}</td>
+	                        <td>${computer.getDiscontinued()}</td>
+	                        <td>${computer.getCompanyId()}</td>
                			</tr>
                     </c:forEach>
                 </tbody>
