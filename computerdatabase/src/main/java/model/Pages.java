@@ -32,6 +32,10 @@ public class Pages<T> {
 		this.size = size;
 	}
 	
+	public Integer getDataSize() {
+		return data.size();
+	}
+	
 	public List<T> getData(){
 		return data.subList(index, Math.min(data.size(),index+size));
 	}

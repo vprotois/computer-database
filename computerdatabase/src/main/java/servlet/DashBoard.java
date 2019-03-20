@@ -11,11 +11,15 @@ import controler.ComputerControler;
 import model.Computer;
 import model.Pages;
 
-@SuppressWarnings("serial")
+
 public class DashBoard extends HttpServlet {
 	
+	/**
+	 * Default serial ID
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final String PAGES_COMPUTERS = "computerPages";
-	private static final String VUE_LIST_COMPUTERS = "/Ressources/views/dashBoard.jsp";
+	private static final String VUE_LIST_COMPUTERS = "/computerdatabase/WebContent/ressources/views/dashboard.jsp";
 	private static final int DEFAULT_SIZE_PAGE = 10;
 	private static final int DEFAULT_INDEX_PAGE = 0;
 
@@ -34,7 +38,7 @@ public class DashBoard extends HttpServlet {
 
 	private Integer getParamIndex(HttpServletRequest req) {
 		Integer index;
-		if(req.getParameter("index")==null) {
+		if(req.getParameter("index")!=null) {
 			index = Integer.parseInt(req.getParameter("index"));
 		}else{
 			index = DEFAULT_INDEX_PAGE;
@@ -44,7 +48,7 @@ public class DashBoard extends HttpServlet {
 
 	private Integer getParamSize(HttpServletRequest req) {
 		Integer size;
-		if(req.getParameter("size")==null) {
+		if(req.getParameter("size")!=null) {
 			size = Integer.parseInt(req.getParameter("size"));
 		}else{
 			size = DEFAULT_SIZE_PAGE;
