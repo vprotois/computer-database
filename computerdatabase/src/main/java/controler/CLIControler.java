@@ -1,12 +1,18 @@
 package controler;
 
+import java.util.List;
+
+import exception.NotFoundException;
+import model.DTOComputer;
 import model.Pages;
+import services.CompanyServices;
+import services.ComputerServices;
 import ui.InterfaceConsole;
 
 public class CLIControler {
 
-	private ComputerControler computerControler = new ComputerControler();
-	private CompanyControler  companyControler  = new CompanyControler();
+	private ComputerServices computerServices = new ComputerServices();
+	private CompanyServices  companyControler  = new CompanyServices();
 
 	private static final int ABORT = 0;
 	private static final int LIST_COMPUTERS = 1;
@@ -36,37 +42,53 @@ public class CLIControler {
 	private void menu(int menuInput) {
 		Long input;
 		String[] inputArgs;
+		List<?> list;
+		Pages<?> pages;
 		switch (menuInput) {
 		case LIST_COMPUTERS:
-			computerControler.listComputer();
+			list = computerServices.listComputer();
+			InterfaceConsole.displayList(list);
 			break;
 		case LIST_COMPANIES:
-			companyControler.listCompanies();
+			list = companyControler.listCompanies();
+			InterfaceConsole.displayList(list);
 			break;
 		case SHOW_DETAILS_COMPUTER:
 			input = InputControler.getInputLong();
-			computerControler.showCompDetails(input);
+			showDetailsComputer(input);
 			break;
 		case CREATE_COMPUTER:
 			inputArgs = InputControler.getInputString(5);
-			computerControler.buildComputer(inputArgs);
+			computerServices.buildComputer(inputArgs);
 			break;
 		case UPDATE_COMPUTER:
 			inputArgs = InputControler.getInputString(3);
-			computerControler.updateComputer(inputArgs);
+			computerServices.updateComputer(inputArgs);
 			break;
 		case DELETE_COMPUTER:
 			input = InputControler.getInputLong();
-			computerControler.deleteComputer(input);
+			computerServices.deleteComputer(input);
 			break;
 		case LIST_COMPUTERS_PAGES:
-			computerControler.pageListComputer();
+			pages = computerServices.pageListComputer();
+			CLIControler.pageMenu(pages);
 			break;
 		case LIST_COMPANIES_PAGES:
-			companyControler.pageListCompanies();
+			pages = companyControler.pageListCompanies();
+			CLIControler.pageMenu(pages);
 			break;
 		default:
 			break;
+		}
+	}
+
+	private void showDetailsComputer(Long input) {
+		DTOComputer c;
+		try {
+			c = computerServices.getComputerDTO(input);
+			InterfaceConsole.display(c);
+		} catch (NotFoundException e) {
+			InterfaceConsole.display("Computer not in base");
 		}
 	}
 	

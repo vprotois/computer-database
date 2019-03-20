@@ -8,4 +8,12 @@ public class DTOComputer {
 	public String introduced, discontinued;
 	public long companyId;
 	
+	@Override
+	public String toString() {
+		return "id : "+id
+				+ " name : " + name
+				+ " introduced : "+introduced
+				+ " diconstinued : "+discontinued
+				+ " companyId : "+ companyId;
+	}
 }

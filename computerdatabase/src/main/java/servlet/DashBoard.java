@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controler.ComputerControler;
 import model.Computer;
 import model.Pages;
+import services.ComputerServices;
 
 @WebServlet("/DashBoardServlet")
 public class DashBoard extends HttpServlet {
@@ -27,7 +27,7 @@ public class DashBoard extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 	
-		ComputerControler cont = new ComputerControler();
+		ComputerServices cont = new ComputerServices();
 		Integer size = getParamSize(req);
 		Integer index= getParamIndex(req);
 		

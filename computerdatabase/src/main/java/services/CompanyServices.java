@@ -1,24 +1,25 @@
-package controler;
+package services;
 
 import java.util.List;
+
 
 import model.Company;
 import model.Pages;
 import persistance.DAOCompany;
 import persistance.DAOFactory;
-import ui.InterfaceConsole;
 
-public class CompanyControler {
+public class CompanyServices {
 
-	public void listCompanies() {
+	public List<Company> listCompanies() {
 		DAOCompany daoCompany = (DAOCompany) DAOFactory.createDAOcompany();
 		List<Company> companies = daoCompany.getCompanies();
-		InterfaceConsole.displayList(companies);
+		return companies;
 	}
 	
-	public void pageListCompanies() {
+	public Pages <Company> pageListCompanies() {
 		DAOCompany daoCompany = (DAOCompany) DAOFactory.createDAOcompany();
-		Pages <Company> list = daoCompany.pageListCompany();
-		CLIControler.pageMenu(list);
+		Pages <Company> pages = daoCompany.pageListCompany();
+		return pages;
+		
 	}
 }
