@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,30 +25,30 @@ public class DAOCompany {
 		super();
 	}
 	
-	public Company getCompany(Long id){
+	public Optional<Company> getCompany(Long id){
 		try (Connection conn = DAOFactory.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(selectId);
 			stmt.setLong(1,id);
 			ResultSet results =  stmt.executeQuery();
-			return CompanyMapper.mapSingleCompany(results);
+			
+			return Optional.of(CompanyMapper.mapSingleCompany(results));
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 			log.error("Error when getting Company :" + id);
 		}
-		return null;		
+		return Optional.empty();		
 	}
 
-	public List<Company> getCompanies(){
-		List<Company> companies = new ArrayList<Company>();
+	public Optional<List<Company>> getCompanies(){
 		try (Connection conn = DAOFactory.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(selectAll);
 			ResultSet results =  stmt.executeQuery();
-			companies = CompanyMapper.mapCompaniesList(results);
+			return Optional.of(CompanyMapper.mapCompaniesList(results));
 		}catch(SQLException e){
 			System.out.println(e.getMessage());
 			log.error("Error when getting company list");
 		}
-		return companies;
+		return Optional.empty();
 	}
 
 	

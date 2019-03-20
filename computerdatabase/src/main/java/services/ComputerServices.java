@@ -5,13 +5,17 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import exception.ComputerNotFoundException;
+import exception.CreateComputerError;
+import exception.UpdateComputerError;
 import mapper.DTOComputerMapper;
+import model.Company;
 import model.Computer;
 import model.Pages;
 import model.builders.ComputerBuilder;
@@ -29,7 +33,7 @@ public class ComputerServices {
 		
 	}
 
-	public void buildComputer(String[] args) {
+	public void buildComputer(String[] args) throws CreateComputerError {
 		
 		ComputerBuilder c = new ComputerBuilder()
 				.withId(Long.parseLong(args[0]))
@@ -39,7 +43,10 @@ public class ComputerServices {
 				.withCompanyId(Long.parseLong(args[4]));
 		
 		DAOCompany daoCompany =  (DAOCompany) DAOFactory.createDAOcompany();
-		c = c.withCompany(daoCompany.getCompany(Long.parseLong(args[4])));
+		Optional<Company> cy =  daoCompany.getCompany(Long.parseLong(args[4]));
+		if(cy.isPresent()) {
+			c = c.withCompany(cy.get());
+		}
 		
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		daoComputer.createComputer(c.build());
@@ -64,50 +71,63 @@ public class ComputerServices {
 	}
 
 	
-	public List<DTOComputer> listDTOComputer(){
-		List <DTOComputer> list = listComputer() .stream()
-									.map( c -> DTOComputerMapper.mapComputerToDTO(c))
-									.collect(Collectors.toList());
-		return list;
+	public Optional<List<DTOComputer>> listDTOComputer(){
+		Optional<List<Computer>> list = listComputer();
+		if(list.isPresent()) {
+			List <DTOComputer> dtolist = list.get() .stream()
+					.map( c -> DTOComputerMapper.mapComputerToDTO(c))
+					.collect(Collectors.toList());
+			return Optional.of(dtolist);
+		}
+		
+		return Optional.empty();
 	}
 	
 	
-	public Pages<DTOComputer> pagesDTOComputer(Integer size, Integer index){
-		List <DTOComputer> list = listDTOComputer();
-		Pages<DTOComputer> pages = new PagesBuilder<DTOComputer>()
-									.withData(list)
-									.withIndex(index)
-									.withSize(size)
-									.build();
-		return pages;
+	public Optional<Pages<DTOComputer>> pagesDTOComputer(Integer size, Integer index){
+		Optional<List<DTOComputer>> list = listDTOComputer();
+		if(list.isPresent()) {
+			Pages<DTOComputer> pages = new PagesBuilder<DTOComputer>()
+					.withData(list.get())
+					.withIndex(index)
+					.withSize(size)
+					.build();
+			return Optional.of(pages);		
+		}
+		return Optional.empty();
 	}
 	
 	
-	public List<Computer> listComputer() {
+	public Optional<List<Computer>> listComputer() {
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
-		List<Computer> list = daoComputer.listComputers();
+		Optional<List<Computer>> list = daoComputer.listComputers();
 		return list;
 	}
 	
 	
-	public Pages<Computer> pagesComputer(Integer size, Integer index) {
-		List<Computer> list = listComputer();
-		Pages <Computer> pages = new PagesBuilder<Computer>()
-									.withData(list)
-									.withIndex(index)
-									.withSize(size)
-									.build();
-		return pages;
+	public Optional<Pages <Computer>> pagesComputer(Integer size, Integer index) {
+		Optional<List<Computer>> list = listComputer();
+		if(!list.isPresent()) {
+			return Optional.empty();
+		}
+		else {			
+			Pages <Computer> pages = new PagesBuilder<Computer>()
+					.withData(list.get())
+					.withIndex(index)
+					.withSize(size)
+					.build();
+			return Optional.of(pages);
+		}
 	}
 
 	
 	public DTOComputer getComputerDTO(Long id) throws ComputerNotFoundException {
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
-		Computer c = daoComputer.getCompDetails(id);
-		if(c == null) {
+		Optional<Computer> c = daoComputer.getCompDetails(id);
+		if(!c.isPresent()) {
 			throw new ComputerNotFoundException();
 		}
-		DTOComputer dto = DTOComputerMapper.mapComputerToDTO(c);
+		DTOComputer dto = DTOComputerMapper.mapComputerToDTO(c.get());
 		return dto;
 	}
 	
@@ -118,10 +138,14 @@ public class ComputerServices {
 		daoComputer.deleteComputer(id);
 	}
 
-	public void updateComputer(String[] args){
+	public void updateComputer(String[] args) throws UpdateComputerError{
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		Long id = Long.parseLong(args[0]);
-		Computer c = daoComputer.getCompDetails(id);
+		Optional<Computer> optc = daoComputer.getCompDetails(id);
+		if(!optc.isPresent()) {
+			throw new UpdateComputerError();
+		}
+		Computer c = optc.get();
 		switch (args[1]) {
 		case "name":
 			c.setName(args[2]);

@@ -1,10 +1,14 @@
 package persistance;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import exception.CreateComputerError;
+import exception.UpdateComputerError;
+
+import java.util.Optional;
 
 import mapper.ComputerMapper;
 import model.Computer;
@@ -32,34 +36,33 @@ public class DAOComputer {
 	private static String update = "UPDATE computer SET name=?,introduced=?,discontinued=?,company_id=? WHERE id = ?;";
 	private static String delete = "DELETE FROM computer WHERE id =?;";
 
-	public List<Computer> listComputers(){
-		List<Computer> list = new ArrayList<Computer>();
+	public Optional<List<Computer>> listComputers(){
 		try (Connection conn = DAOFactory.getConnection()) {
 			Statement stmt = conn.createStatement();
 			ResultSet results = stmt.executeQuery(selectAllComp);
-			list = ComputerMapper.mapComputerList(results);
+			return Optional.of(ComputerMapper.mapComputerList(results));
 		}catch(SQLException e){
 			System.out.println(e.getMessage());
 			log.error("Error when getting the computer List");
 		}
-		return list;
+		return Optional.empty();
 	}
 
 
-	public Computer getCompDetails(Long id){
+	public Optional<Computer> getCompDetails(Long id){
 		try (Connection conn = DAOFactory.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(selectCompWithId);
 			stmt.setLong(1,id);
 			ResultSet results = stmt.executeQuery();
-			return ComputerMapper.mapSingleComputer(results);
+			return Optional.of(ComputerMapper.mapSingleComputer(results));
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 			log.error("Error when getting the details of computer : "+id);
 		}
-		return null;		
+		return Optional.empty();		
 	}
 
-	public boolean createComputer(Computer c) {
+	public void createComputer(Computer c) throws CreateComputerError {
 		try (Connection conn = DAOFactory.getConnection()) {
 			PreparedStatement prep;
 			if(c.getId() != null) {
@@ -71,11 +74,10 @@ public class DAOComputer {
 				fillStatementInsert(c, prep);
 			}
 			prep.executeUpdate();
-			return true;
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 			log.error("Error when creating the computer : "+ c);
-			return false;
+			throw new CreateComputerError();
 		}
 
 	}
@@ -96,16 +98,15 @@ public class DAOComputer {
 		prep.setLong(4,c.getCompanyId());
 	}
 
-	public boolean updateComputer(Computer c){
+	public void updateComputer(Computer c) throws UpdateComputerError{
 		try (Connection conn = DAOFactory.getConnection()) {
 			PreparedStatement prep = conn.prepareStatement(update);
 			fillStatementUpdate(c, prep);
-			prep.executeUpdate();	
-			return true;
+			prep.executeUpdate();
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 			log.error("Error when updating computer : "+c);
-			return false;
+			throw new UpdateComputerError();
 		}
 	}
 

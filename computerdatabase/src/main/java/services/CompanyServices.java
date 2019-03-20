@@ -1,7 +1,7 @@
 package services;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import model.Company;
 import model.Pages;
@@ -11,20 +11,24 @@ import persistance.DAOFactory;
 
 public class CompanyServices {
 
-	public List<Company> listCompanies() {
+	public Optional<List<Company>> listCompanies() {
 		DAOCompany daoCompany = (DAOCompany) DAOFactory.createDAOcompany();
-		List<Company> companies = daoCompany.getCompanies();
+		Optional<List<Company>> companies = daoCompany.getCompanies();
 		return companies;
 	}
 	
-	public Pages <Company> pageCompanies(Integer size, Integer index) {
-		List<Company> list = listCompanies();
+	public Optional<Pages<Company>> pageCompanies(Integer size, Integer index) {
+		Optional<List<Company>> list = listCompanies();
+		if(!list.isPresent()) {
+			return Optional.empty();
+		}
+		
 		Pages <Company> pages = new PagesBuilder<Company>()
-								.withData(list)
+								.withData(list.get())
 								.withIndex(index)
 								.withSize(size)
 								.build();
-		return pages;
+		return Optional.of(pages);
 		
 	}
 }

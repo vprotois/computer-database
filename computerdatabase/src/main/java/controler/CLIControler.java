@@ -1,8 +1,13 @@
 package controler;
 
 import java.util.List;
+import java.util.Optional;
 
 import exception.ComputerNotFoundException;
+import exception.CreateComputerError;
+import exception.UpdateComputerError;
+import model.Company;
+import model.Computer;
 import model.Pages;
 import model.dto.DTOComputer;
 import services.CompanyServices;
@@ -42,16 +47,12 @@ public class CLIControler {
 	private void menu(int menuInput) {
 		Long input;
 		String[] inputArgs;
-		List<?> list;
-		Pages<?> pages;
 		switch (menuInput) {
 		case LIST_COMPUTERS:
-			list = computerServices.listComputer();
-			InterfaceConsole.displayList(list);
+			listComputer();
 			break;
 		case LIST_COMPANIES:
-			list = companyServices.listCompanies();
-			InterfaceConsole.displayList(list);
+			listCompany();
 			break;
 		case SHOW_DETAILS_COMPUTER:
 			input = InputControler.getInputLong();
@@ -59,26 +60,81 @@ public class CLIControler {
 			break;
 		case CREATE_COMPUTER:
 			inputArgs = InputControler.getInputString(5);
-			computerServices.buildComputer(inputArgs);
+			createComputer(inputArgs);
 			break;
 		case UPDATE_COMPUTER:
 			inputArgs = InputControler.getInputString(3);
-			computerServices.updateComputer(inputArgs);
+			updateComputer(inputArgs);
 			break;
 		case DELETE_COMPUTER:
 			input = InputControler.getInputLong();
 			computerServices.deleteComputer(input);
 			break;
 		case LIST_COMPUTERS_PAGES:
-			pages = computerServices.pagesComputer(null,null);
-			CLIControler.pageMenu(pages);
+			listPagesComputer();
 			break;
 		case LIST_COMPANIES_PAGES:
-			pages = companyServices.pageCompanies(null,null);
-			CLIControler.pageMenu(pages);
+			listCompanyPages();
 			break;
 		default:
 			break;
+		}
+	}
+
+	private void updateComputer(String[] inputArgs) {
+		try {
+			computerServices.updateComputer(inputArgs);
+			InterfaceConsole.display("ComputerUpdated");
+		} catch (UpdateComputerError e) {
+			InterfaceConsole.display("Failed to update computer :"+ e.getMessage());
+		}
+	}
+
+	private void createComputer(String[] inputArgs) {
+		try {
+			computerServices.buildComputer(inputArgs);
+			InterfaceConsole.display("ComputerCreated");
+		} catch (CreateComputerError e) {
+			InterfaceConsole.display("Failed to create computer :"+ e.getMessage());
+		}
+	}
+
+	private void listPagesComputer() {
+		Optional<Pages<Computer>> pages = computerServices.pagesComputer(null,null);
+		if(pages.isPresent()) {
+			CLIControler.pageMenu(pages.get());			
+		}
+		else {
+			InterfaceConsole.display("Pages not found");
+		}
+	}
+
+	private void listCompanyPages() {
+		Optional<Pages<Company>> pages = companyServices.pageCompanies(null,null);
+		if(pages.isPresent()) {
+			CLIControler.pageMenu(pages.get());
+		}else {
+			InterfaceConsole.display("Pages not found");
+		}
+		
+	}
+
+	private void listCompany() {
+		Optional<List<Company>> list = companyServices.listCompanies();
+		if(list.isPresent()) {
+			InterfaceConsole.displayList(list.get());
+		}else {
+			InterfaceConsole.display("List not found");
+		}
+		
+	}
+
+	private void listComputer() {
+		Optional<List<Computer>> list = computerServices.listComputer();
+		if(list.isPresent()) {
+			InterfaceConsole.displayList(list.get());			
+		}else {
+			InterfaceConsole.display("List not found");
 		}
 	}
 
