@@ -2,7 +2,7 @@ package controler;
 
 import java.util.List;
 
-import exception.NotFoundException;
+import exception.ComputerNotFoundException;
 import model.DTOComputer;
 import model.Pages;
 import services.CompanyServices;
@@ -12,7 +12,7 @@ import ui.InterfaceConsole;
 public class CLIControler {
 
 	private ComputerServices computerServices = new ComputerServices();
-	private CompanyServices  companyControler  = new CompanyServices();
+	private CompanyServices  companyServices  = new CompanyServices();
 
 	private static final int ABORT = 0;
 	private static final int LIST_COMPUTERS = 1;
@@ -50,7 +50,7 @@ public class CLIControler {
 			InterfaceConsole.displayList(list);
 			break;
 		case LIST_COMPANIES:
-			list = companyControler.listCompanies();
+			list = companyServices.listCompanies();
 			InterfaceConsole.displayList(list);
 			break;
 		case SHOW_DETAILS_COMPUTER:
@@ -74,7 +74,7 @@ public class CLIControler {
 			CLIControler.pageMenu(pages);
 			break;
 		case LIST_COMPANIES_PAGES:
-			pages = companyControler.pageListCompanies();
+			pages = companyServices.pageListCompanies();
 			CLIControler.pageMenu(pages);
 			break;
 		default:
@@ -87,7 +87,7 @@ public class CLIControler {
 		try {
 			c = computerServices.getComputerDTO(input);
 			InterfaceConsole.display(c);
-		} catch (NotFoundException e) {
+		} catch (ComputerNotFoundException e) {
 			InterfaceConsole.display("Computer not in base");
 		}
 	}

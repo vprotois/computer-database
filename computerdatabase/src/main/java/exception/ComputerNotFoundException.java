@@ -1,6 +1,6 @@
 package exception;
 
-public class NotFoundException extends Exception{
+public class ComputerNotFoundException extends Exception{
 
 	/**
 	 * 

@@ -9,7 +9,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import exception.NotFoundException;
+import exception.ComputerNotFoundException;
 import mapper.DTOComputerMapper;
 import model.Computer;
 import model.ComputerBuilder;
@@ -81,11 +81,11 @@ public class ComputerServices {
 	}
 
 	
-	public DTOComputer getComputerDTO(Long id) throws NotFoundException {
+	public DTOComputer getComputerDTO(Long id) throws ComputerNotFoundException {
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		Computer c = daoComputer.getCompDetails(id);
 		if(c == null) {
-			throw new NotFoundException();
+			throw new ComputerNotFoundException();
 		}
 		DTOComputer dto = DTOComputerMapper.mapComputerToDTO(c);
 		return dto;
