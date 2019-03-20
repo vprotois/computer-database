@@ -70,11 +70,11 @@ public class CLIControler {
 			computerServices.deleteComputer(input);
 			break;
 		case LIST_COMPUTERS_PAGES:
-			pages = computerServices.pageListComputer();
+			pages = computerServices.pagesComputer(null,null);
 			CLIControler.pageMenu(pages);
 			break;
 		case LIST_COMPANIES_PAGES:
-			pages = companyServices.pageListCompanies();
+			pages = companyServices.pageCompanies(null,null);
 			CLIControler.pageMenu(pages);
 			break;
 		default:

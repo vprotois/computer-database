@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Computer;
 import model.Pages;
+import model.dto.DTOComputer;
 import services.ComputerServices;
 
 @WebServlet("/DashBoardServlet")
@@ -31,7 +31,7 @@ public class DashBoard extends HttpServlet {
 		Integer size = getParamSize(req);
 		Integer index= getParamIndex(req);
 		
-		Pages<Computer> p = cont.getListComputer(size, index);
+		Pages<DTOComputer> p = cont.pagesDTOComputer(size, index);
 		
 		req.setAttribute(PAGES_COMPUTERS, p);
 		req.setAttribute(NUMBER_COMPUTERS, p.getDataSize());

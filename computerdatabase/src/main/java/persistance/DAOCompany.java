@@ -12,8 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import mapper.CompanyMapper;
 import model.Company;
-import model.Pages;
-import model.builders.PagesBuilder;
 
 public class DAOCompany {
 		
@@ -50,12 +48,6 @@ public class DAOCompany {
 			log.error("Error when getting company list");
 		}
 		return companies;
-	}
-	
-	public Pages<Company> pageListCompany(){
-		return new PagesBuilder<Company>()
-				.withData(getCompanies())
-				.build();
 	}
 
 	

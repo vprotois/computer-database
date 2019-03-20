@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import mapper.DTOComputerMapper;
 import model.Computer;
 import model.Pages;
 import model.builders.ComputerBuilder;
+import model.builders.PagesBuilder;
 import model.dto.DTOComputer;
 import persistance.DAOCompany;
 import persistance.DAOComputer;
@@ -62,22 +64,40 @@ public class ComputerServices {
 	}
 
 	
+	public List<DTOComputer> listDTOComputer(){
+		List <DTOComputer> list = listComputer() .stream()
+									.map( c -> DTOComputerMapper.mapComputerToDTO(c))
+									.collect(Collectors.toList());
+		return list;
+	}
+	
+	
+	public Pages<DTOComputer> pagesDTOComputer(Integer size, Integer index){
+		List <DTOComputer> list = listDTOComputer();
+		Pages<DTOComputer> pages = new PagesBuilder<DTOComputer>()
+									.withData(list)
+									.withIndex(index)
+									.withSize(size)
+									.build();
+		return pages;
+	}
+	
+	
 	public List<Computer> listComputer() {
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		List<Computer> list = daoComputer.listComputers();
 		return list;
 	}
 	
-	public Pages <Computer> pageListComputer() {
-		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
-		Pages <Computer> list = daoComputer.pageListComputer(null,null);
-		return list;
-	}
 	
-	public Pages<Computer> getListComputer(Integer size, Integer index) {
-		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
-		Pages <Computer> list = daoComputer.pageListComputer(size,index);
-		return list;
+	public Pages<Computer> pagesComputer(Integer size, Integer index) {
+		List<Computer> list = listComputer();
+		Pages <Computer> pages = new PagesBuilder<Computer>()
+									.withData(list)
+									.withIndex(index)
+									.withSize(size)
+									.build();
+		return pages;
 	}
 
 	
@@ -90,6 +110,8 @@ public class ComputerServices {
 		DTOComputer dto = DTOComputerMapper.mapComputerToDTO(c);
 		return dto;
 	}
+	
+	
 
 	public void deleteComputer(Long id)  {
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();

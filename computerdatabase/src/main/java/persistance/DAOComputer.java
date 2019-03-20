@@ -8,8 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import mapper.ComputerMapper;
 import model.Computer;
-import model.Pages;
-import model.builders.PagesBuilder;
 
 
 
@@ -47,13 +45,6 @@ public class DAOComputer {
 		return list;
 	}
 
-	public Pages<Computer> pageListComputer(Integer size,Integer index){
-		return new PagesBuilder<Computer>()
-				.withData(listComputers())
-				.withIndex(index)
-				.withSize(size)
-				.build();
-	}
 
 	public Computer getCompDetails(Long id){
 		try (Connection conn = DAOFactory.getConnection()) {
