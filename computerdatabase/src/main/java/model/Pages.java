@@ -6,7 +6,7 @@ public class Pages<T> {
 
 	private List<T> data;
 	private Integer index;
-	private Integer size;
+	private Integer pageSize;
 	
 
 	
@@ -19,17 +19,17 @@ public class Pages<T> {
 	}
 
 	public Integer getSize() {
-		return size;
+		return pageSize;
 	}
 
 	public void setSize(Integer size) {
-		this.size = size;
+		this.pageSize = size;
 	}
 
 	public Pages(List<T> data,Integer index,Integer size) {
 		this.data = data;
 		this.index = index;
-		this.size = size;
+		this.pageSize = size;
 	}
 	
 	public Integer getDataSize() {
@@ -41,24 +41,26 @@ public class Pages<T> {
 	}
 	
 	public List<T> getPageData(){
-		return data.subList(index, Math.min(data.size(),index+size));
+		return data.subList(index, Math.min(data.size(),index+pageSize));
 	}
 	
-	public void nextPage(){
-		if(index + size< data.size()) {
-			index+=size;
+	public int nextPage(){
+		if(index + pageSize< data.size()) {
+			index+=pageSize;
 		}else{
 			index = data.size()-1;
 		}
+		return index;
 	}
 	
-	public void previousPage(){
-		if(index >= size) {
-			index-= size;
+	public int previousPage(){
+		if(index >= pageSize) {
+			index-= pageSize;
 		}
 		else {
 			index = 0;
 		}
+		return index;
 	}
 	
 	@Override
@@ -79,10 +81,10 @@ public class Pages<T> {
 	}
 	
 	private boolean sizeEquals(Object o) {
-		if (this.size == null)
-			return (((Pages<?>) o).size ==null);
+		if (this.pageSize == null)
+			return (((Pages<?>) o).pageSize ==null);
 		else
-			return this.size.equals( ((Pages<?>) o).size);
+			return this.pageSize.equals( ((Pages<?>) o).pageSize);
 	}
 	
 }

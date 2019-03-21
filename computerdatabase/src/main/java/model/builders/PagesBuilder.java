@@ -39,7 +39,7 @@ public class PagesBuilder<T> {
 			log.warn("Can't initialize Index without data");
 			return this;
 		}
-		if(index>this.data.size()){
+		if(index == null || index>this.data.size()){
 			log.warn("Invalid Index while building page");
 			return this;
 		}

@@ -153,7 +153,7 @@ public class CLIControler {
 	public static <T> void pageMenu(Pages<T> pages) {
 		Integer pageInput;
 		do {
-			InterfaceConsole.displayList(pages.getData());
+			InterfaceConsole.displayList(pages.getPageData());
 			InterfaceConsole.displayPageMenu();			
 			pageInput = InputControler.getInputInt(0,2);
 			switch(pageInput) {
@@ -161,7 +161,7 @@ public class CLIControler {
 				pages.previousPage();
 				break;
 			case NEXT_PAGE:
-				pages.nextPage();
+				System.out.print(pages.nextPage());
 				break;
 			}
 		}while (pageInput != 0);

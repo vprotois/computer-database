@@ -27,6 +27,7 @@ public class DAOComputer {
 
 	private static String selectAllComp = "SELECT id,name,introduced,discontinued,company_id FROM computer;";
 	private static String selectCompWithId  = "SELECT id,name,introduced,discontinued,company_id FROM computer WHERE id =?;";
+	private static String selectCompWithName  = "SELECT id,name,introduced,discontinued,company_id FROM computer WHERE name=?;";
 	private static String InsertComputerWithId = "INSERT INTO computer "
 			+ "(id, name, introduced, discontinued,company_id) VALUES "
 			+ "(?,?,?,?,?);";
@@ -58,6 +59,19 @@ public class DAOComputer {
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 			log.error("Error when getting the details of computer : "+id);
+		}
+		return Optional.empty();		
+	}
+	
+	public Optional<List<Computer>> getListFromName(String name){
+		try (Connection conn = DAOFactory.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(selectCompWithName);
+			stmt.setString(1,name);
+			ResultSet results = stmt.executeQuery();
+			return Optional.of(ComputerMapper.mapComputerList(results));
+		}catch(SQLException e) {
+			System.out.println(e.getMessage());
+			log.error("Error when getting the list of computer with name : "+name);
 		}
 		return Optional.empty();		
 	}

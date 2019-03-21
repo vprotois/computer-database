@@ -17,40 +17,60 @@ import services.ComputerServices;
 public class DashBoard extends HttpServlet {
 	
 	/**
-	 * Default serial ID
+	 * generated serial ID
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5874765507120279702L;
+	
 	private static final String PAGE_COMPUTERS = "computerPage";
-	private static final String VUE_LIST_COMPUTERS = "/ressources/views/dashboard.jsp";
-	private static final int DEFAULT_SIZE_PAGE = 10;
+	private static final String NUMBER_COMPUTERS = "number_computers";
+	private static final String NEXT_PAGE = "next_page_index";
+	private static final String PREVIOUS_PAGE = "previous_page_index";
+	private static final String PAGE_DATA = "page_data";
+	
+	
 	private static final int DEFAULT_INDEX_PAGE = 0;
-	private static final String NUMBER_COMPUTERS = "number_computer";
-	private static final String ERROR_REDIRECT = "/ressources/views/500.jsp";
+	private static final int DEFAULT_SIZE_PAGE = 10;
+	
+	
+	private static final String ERROR_500 = "/ressources/views/500.jsp";
+	private static final String VUE_LIST_COMPUTERS = "/ressources/views/dashboard.jsp";
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 	
 		Integer size = getParamSize(req);
 		Integer index= getParamIndex(req);
+		String search = req.getParameter("search");
 		
 		ComputerServices cont = new ComputerServices();
-		Optional<Pages<DTOComputer>> optpages = cont.pagesDTOComputer(size, index);
+		Optional<Pages<DTOComputer>> optpages;
+		if(search == null) {
+			optpages = cont.pagesDTOComputer(size, index);			
+		}else
+		{
+			optpages = cont.pagesComputerWithName(search, size, index);
+		}
 		
 		if(!optpages.isPresent()) {
-			resp.sendRedirect(ERROR_REDIRECT);
+			resp.sendRedirect(ERROR_500);
 		}
 		
 		Pages<DTOComputer> p = optpages.get();
 		
-		req.setAttribute(PAGE_COMPUTERS, p.getPageData());
+		req.setAttribute(PAGE_COMPUTERS, p);
 		
 		req.setAttribute(NUMBER_COMPUTERS, p.getDataSize());
+		req.setAttribute(NEXT_PAGE,p.nextPage());
+		req.setAttribute(PREVIOUS_PAGE,p.previousPage());
+		req.setAttribute(PAGE_DATA, p.getPageData());
 		
 		this.getServletContext()
 		.getRequestDispatcher(VUE_LIST_COMPUTERS)
 		.forward(req, resp);
 	}
 
-	private Integer getParamIndex(HttpServletRequest req) {
+
+
+	private Integer getParamIndex(HttpServletRequest req) throws ServletException {
 		Integer index;
 		if(req.getParameter("index")!=null) {
 			index = Integer.parseInt(req.getParameter("index"));

@@ -119,6 +119,27 @@ public class ComputerServices {
 			return Optional.of(pages);
 		}
 	}
+	
+	public Optional<Pages <DTOComputer>> pagesComputerWithName(String name, Integer size, Integer index) {
+		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
+		Optional<List<Computer>> list = daoComputer.getListFromName(name);
+		if(!list.isPresent()) {
+			return Optional.empty();
+		}
+		else {			
+			
+			List<DTOComputer> listDTO = list.get().stream()
+										.map(c -> DTOComputerMapper.mapComputerToDTO(c))
+										.collect(Collectors.toList());
+			
+			Pages <DTOComputer> pages = new PagesBuilder<DTOComputer>()
+					.withData(listDTO)
+					.withIndex(index)
+					.withSize(size)
+					.build();
+			return Optional.of(pages);
+		}
+	}
 
 	
 	public DTOComputer getComputerDTO(Long id) throws ComputerNotFoundException {
