@@ -15,69 +15,73 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<junit-jupiter>5.4.1</junit-jupiter>
+		<mysql-connector>8.0.15 </mysql-connector>
+		<slf4j-log4j12>1.8.0-beta4</slf4j-log4j12>
+		<slf4j-api>1.8.0-beta4</slf4j-api>
+		<selenium-java>3.141.59</selenium-java>
+		<javax.servlet-api>3.1.0</javax.servlet-api>
+		<jstl>1.2</jstl>
+		<taglibs-standard-impl>1.2.5</taglibs-standard-impl>
+		<mockito-junit-jupiter>2.23.0</mockito-junit-jupiter>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.4.1</version>
+			<version>${junit-jupiter}</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.15</version>
+			<version>${mysql-connector}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.8.0-beta4</version>
+			<version>${slf4j-log4j12}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.8.0-beta4</version>
+			<version>${slf4j-api}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>3.141.59</version>
+			<version>${selenium-java}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
+			<version>${javax.servlet-api}</version>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
-			<version>1.2</version>
+			<version>${jstl}</version>
 		</dependency>
 
 
 		<dependency>
 			<groupId>org.apache.taglibs</groupId>
 			<artifactId>taglibs-standard-impl</artifactId>
-			<version>1.2.5</version>
+			<version>${taglibs-standard-impl}</version>
 		</dependency>
 
 
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-junit-jupiter</artifactId>
-			<version>2.23.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.dbunit</groupId>
-			<artifactId>dbunit</artifactId>
-			<version>2.6.0</version>
+			<version>${mockito-junit-jupiter}</version>
 		</dependency>
 	</dependencies>
 </project>

@@ -8,9 +8,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="utf-8">
 <!-- Bootstrap -->
-<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="../css/font-awesome.css" rel="stylesheet" media="screen">
-<link href="../css/main.css" rel="stylesheet" media="screen">
+<link href= <c:url value ="/ressources/css/bootstrap.min.css"/> rel="stylesheet" media="screen">
+<link href=<c:url value ="/ressources/css/font-awesome.css"/> rel="stylesheet" media="screen">
+<link href=<c:url value = "/ressources/css/main.css"/> rel="stylesheet" media="screen">
 </head>
 <body>
     <header class="navbar navbar-inverse navbar-fixed-top">
@@ -78,15 +78,15 @@
                 </thead>
                 <!-- Browse attribute computers -->
                 <tbody id="results">
-               		<c:forEach items = "${computerPages.getData() }" var = "computer">
+               		<c:forEach items = "${computerPage}" var = "computer">
                			<tr>
                			 <td class="editMode">
 	                            <input type="checkbox" name="cb" class="cb" value="0">
 	                        </td>
-               				<td>${computer.getName()} </td>
-	                        <td>${computer.getIntroduced()}</td>
-	                        <td>${computer.getDiscontinued()}</td>
-	                        <td>${computer.getCompanyId()}</td>
+               				<td>${computer.name} </td>
+	                        <td>${computer.introduced}</td>
+	                        <td>${computer.discontinued}</td>
+	                        <td>${computer.companyId}</td>
                			</tr>
                     </c:forEach>
                 </tbody>

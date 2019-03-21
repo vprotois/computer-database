@@ -5,23 +5,23 @@ import model.dto.DTOComputer;
 
 public class DTOComputerMapper {
 
-	
+	private static final String EMPTY = "";
 	
 	public static DTOComputer mapComputerToDTO(Computer c) {
 		DTOComputer dto = new DTOComputer();
-		dto.id = c.getId().longValue();
-		dto.name = c.getName();
+		dto.setId(c.getId().longValue());
+		dto.setName( c.getName());
 		if(c.getIntroduced() == null) {
-			dto.introduced = "";			
+			dto.setIntroduced(EMPTY);			
 		}else {
-			dto.introduced = c.getIntroduced().toString();
+			dto.setIntroduced(c.getIntroduced().toString());
 		}
 		if(c.getDiscontinued() == null) {
-			dto.discontinued = "";			
+			dto.setDiscontinued(EMPTY);			
 		}else {
-			dto.discontinued = c.getDiscontinued().toString();
+			dto.setDiscontinued(c.getDiscontinued().toString());
 		}
-		dto.companyId = c.getCompanyId().longValue();
+		dto.setCompanyId( c.getCompanyId().longValue());
 		
 		return dto;
 	}

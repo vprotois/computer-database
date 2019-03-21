@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,31 +13,41 @@ import model.Pages;
 import model.dto.DTOComputer;
 import services.ComputerServices;
 
-@WebServlet("/DashBoardServlet")
+@WebServlet(name = "DashBoard",urlPatterns= {"/dashboard"})
 public class DashBoard extends HttpServlet {
 	
 	/**
 	 * Default serial ID
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final String PAGES_COMPUTERS = "computerPages";
-	private static final String VUE_LIST_COMPUTERS = "/WebContent/ressources/views/dashboard.jsp";
+	private static final String PAGE_COMPUTERS = "computerPage";
+	private static final String VUE_LIST_COMPUTERS = "/ressources/views/dashboard.jsp";
 	private static final int DEFAULT_SIZE_PAGE = 10;
 	private static final int DEFAULT_INDEX_PAGE = 0;
 	private static final String NUMBER_COMPUTERS = "number_computer";
+	private static final String ERROR_REDIRECT = "/ressources/views/500.jsp";
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 	
-		ComputerServices cont = new ComputerServices();
 		Integer size = getParamSize(req);
 		Integer index= getParamIndex(req);
 		
-		Pages<DTOComputer> p = cont.pagesDTOComputer(size, index);
+		ComputerServices cont = new ComputerServices();
+		Optional<Pages<DTOComputer>> optpages = cont.pagesDTOComputer(size, index);
 		
-		req.setAttribute(PAGES_COMPUTERS, p);
+		if(!optpages.isPresent()) {
+			resp.sendRedirect(ERROR_REDIRECT);
+		}
+		
+		Pages<DTOComputer> p = optpages.get();
+		
+		req.setAttribute(PAGE_COMPUTERS, p.getPageData());
+		
 		req.setAttribute(NUMBER_COMPUTERS, p.getDataSize());
 		
-		this.getServletContext().getRequestDispatcher(VUE_LIST_COMPUTERS).forward(req, resp);
+		this.getServletContext()
+		.getRequestDispatcher(VUE_LIST_COMPUTERS)
+		.forward(req, resp);
 	}
 
 	private Integer getParamIndex(HttpServletRequest req) {
