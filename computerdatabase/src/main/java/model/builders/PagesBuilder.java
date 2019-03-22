@@ -20,7 +20,7 @@ public class PagesBuilder<T> {
 			log.warn("Pages without data, null returned");
 			return null;
 		}
-		if(index == null) {
+		if(index == null || index < 0) {
 			index = new Integer(0);
 		}
 		if(size == null) {

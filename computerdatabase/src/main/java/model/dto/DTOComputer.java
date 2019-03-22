@@ -48,6 +48,7 @@ public class DTOComputer {
 	private String introduced, discontinued;
 	private long companyId;
 	
+	
 	@Override
 	public String toString() {
 		return "id : "+id

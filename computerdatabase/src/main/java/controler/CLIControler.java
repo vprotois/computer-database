@@ -92,7 +92,7 @@ public class CLIControler {
 
 	private void createComputer(String[] inputArgs) {
 		try {
-			computerServices.buildComputer(inputArgs);
+			computerServices.buildComputerWithId(inputArgs);
 			InterfaceConsole.display("ComputerCreated");
 		} catch (CreateComputerError e) {
 			InterfaceConsole.display("Failed to create computer :"+ e.getMessage());
@@ -161,7 +161,6 @@ public class CLIControler {
 				pages.previousPage();
 				break;
 			case NEXT_PAGE:
-				System.out.print(pages.nextPage());
 				break;
 			}
 		}while (pageInput != 0);

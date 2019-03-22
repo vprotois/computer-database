@@ -44,14 +44,22 @@ public class Pages<T> {
 		return data.subList(index, Math.min(data.size(),index+pageSize));
 	}
 	
-	public int nextPage(){
+	public void nextPage(){
 		if(index + pageSize< data.size()) {
 			index+=pageSize;
 		}else{
-			index = data.size()-1;
+			index = data.size() > 0 ? data.size()-1 : 0;
 		}
-		return index;
 	}
+	
+	public int nextIndex(){
+		if(index + pageSize< data.size()) {
+			return index+ pageSize;
+		}else{
+			return data.size() > 0 ? data.size()-1 : 0;
+		}
+	}
+	
 	
 	public int previousPage(){
 		if(index >= pageSize) {
@@ -61,6 +69,15 @@ public class Pages<T> {
 			index = 0;
 		}
 		return index;
+	}
+	
+	public int previousIndex(){
+		if(index >= pageSize) {
+			return index - pageSize;
+		}
+		else {
+			return 0;
+		}
 	}
 	
 	@Override

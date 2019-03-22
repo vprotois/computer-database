@@ -1,10 +1,13 @@
 package persistance;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 
@@ -17,7 +20,9 @@ public class DAOCompanyTest{
 	@Test
 	public void getCompanies() {
 		DAOCompany dao = DAOFactory.createDAOcompany();
-		List<Company> list = dao.getCompanies();
+		Optional<List<Company>> optList = dao.getCompanies();
+		assertTrue(optList.isPresent());
+		List<Company>list =optList.get();
 		assertEquals(new Integer(42),new Integer(list.size()));
 		list.forEach( c -> companyValid(c) );
 	}
@@ -31,7 +36,9 @@ public class DAOCompanyTest{
 	@Test
 	public void testGetCompany() {
 		DAOCompany dao = DAOFactory.createDAOcompany();
-		Company c = dao.getCompany(24L);
+		Optional<Company> optc = dao.getCompany(24L);
+		assertTrue(optc.isPresent());
+		Company c = optc.get();
 		companyValid(c);
 		assertEquals(c.getId(),new Long(24L));
 		assertEquals(c.getName(),"Nintendo");
@@ -40,8 +47,8 @@ public class DAOCompanyTest{
 	@Test
 	public void testGetWrongCompany() {
 		DAOCompany dao = DAOFactory.createDAOcompany();
-		Company c = dao.getCompany(-124L);
-		assertNull(c);
+		Optional<Company> c = dao.getCompany(-124L);
+		assertFalse(c.isPresent());
 	}
 	
 

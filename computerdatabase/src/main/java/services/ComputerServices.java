@@ -1,9 +1,6 @@
 package services;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,62 +12,57 @@ import exception.ComputerNotFoundException;
 import exception.CreateComputerError;
 import exception.UpdateComputerError;
 import mapper.DTOComputerMapper;
-import model.Company;
+import mapper.TimeStampMapper;
 import model.Computer;
 import model.Pages;
 import model.builders.ComputerBuilder;
 import model.builders.PagesBuilder;
 import model.dto.DTOComputer;
-import persistance.DAOCompany;
 import persistance.DAOComputer;
 import persistance.DAOFactory;
 
 public class ComputerServices {
 
-	private static Logger log= LoggerFactory.getLogger(ComputerServices.class);
+	public static Logger log= LoggerFactory.getLogger(ComputerServices.class);
 	
 	public ComputerServices() {
 		
 	}
 
-	public void buildComputer(String[] args) throws CreateComputerError {
+	public void buildComputerWithId(String[] args) throws CreateComputerError {
 		
 		ComputerBuilder c = new ComputerBuilder()
 				.withId(Long.parseLong(args[0]))
 				.withName(args[1])
-				.withIntroduced(stringToTimestamp(args[2]))
-				.withDiscontinued(stringToTimestamp(args[3]))
+				.withIntroduced(TimeStampMapper.stringToTimestamp(args[2]))
+				.withDiscontinued(TimeStampMapper.stringToTimestamp(args[3]))
 				.withCompanyId(Long.parseLong(args[4]));
-		
-		DAOCompany daoCompany =  (DAOCompany) DAOFactory.createDAOcompany();
-		Optional<Company> cy =  daoCompany.getCompany(Long.parseLong(args[4]));
-		if(cy.isPresent()) {
-			c = c.withCompany(cy.get());
-		}
 		
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		daoComputer.createComputer(c.build());
 
 	}
-
-	public static Timestamp stringToTimestamp(String stringDate){
-		try {
-			if(stringDate.equals("null")) {
-				return null;
-			} else {
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_hh:mm:ss");
-				Date date = dateFormat.parse(stringDate);
-				Timestamp timeStampDate = new Timestamp(date.getTime());
-				return timeStampDate;
-			}
-		} catch (ParseException e) {
-			e.printStackTrace();
-			log.error("Error when parsing Timestamp format");
-		}
-		return null;
-	}
-
 	
+	
+	public void buildComputer(String name,String introduced,String discontinued,String companyId) throws CreateComputerError {
+		
+		ComputerBuilder c = new ComputerBuilder()
+				.withName(name)
+				.withIntroduced(TimeStampMapper.stringToTimestamp(introduced))
+				.withDiscontinued(TimeStampMapper.stringToTimestamp(discontinued))
+				.withCompanyId(Long.parseLong(companyId));
+		
+		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
+		daoComputer.createComputer(c.build());
+
+	}
+	
+	public void addComputer(Computer c) throws CreateComputerError {
+		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
+		daoComputer.createComputer(c);
+	}
+	
+
 	public Optional<List<DTOComputer>> listDTOComputer(){
 		Optional<List<Computer>> list = listComputer();
 		if(list.isPresent()) {
@@ -172,10 +164,10 @@ public class ComputerServices {
 			c.setName(args[2]);
 			break;
 		case "introduced":
-			c.setIntroduced(stringToTimestamp(args[2]));
+			c.setIntroduced(TimeStampMapper.stringToTimestamp(args[2]));
 			break;
 		case "discontinued":
-			Timestamp t = stringToTimestamp(args[2]);
+			Timestamp t = TimeStampMapper.stringToTimestamp(args[2]);
 			if(t.compareTo(c.getIntroduced())> 0) {
 				c.setDiscontinued(t);
 			}

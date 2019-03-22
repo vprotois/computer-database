@@ -33,7 +33,7 @@ public class DashBoard extends HttpServlet {
 	
 	
 	private static final String ERROR_500 = "/ressources/views/500.jsp";
-	private static final String VUE_LIST_COMPUTERS = "/ressources/views/dashboard.jsp";
+	private static final String VIEW_LIST_COMPUTERS = "/ressources/views/dashboard.jsp";
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 	
@@ -59,12 +59,12 @@ public class DashBoard extends HttpServlet {
 		req.setAttribute(PAGE_COMPUTERS, p);
 		
 		req.setAttribute(NUMBER_COMPUTERS, p.getDataSize());
-		req.setAttribute(NEXT_PAGE,p.nextPage());
-		req.setAttribute(PREVIOUS_PAGE,p.previousPage());
 		req.setAttribute(PAGE_DATA, p.getPageData());
+		req.setAttribute(NEXT_PAGE,p.nextIndex());
+		req.setAttribute(PREVIOUS_PAGE,p.previousIndex());
 		
 		this.getServletContext()
-		.getRequestDispatcher(VUE_LIST_COMPUTERS)
+		.getRequestDispatcher(VIEW_LIST_COMPUTERS)
 		.forward(req, resp);
 	}
 

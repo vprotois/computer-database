@@ -36,7 +36,7 @@
 					</form>
 				</div>
 				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="addComputer.html">Add
+					<a class="btn btn-success" id="addComputer" href="add">Add
 						Computer</a> <a class="btn btn-default" id="editComputer" href="#"
 						onclick="$.fn.toggleEditMode();">Edit</a>
 				</div>
@@ -90,7 +90,7 @@
 	<footer class="navbar-fixed-bottom">
 		<div class="container text-center">
 			<ul class="pagination">
-				<li><a href="${urlPath}?index=${computerPage.previousPage()}"
+				<li><a href="${urlPath}?index=${previous_page_index}"
 					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 				</a> <a href="${urlPath}?index=${next_page_index}" aria-label="Next"> <span
 						aria-hidden="true">&raquo;</span>
