@@ -21,7 +21,7 @@ public class DTOComputerMapper {
 		}else {
 			dto.setDiscontinued(c.getDiscontinued().toString());
 		}
-		dto.setCompanyId( c.getCompanyId().longValue());
+		dto.setCompany( c.getCompany().getName());
 		
 		return dto;
 	}

@@ -35,18 +35,18 @@ public class DTOComputer {
 		this.discontinued = discontinued;
 	}
 
-	public long getCompanyId() {
-		return companyId;
+	public String getCompany() {
+		return company;
 	}
 
-	public void setCompanyId(long companyId) {
-		this.companyId = companyId;
+	public void setCompany(String company) {
+		this.company = company;
 	}
 
 	private long id;
 	private String name;
 	private String introduced, discontinued;
-	private long companyId;
+	private String company;
 	
 	
 	@Override
@@ -55,6 +55,6 @@ public class DTOComputer {
 				+ " name : " + name
 				+ " introduced : "+introduced
 				+ " diconstinued : "+discontinued
-				+ " companyId : "+ companyId;
+				+ " company : "+ company;
 	}
 }

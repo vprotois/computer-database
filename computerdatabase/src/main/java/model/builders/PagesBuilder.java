@@ -23,7 +23,7 @@ public class PagesBuilder<T> {
 		if(index == null || index < 0) {
 			index = new Integer(0);
 		}
-		if(size == null) {
+		if(size == null || size < 0) {
 			size = new Integer(10);
 		}
 		return new Pages<T>(data,index,size);

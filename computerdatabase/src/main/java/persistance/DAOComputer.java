@@ -22,12 +22,12 @@ public class DAOComputer {
 	
 	public DAOComputer() {
 		super();
-		
 	}
-
-	private static String selectAllComp = "SELECT id,name,introduced,discontinued,company_id FROM computer;";
-	private static String selectCompWithId  = "SELECT id,name,introduced,discontinued,company_id FROM computer WHERE id =?;";
-	private static String selectCompWithName  = "SELECT id,name,introduced,discontinued,company_id FROM computer WHERE name=?;";
+	
+	private static String selectAll = "SELECT cr.id, cr.name, cr.introduced, cr.discontinued, cr.company_id, cy.name FROM computer as cr "
+			+ "LEFT JOIN company as cy ON cr.company_id=cy.id ";
+	private static String selectCompWithId  = selectAll + "WHERE cr.id =?;";
+	private static String selectCompWithName  = selectAll + "WHERE name=?;";
 	private static String InsertComputerWithId = "INSERT INTO computer "
 			+ "(id, name, introduced, discontinued,company_id) VALUES "
 			+ "(?,?,?,?,?);";
@@ -40,7 +40,7 @@ public class DAOComputer {
 	public Optional<List<Computer>> listComputers(){
 		try (Connection conn = DAOFactory.getConnection()) {
 			Statement stmt = conn.createStatement();
-			ResultSet results = stmt.executeQuery(selectAllComp);
+			ResultSet results = stmt.executeQuery(selectAll);
 			return Optional.of(ComputerMapper.mapComputerList(results));
 		}catch(SQLException e){
 			System.out.println(e.getMessage());
