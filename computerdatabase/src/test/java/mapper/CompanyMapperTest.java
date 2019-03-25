@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,7 +48,9 @@ class CompanyMapperTest {
 	
 	@Test
 	void testSingleCompany() throws SQLException {
-		Company c = CompanyMapper.mapSingleCompany(rs);
+		Optional<Company> optc = CompanyMapper.mapSingleCompany(rs);
+		assertTrue(optc.isPresent());
+		Company c = optc.get();
 		assertEquals(new Long(1),c.getId());
 		assertEquals("azaz1234",c.getName());
 	}
