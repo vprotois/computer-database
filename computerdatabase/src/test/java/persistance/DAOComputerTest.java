@@ -1,14 +1,16 @@
 package persistance;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import exception.CreateComputerError;
+import exception.UpdateComputerError;
 import junit.framework.TestCase;
 import model.Computer;
-import model.Pages;
 
 @ExtendWith(MockitoExtension.class)
 public class DAOComputerTest extends TestCase {
@@ -17,10 +19,10 @@ public class DAOComputerTest extends TestCase {
 	
 	
 	@Test
-	public void testcreateUpdateDelete() {
+	public void testcreateUpdateDelete() throws CreateComputerError, UpdateComputerError {
 		DAOComputer dao = DAOFactory.createDAOcomputer();
 		Computer c = new Computer(-3L,"neg",null,null,null,2L);
-		assertTrue(dao.createComputer(c));
+		dao.createComputer(c);
 		assertEquals(c,dao.getCompDetails(-3L));
 		c = new Computer(-3L,"neg",null,null,null,2L);
 		dao.updateComputer(c);
@@ -33,7 +35,11 @@ public class DAOComputerTest extends TestCase {
 		DAOComputer dao = DAOFactory.createDAOcomputer();
 		//this id is already taken in the base
 		Computer c = new Computer(14L,"neg",null,null,null,2L);
-		assertFalse(dao.createComputer(c));
+		try {
+			dao.createComputer(c);
+		} catch (Exception e) {
+			assertEquals(e.getClass(),CreateComputerError.class);
+		}
 	}
 	
 //	public void testFailedUpdate() {
@@ -54,24 +60,21 @@ public class DAOComputerTest extends TestCase {
 	public void testCompDetails() {
 		DAOComputer dao = DAOFactory.createDAOcomputer();
 		Computer c1 = new Computer(3L,"name",null,null,null,2L);
-		Computer c2 = dao.getCompDetails(3L);
-		assertEquals(c1,c2);
+		Optional<Computer> c2 = dao.getCompDetails(3L);
+		if(!c2.isPresent()) {
+			fail("tested Computer isn't in the base");
+		}
+		assertEquals(c1,c2.get());
 	}
 	
 	@Test
 	public void testListComputers() {
 		DAOComputer dao = DAOFactory.createDAOcomputer();
-		List<Computer> list = dao.listComputers();
-		assertNotNull(list);
+		Optional<List<Computer>> list = dao.listComputers();
+		assertNotNull(list.get());
 	}
 	
-	@Test
-	public void pageListComputer() {
-		DAOComputer dao = DAOFactory.createDAOcomputer();
-		Pages<Computer> p = dao.pageListComputer(null,null);
-		assertNotNull(p);
-	}
-	
+
 	
 	
 }

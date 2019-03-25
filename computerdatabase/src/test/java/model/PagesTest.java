@@ -59,7 +59,7 @@ public class PagesTest {
 	@Test
 	public void testIndex() {
 		Pages<String> page1 = new Pages<String>(list1,0,1);
-		assertEquals(page1.getData(),list2);
+		assertEquals(page1.getPageData(),list2);
 	}
 	
 	

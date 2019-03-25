@@ -30,7 +30,7 @@ public class DAOCompany {
 			stmt.setLong(1,id);
 			ResultSet results =  stmt.executeQuery();
 			
-			return Optional.of(CompanyMapper.mapSingleCompany(results));
+			return CompanyMapper.mapSingleCompany(results);
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 			log.error("Error when getting Company :" + id);

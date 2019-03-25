@@ -1,35 +1,14 @@
 package persistance;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 import org.dbunit.DBTestCase;
-import org.dbunit.DatabaseUnitException;
-import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.database.QueryDataSet;
-import org.dbunit.database.search.TablesDependencyHelper;
 import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
-
 import model.Company;
-import model.Pages;
 
 
 public class DAOCompanyTest extends DBTestCase{
@@ -77,17 +56,6 @@ public class DAOCompanyTest extends DBTestCase{
 		assertFalse(c.isPresent());
 	}
 	
-
-	@Test 
-	public void pageListCompany(){
-		DAOCompany dao = DAOFactory.createDAOcompany();
-		Pages<Company> page = dao.pageListCompany();
-		assertNotNull(page);
-	}
-
-
-	
-
 
 	
 }

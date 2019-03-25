@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import model.Company;
 import model.builders.CompanyBuilder;
@@ -22,14 +23,14 @@ public class CompanyMapper {
 		return list;
 	}
 
-	public static Company mapSingleCompany(ResultSet results) throws SQLException{
+	public static Optional<Company> mapSingleCompany(ResultSet results) throws SQLException{
 		if (results.next()) {
-			return new CompanyBuilder()
+			return Optional.of(new CompanyBuilder()
 					.withId(results.getLong("id"))
 					.withName(results.getString("name"))
-					.build();
+					.build());
 		}		
-		return null;
+		return Optional.empty();
 	}
 
 }
