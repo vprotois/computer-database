@@ -39,14 +39,13 @@ public class DashBoard extends HttpServlet {
 	
 		Integer size = getParamSize(req);
 		Integer index= getParamIndex(req);
-		String search = req.getParameter("search");
+		String search = (String) req.getAttribute("search");
 		
 		ComputerServices cont = new ComputerServices();
 		Optional<Pages<DTOComputer>> optpages;
 		if(search == null) {
 			optpages = cont.pagesDTOComputer(size, index);			
-		}else
-		{
+		}else{
 			optpages = cont.pagesComputerWithName(search, size, index);
 		}
 		
@@ -69,6 +68,7 @@ public class DashBoard extends HttpServlet {
 	}
 
 
+	
 
 	private Integer getParamIndex(HttpServletRequest req) throws ServletException {
 		Integer index;

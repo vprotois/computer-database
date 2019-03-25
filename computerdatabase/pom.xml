@@ -24,6 +24,7 @@
 		<jstl>1.2</jstl>
 		<taglibs-standard-impl>1.2.5</taglibs-standard-impl>
 		<mockito-junit-jupiter>2.23.0</mockito-junit-jupiter>
+		<dbunit>2.4.9</dbunit>
 	</properties>
 
 	<dependencies>
@@ -39,6 +40,14 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql-connector}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+			<version>${dbunit}</version>
+			<scope>test</scope>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.slf4j</groupId>

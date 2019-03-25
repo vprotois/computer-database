@@ -76,7 +76,7 @@
 						<tr>
 							<td class="editMode"><input type="checkbox" name="cb"
 								class="cb" value="0"></td>
-							<td>${computer.name}</td>
+							<td id="name">${computer.name}</td>
 							<td>${computer.introduced}</td>
 							<td>${computer.discontinued}</td>
 							<td>${computer.company}</td>
@@ -91,9 +91,9 @@
 		<div class="container text-center">
 			<ul class="pagination">
 				<li><a href="${urlPath}?index=${previous_page_index}"
-					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+					aria-label="Previous" id="previous"> <span aria-hidden="true">&laquo;</span>
 				</a> <a href="${urlPath}?index=${next_page_index}" aria-label="Next"> <span
-						aria-hidden="true">&raquo;</span>
+						aria-hidden="true" id="next">&raquo;</span>
 				</a></li>
 			</ul>
 		</div>

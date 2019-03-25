@@ -1,0 +1,606 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <computer id="3" name="name" company_id="2"/>
+  <computer id="4" name="CM-5e" company_id="2"/>
+  <computer id="5" name="CM-5" introduced="1991-01-01 00:00:00.0" company_id="2"/>
+  <computer id="6" name="MacBook Pro" introduced="2006-01-10 00:00:00.0" company_id="1"/>
+  <computer id="7" name="Apple IIe"/>
+  <computer id="8" name="Apple IIc"/>
+  <computer id="9" name="Apple IIGS"/>
+  <computer id="10" name="Apple IIc Plus"/>
+  <computer id="11" name="Apple II Plus"/>
+  <computer id="12" name="Apple III" introduced="1980-05-01 00:00:00.0" discontinued="1984-04-01 00:00:00.0" company_id="1"/>
+  <computer id="13" name="Apple Lisa" company_id="1"/>
+  <computer id="14" name="CM-2" company_id="2"/>
+  <computer id="15" name="Connection Machine" introduced="1987-01-01 00:00:00.0" company_id="2"/>
+  <computer id="16" name="Apple II" introduced="1977-04-01 00:00:00.0" discontinued="1993-10-01 00:00:00.0" company_id="1"/>
+  <computer id="17" name="Apple III Plus" introduced="1983-12-01 00:00:00.0" discontinued="1984-04-01 00:00:00.0" company_id="1"/>
+  <computer id="18" name="COSMAC ELF" company_id="3"/>
+  <computer id="19" name="COSMAC VIP" introduced="1977-01-01 00:00:00.0" company_id="3"/>
+  <computer id="20" name="ELF II" introduced="1977-01-01 00:00:00.0" company_id="4"/>
+  <computer id="21" name="Macintosh" introduced="1984-01-24 00:00:00.0" company_id="1"/>
+  <computer id="22" name="Macintosh II"/>
+  <computer id="23" name="Macintosh Plus" introduced="1986-01-16 00:00:00.0" discontinued="1990-10-15 00:00:00.0" company_id="1"/>
+  <computer id="24" name="Macintosh IIfx"/>
+  <computer id="25" name="iMac" introduced="1998-01-01 00:00:00.0" company_id="1"/>
+  <computer id="26" name="Mac Mini" introduced="2005-01-22 00:00:00.0" company_id="1"/>
+  <computer id="27" name="Mac Pro" introduced="2006-08-07 00:00:00.0" company_id="1"/>
+  <computer id="28" name="Power Macintosh" introduced="1994-03-01 00:00:00.0" discontinued="2006-08-01 00:00:00.0" company_id="1"/>
+  <computer id="29" name="PowerBook" introduced="1991-01-01 00:00:00.0" discontinued="2006-01-01 00:00:00.0" company_id="1"/>
+  <computer id="30" name="Xserve"/>
+  <computer id="31" name="Powerbook 100"/>
+  <computer id="32" name="Powerbook 140"/>
+  <computer id="33" name="Powerbook 170"/>
+  <computer id="34" name="PowerBook Duo"/>
+  <computer id="35" name="PowerBook 190"/>
+  <computer id="36" name="Macintosh Quadra" introduced="1991-01-01 00:00:00.0" company_id="1"/>
+  <computer id="37" name="Macintosh Quadra 900"/>
+  <computer id="38" name="Macintosh Quadra 700"/>
+  <computer id="39" name="Macintosh LC" introduced="1990-01-01 00:00:00.0" company_id="1"/>
+  <computer id="40" name="Macintosh LC II" introduced="1990-01-01 00:00:00.0" company_id="1"/>
+  <computer id="41" name="Macintosh LC III" introduced="1993-01-01 00:00:00.0" company_id="1"/>
+  <computer id="42" name="Macintosh LC III+"/>
+  <computer id="43" name="Macintosh Quadra 605" introduced="1993-10-21 00:00:00.0" company_id="1"/>
+  <computer id="44" name="Macintosh LC 500 series"/>
+  <computer id="45" name="TRS-80 Color Computer" introduced="1980-01-01 00:00:00.0" company_id="5"/>
+  <computer id="46" name="Acorn System 2"/>
+  <computer id="47" name="Dragon 32/64"/>
+  <computer id="48" name="MEK6800D2"/>
+  <computer id="49" name="Newbear 77/68"/>
+  <computer id="50" name="Commodore PET" company_id="6"/>
+  <computer id="51" name="Commodore 64" introduced="1982-08-01 00:00:00.0" discontinued="1994-01-01 00:00:00.0" company_id="6"/>
+  <computer id="52" name="Commodore 64C"/>
+  <computer id="53" name="Commodore SX-64" company_id="6"/>
+  <computer id="54" name="Commodore 128" company_id="6"/>
+  <computer id="55" name="Apple I" introduced="1976-04-01 01:00:00.0" discontinued="1977-10-01 00:00:00.0" company_id="1"/>
+  <computer id="56" name="KIM-1" introduced="1975-01-01 00:00:00.0" company_id="7"/>
+  <computer id="57" name="Altair 8800" introduced="1974-12-19 00:00:00.0" company_id="8"/>
+  <computer id="58" name="IMSAI 8080" introduced="1975-08-01 00:00:00.0" company_id="9"/>
+  <computer id="59" name="IMSAI Series Two"/>
+  <computer id="60" name="VAX" introduced="1977-10-25 00:00:00.0" company_id="10"/>
+  <computer id="61" name="VAX 11/780" introduced="1977-10-25 00:00:00.0" company_id="10"/>
+  <computer id="62" name="VAX 11/750" introduced="1980-10-01 00:00:00.0" company_id="10"/>
+  <computer id="67" name="IBM PC" introduced="1981-08-12 00:00:00.0" company_id="13"/>
+  <computer id="68" name="Macintosh Classic"/>
+  <computer id="69" name="Macintosh Classic II" introduced="1991-01-01 00:00:00.0" company_id="1"/>
+  <computer id="70" name="Amiga" introduced="1985-01-01 00:00:00.0" company_id="14"/>
+  <computer id="71" name="Amiga 1000" company_id="6"/>
+  <computer id="72" name="Amiga 500" introduced="1987-01-01 00:00:00.0" company_id="6"/>
+  <computer id="73" name="Amiga 500+"/>
+  <computer id="74" name="Amiga 2000" introduced="1986-01-01 00:00:00.0" discontinued="1990-01-01 00:00:00.0" company_id="6"/>
+  <computer id="75" name="Amiga 3000" company_id="6"/>
+  <computer id="76" name="Amiga 600" introduced="1992-03-01 00:00:00.0" company_id="6"/>
+  <computer id="77" name="Macintosh 128K" introduced="1984-01-01 00:00:00.0" company_id="1"/>
+  <computer id="78" name="Macintosh 512K" introduced="1984-09-10 00:00:00.0" discontinued="1986-04-14 00:00:00.0" company_id="1"/>
+  <computer id="79" name="Macintosh SE" introduced="1987-03-02 00:00:00.0" discontinued="1989-08-01 00:00:00.0" company_id="1"/>
+  <computer id="80" name="Macintosh SE/30" introduced="1989-01-19 00:00:00.0" discontinued="1991-10-21 00:00:00.0" company_id="1"/>
+  <computer id="81" name="Canon Cat" introduced="1987-01-01 00:00:00.0" company_id="15"/>
+  <computer id="82" name="Nokia 770" company_id="16"/>
+  <computer id="83" name="Nokia N800" introduced="2007-01-01 00:00:00.0" company_id="16"/>
+  <computer id="84" name="Mylo" introduced="2006-09-21 00:00:00.0" company_id="17"/>
+  <computer id="85" name="OQO 02" introduced="2007-01-01 00:00:00.0" company_id="18"/>
+  <computer id="86" name="OQO 01+"/>
+  <computer id="87" name="Pinwheel calculator"/>
+  <computer id="88" name="iBook" company_id="1"/>
+  <computer id="89" name="MacBook" introduced="2006-05-16 00:00:00.0" company_id="1"/>
+  <computer id="90" name="NeXTstation" introduced="1990-01-01 00:00:00.0" discontinued="1993-01-01 00:00:00.0" company_id="19"/>
+  <computer id="91" name="NeXTcube" introduced="1988-01-01 00:00:00.0" discontinued="1993-01-01 00:00:00.0" company_id="19"/>
+  <computer id="92" name="NeXTstation Color Turbo"/>
+  <computer id="93" name="NeXTstation Color"/>
+  <computer id="94" name="NeXTstation Turbo"/>
+  <computer id="95" name="NeXTcube Turbo" company_id="19"/>
+  <computer id="96" name="NeXTcube 040" company_id="19"/>
+  <computer id="97" name="NeXTcube 030" company_id="19"/>
+  <computer id="98" name="Tinkertoy Tic-Tac-Toe Computer"/>
+  <computer id="99" name="Z3"/>
+  <computer id="100" name="Z4"/>
+  <computer id="101" name="Z1"/>
+  <computer id="102" name="Z2"/>
+  <computer id="103" name="Wang 2200" introduced="1973-05-01 00:00:00.0"/>
+  <computer id="104" name="Wang VS"/>
+  <computer id="105" name="Wang OIS"/>
+  <computer id="106" name="BBC Micro" company_id="22"/>
+  <computer id="108" name="Cray-1"/>
+  <computer id="109" name="Cray-3"/>
+  <computer id="110" name="Cray-2"/>
+  <computer id="111" name="Cray-4"/>
+  <computer id="112" name="Cray X1"/>
+  <computer id="113" name="Cray XD1"/>
+  <computer id="114" name="Cray T3D" introduced="1993-01-01 00:00:00.0"/>
+  <computer id="115" name="Cray T3E" introduced="1995-01-01 00:00:00.0"/>
+  <computer id="116" name="Cray C90"/>
+  <computer id="117" name="Cray T90"/>
+  <computer id="118" name="Cray SV1"/>
+  <computer id="119" name="Cray J90"/>
+  <computer id="120" name="Cray XT3"/>
+  <computer id="121" name="Cray CS6400"/>
+  <computer id="122" name="Atari ST" introduced="1985-01-01 00:00:00.0" discontinued="1993-01-01 00:00:00.0" company_id="20"/>
+  <computer id="123" name="Amiga 2500"/>
+  <computer id="124" name="Amiga 2500" company_id="6"/>
+  <computer id="125" name="Amiga 4000" company_id="6"/>
+  <computer id="126" name="Amiga 3000UX" company_id="6"/>
+  <computer id="127" name="Amiga 3000T" company_id="6"/>
+  <computer id="128" name="Amiga 4000T" company_id="6"/>
+  <computer id="129" name="Amiga 1200" introduced="1992-10-01 00:00:00.0" discontinued="1996-01-01 00:00:00.0" company_id="6"/>
+  <computer id="130" name="Atari 1040 STf" introduced="1986-01-01 00:00:00.0"/>
+  <computer id="131" name="Atari 520 ST" introduced="1985-01-01 00:00:00.0"/>
+  <computer id="132" name="Atari 520 STfm" introduced="1986-01-01 00:00:00.0"/>
+  <computer id="133" name="Atari 1040 STe" introduced="1989-01-01 00:00:00.0"/>
+  <computer id="134" name="Atari MEGA STe" introduced="1991-01-01 00:00:00.0"/>
+  <computer id="135" name="Atari 520 ST+" introduced="1985-01-01 00:00:00.0"/>
+  <computer id="136" name="Atari 520 STm" introduced="1985-01-01 00:00:00.0"/>
+  <computer id="137" name="Atari 130 ST" introduced="1985-01-01 00:00:00.0"/>
+  <computer id="138" name="Atari 260 ST" introduced="1985-01-01 00:00:00.0"/>
+  <computer id="139" name="Atari MEGA ST" introduced="1987-01-01 00:00:00.0"/>
+  <computer id="140" name="Atari 520 STf" introduced="1986-01-01 00:00:00.0"/>
+  <computer id="141" name="Atari 1040 STfm" introduced="1986-01-01 00:00:00.0"/>
+  <computer id="142" name="Atari 2080 ST" introduced="1986-01-01 00:00:00.0"/>
+  <computer id="143" name="Atari 260 ST+" introduced="1985-01-01 00:00:00.0"/>
+  <computer id="144" name="Atari 4160 STe" introduced="1988-01-01 00:00:00.0"/>
+  <computer id="145" name="TRS-80 Color Computer 2"/>
+  <computer id="146" name="TRS-80 Color Computer 3"/>
+  <computer id="147" name="TRS-80 Model 1" introduced="1977-01-01 00:00:00.0" company_id="5"/>
+  <computer id="148" name="Timex Sinclair 2068" introduced="1983-11-01 00:00:00.0" discontinued="1984-04-01 00:00:00.0" company_id="23"/>
+  <computer id="149" name="ZX Spectrum" introduced="1982-01-01 00:00:00.0" company_id="25"/>
+  <computer id="150" name="Xerox Star" introduced="1981-01-01 00:00:00.0" company_id="26"/>
+  <computer id="151" name="Xerox Alto"/>
+  <computer id="152" name="Acorn Archimedes" company_id="22"/>
+  <computer id="153" name="Nintendo Entertainment System" company_id="24"/>
+  <computer id="154" name="Super Nintendo Entertainment System" introduced="1991-08-01 00:00:00.0" discontinued="1999-01-01 00:00:00.0" company_id="24"/>
+  <computer id="155" name="Super Famicom"/>
+  <computer id="156" name="Nintendo GameCube" company_id="24"/>
+  <computer id="157" name="Game Boy line"/>
+  <computer id="158" name="PlayStation" introduced="1994-12-03 00:00:00.0" company_id="17"/>
+  <computer id="159" name="PlayStation 2" introduced="2000-03-24 00:00:00.0" company_id="17"/>
+  <computer id="160" name="Game &amp; Watch" company_id="24"/>
+  <computer id="161" name="EDSAC"/>
+  <computer id="162" name="IBM System/4 Pi"/>
+  <computer id="163" name="IBM AP-101"/>
+  <computer id="164" name="IBM TC-1"/>
+  <computer id="165" name="IBM AP-101B"/>
+  <computer id="166" name="IBM AP-101S" company_id="13"/>
+  <computer id="167" name="ProLiant" company_id="27"/>
+  <computer id="168" name="Http://nepomuk.semanticdesktop.org/xwiki/"/>
+  <computer id="169" name="Sinclair QL" introduced="1984-01-01 00:00:00.0" discontinued="1986-01-01 00:00:00.0" company_id="25"/>
+  <computer id="170" name="Sinclair ZX81" introduced="1981-01-01 00:00:00.0" company_id="25"/>
+  <computer id="171" name="Sinclair ZX80" company_id="25"/>
+  <computer id="172" name="Atari 65XE" company_id="20"/>
+  <computer id="173" name="Deep Blue"/>
+  <computer id="174" name="Macintosh Quadra 650"/>
+  <computer id="175" name="Macintosh Quadra 610"/>
+  <computer id="176" name="Macintosh Quadra 800"/>
+  <computer id="177" name="Macintosh Quadra 950"/>
+  <computer id="178" name="PowerBook 160"/>
+  <computer id="179" name="PowerBook 145B"/>
+  <computer id="180" name="PowerBook 170"/>
+  <computer id="181" name="PowerBook 145"/>
+  <computer id="182" name="PowerBook G3"/>
+  <computer id="183" name="PowerBook 140"/>
+  <computer id="184" name="Macintosh IIcx"/>
+  <computer id="185" name="Powerbook 180"/>
+  <computer id="186" name="PowerBook G4"/>
+  <computer id="187" name="Macintosh XL"/>
+  <computer id="188" name="PowerBook 100"/>
+  <computer id="189" name="PowerBook 2400c"/>
+  <computer id="190" name="PowerBook 1400"/>
+  <computer id="191" name="Macintosh Quadra 630"/>
+  <computer id="192" name="Macintosh Quadra 660AV"/>
+  <computer id="193" name="Macintosh Quadra 840AV"/>
+  <computer id="194" name="PowerBook 5300"/>
+  <computer id="195" name="PowerBook 3400c"/>
+  <computer id="196" name="Macintosh Color Classic"/>
+  <computer id="197" name="Macintosh 512Ke"/>
+  <computer id="198" name="Macintosh IIsi"/>
+  <computer id="199" name="Macintosh IIx"/>
+  <computer id="200" name="PowerBook 500 series"/>
+  <computer id="201" name="Power Macintosh G3"/>
+  <computer id="202" name="Macintosh IIci"/>
+  <computer id="203" name="iMac G5" introduced="2004-08-31 00:00:00.0" company_id="1"/>
+  <computer id="204" name="Power Mac G4"/>
+  <computer id="205" name="Power Macintosh 7100"/>
+  <computer id="206" name="Power Macintosh 9600"/>
+  <computer id="207" name="Power Macintosh 7200"/>
+  <computer id="208" name="Power Macintosh 7300"/>
+  <computer id="209" name="Power Macintosh 8600"/>
+  <computer id="210" name="Power Macintosh 6200"/>
+  <computer id="211" name="Power Macintosh 8100"/>
+  <computer id="212" name="Compact Macintosh"/>
+  <computer id="213" name="Power Macintosh 4400"/>
+  <computer id="214" name="Power Macintosh 9500"/>
+  <computer id="215" name="Macintosh Portable"/>
+  <computer id="216" name="EMac"/>
+  <computer id="217" name="Power Macintosh 7600"/>
+  <computer id="218" name="Power Mac G5"/>
+  <computer id="219" name="Power Macintosh 7500"/>
+  <computer id="220" name="Power Macintosh 6100"/>
+  <computer id="221" name="Power Macintosh 8500"/>
+  <computer id="222" name="Macintosh IIvi"/>
+  <computer id="223" name="Macintosh IIvx"/>
+  <computer id="224" name="IMac G3"/>
+  <computer id="225" name="IMac G4"/>
+  <computer id="226" name="Power Mac G4 Cube" company_id="1"/>
+  <computer id="227" name="Intel iMac"/>
+  <computer id="228" name="Deep Thought" company_id="13"/>
+  <computer id="229" name="Wii" introduced="2006-11-19 00:00:00.0" company_id="24"/>
+  <computer id="230" name="IBM System x"/>
+  <computer id="231" name="IBM System i" introduced="2006-01-01 00:00:00.0" company_id="13"/>
+  <computer id="232" name="IBM System z" introduced="2006-01-01 00:00:00.0" company_id="13"/>
+  <computer id="233" name="IBM System p" introduced="2000-01-01 00:00:00.0" company_id="13"/>
+  <computer id="234" name="LC 575"/>
+  <computer id="235" name="Macintosh TV"/>
+  <computer id="236" name="Macintosh Performa"/>
+  <computer id="237" name="Macintosh II series"/>
+  <computer id="238" name="Power Macintosh 6400"/>
+  <computer id="239" name="Power Macintosh 6500"/>
+  <computer id="240" name="Apple PenLite"/>
+  <computer id="241" name="Wallstreet"/>
+  <computer id="242" name="Twentieth Anniversary Macintosh"/>
+  <computer id="243" name="Power Macintosh 5500"/>
+  <computer id="244" name="iBook G3" company_id="1"/>
+  <computer id="245" name="Power Macintosh 5200 LC"/>
+  <computer id="246" name="Power Macintosh 5400"/>
+  <computer id="247" name="CM-1"/>
+  <computer id="248" name="MSX" introduced="1983-01-01 00:00:00.0" discontinued="1995-01-01 00:00:00.0" company_id="28"/>
+  <computer id="249" name="PlayStation 3" company_id="17"/>
+  <computer id="250" name="MSX2" introduced="1986-01-01 00:00:00.0" company_id="29"/>
+  <computer id="251" name="MSX2+" introduced="1988-01-01 00:00:00.0" company_id="30"/>
+  <computer id="252" name="MSX turbo R" introduced="1990-01-01 00:00:00.0"/>
+  <computer id="253" name="Panasonic FS A1GT"/>
+  <computer id="254" name="Panasonic FS A1ST"/>
+  <computer id="255" name="PDP-11" company_id="10"/>
+  <computer id="256" name="PDP-1" company_id="10"/>
+  <computer id="257" name="PDP-10" company_id="10"/>
+  <computer id="258" name="PDP-8" company_id="10"/>
+  <computer id="259" name="PDP-6" company_id="10"/>
+  <computer id="260" name="DECSYSTEM-20" company_id="10"/>
+  <computer id="261" name="PDP-7" company_id="10"/>
+  <computer id="262" name="PDP-5" company_id="10"/>
+  <computer id="263" name="PDP-12" company_id="10"/>
+  <computer id="264" name="LINC" company_id="10"/>
+  <computer id="265" name="PDP-14" company_id="10"/>
+  <computer id="266" name="PDP-15" company_id="10"/>
+  <computer id="267" name="PDP-16" company_id="10"/>
+  <computer id="268" name="Cray X2" introduced="2007-01-01 00:00:00.0" company_id="31"/>
+  <computer id="269" name="Cray X-MP" introduced="1982-01-01 00:00:00.0" company_id="31"/>
+  <computer id="270" name="Evans &amp; Sutherland ES-1" company_id="32"/>
+  <computer id="271" name="Commodore VIC-20" introduced="1980-01-01 00:00:00.0" company_id="6"/>
+  <computer id="272" name="PowerBook 150"/>
+  <computer id="273" name="MacBook Air" introduced="2008-01-15 00:00:00.0" company_id="1"/>
+  <computer id="275" name="Digi-Comp"/>
+  <computer id="276" name="Digi-Comp II" company_id="33"/>
+  <computer id="279" name="Nintendo 64" company_id="24"/>
+  <computer id="280" name="Game Boy Advance" company_id="24"/>
+  <computer id="281" name="Game Boy" company_id="24"/>
+  <computer id="282" name="Nintendo DS Lite" company_id="24"/>
+  <computer id="283" name="Nintendo DS" introduced="2004-01-01 00:00:00.0" company_id="24"/>
+  <computer id="284" name="Game Boy Color" company_id="24"/>
+  <computer id="285" name="Game Boy Advance SP" company_id="24"/>
+  <computer id="286" name="Virtual Boy" company_id="24"/>
+  <computer id="287" name="Game Boy Micro" company_id="24"/>
+  <computer id="288" name="Roadrunner" company_id="13"/>
+  <computer id="289" name="HP 9000"/>
+  <computer id="290" name="OMRON Luna-88K2"/>
+  <computer id="291" name="OMRON Luna-88K" company_id="34"/>
+  <computer id="292" name="Motorola series 900"/>
+  <computer id="293" name="Motorola M8120"/>
+  <computer id="294" name="Triton Dolphin System 100"/>
+  <computer id="295" name="BBN TC2000" introduced="1989-08-01 00:00:00.0" company_id="35"/>
+  <computer id="296" name="WRT54G"/>
+  <computer id="297" name="ThinkPad" introduced="1992-01-01 00:00:00.0" company_id="36"/>
+  <computer id="298" name="Apple Newton" introduced="1993-01-01 00:00:00.0" discontinued="1998-01-01 00:00:00.0" company_id="1"/>
+  <computer id="301" name="ASUS Eee PC 901" company_id="37"/>
+  <computer id="302" name="ASUS Eee PC 701"/>
+  <computer id="304" name="System/38" introduced="1979-01-01 00:00:00.0" company_id="13"/>
+  <computer id="305" name="System/36" introduced="1983-01-01 00:00:00.0" discontinued="2000-01-01 00:00:00.0" company_id="13"/>
+  <computer id="307" name="IBM RT" company_id="13"/>
+  <computer id="309" name="IBM 801" introduced="1980-01-01 00:00:00.0" company_id="13"/>
+  <computer id="311" name="ASCI White" introduced="2001-01-01 00:00:00.0" discontinued="2006-01-01 00:00:00.0" company_id="13"/>
+  <computer id="312" name="Blue Gene" company_id="13"/>
+  <computer id="313" name="ASCI Blue Pacific" introduced="1998-01-01 00:00:00.0" company_id="13"/>
+  <computer id="314" name="iPhone" introduced="2007-06-01 00:00:00.0" company_id="1"/>
+  <computer id="315" name="Nokia N810" introduced="2007-10-17 00:00:00.0" company_id="16"/>
+  <computer id="316" name="EDSAC 2"/>
+  <computer id="317" name="Titan"/>
+  <computer id="318" name="Pilot ACE"/>
+  <computer id="319" name="HP Mini 1000" introduced="2008-10-29 00:00:00.0" company_id="27"/>
+  <computer id="320" name="HP 2133 Mini-Note PC" introduced="2008-04-15 00:00:00.0" company_id="27"/>
+  <computer id="321" name="Kogan Agora Pro" introduced="2008-12-04 00:00:00.0"/>
+  <computer id="322" name="D-Series Machines"/>
+  <computer id="323" name="ZX Spectrum 48K" introduced="1982-01-01 00:00:00.0" company_id="25"/>
+  <computer id="324" name="ZX Spectrum 16K" introduced="1982-01-01 00:00:00.0" company_id="25"/>
+  <computer id="325" name="ZX Spectrum 128" introduced="1985-09-01 00:00:00.0" company_id="25"/>
+  <computer id="326" name="ZX Spectrum +3" company_id="38"/>
+  <computer id="327" name="ZX Spectrum +2" introduced="1986-01-01 00:00:00.0" company_id="38"/>
+  <computer id="328" name="ZX Spectrum +2A" introduced="1987-01-01 00:00:00.0" company_id="38"/>
+  <computer id="329" name="ZX Spectrum +" introduced="1984-06-01 00:00:00.0" company_id="25"/>
+  <computer id="330" name="Acer Extensa"/>
+  <computer id="331" name="Acer Extensa 5220"/>
+  <computer id="332" name="Dell Latitude"/>
+  <computer id="333" name="Toshiba Satellite"/>
+  <computer id="334" name="Timex Sinclair 2048" company_id="23"/>
+  <computer id="335" name="Sprinter"/>
+  <computer id="336" name="Timex Computer 2048"/>
+  <computer id="337" name="Pentagon"/>
+  <computer id="338" name="Belle"/>
+  <computer id="339" name="Loki" company_id="25"/>
+  <computer id="340" name="Hobbit"/>
+  <computer id="341" name="NeXT Computer" company_id="19"/>
+  <computer id="342" name="TRS-80"/>
+  <computer id="343" name="TRS-80 Model 2" introduced="1980-01-01 00:00:00.0" company_id="5"/>
+  <computer id="344" name="TRS-80 Model 3" company_id="5"/>
+  <computer id="345" name="STacy" introduced="1989-01-01 00:00:00.0"/>
+  <computer id="346" name="ST BOOK" introduced="1990-01-01 00:00:00.0"/>
+  <computer id="347" name="Atari 520 STE" introduced="1989-01-01 00:00:00.0"/>
+  <computer id="348" name="Amiga 2000 Model A"/>
+  <computer id="349" name="Amiga 2000 Model B"/>
+  <computer id="350" name="Amiga 2000 Model C"/>
+  <computer id="351" name="IBM 3270"/>
+  <computer id="352" name="CALDIC"/>
+  <computer id="353" name="Modbook"/>
+  <computer id="354" name="Compaq SystemPro"/>
+  <computer id="355" name="ARRA"/>
+  <computer id="356" name="IBM System Cluster 1350"/>
+  <computer id="357" name="Finite element machine"/>
+  <computer id="358" name="ES7000"/>
+  <computer id="359" name="HP MediaSmart Server"/>
+  <computer id="360" name="HP Superdome"/>
+  <computer id="361" name="IBM Power Systems" introduced="2008-01-01 00:00:00.0" company_id="13"/>
+  <computer id="362" name="Oslo Analyzer"/>
+  <computer id="363" name="Microsoft Softcard"/>
+  <computer id="364" name="WITCH"/>
+  <computer id="365" name="Analytical engine"/>
+  <computer id="366" name="EDVAC"/>
+  <computer id="367" name="BINAC"/>
+  <computer id="368" name="Earth Simulator"/>
+  <computer id="369" name="BARK"/>
+  <computer id="371" name="ILLIAC IV"/>
+  <computer id="372" name="ILLIAC II"/>
+  <computer id="373" name="ILLIAC III"/>
+  <computer id="374" name="Water integrator"/>
+  <computer id="375" name="CSIRAC"/>
+  <computer id="376" name="System X"/>
+  <computer id="377" name="Harvest"/>
+  <computer id="378" name="ChipTest"/>
+  <computer id="379" name="HiTech"/>
+  <computer id="380" name="Bomba"/>
+  <computer id="381" name="ACE"/>
+  <computer id="382" name="ASCI Red"/>
+  <computer id="383" name="ASCI Thors Hammer"/>
+  <computer id="384" name="ASCI Purple" introduced="2005-01-01 00:00:00.0" company_id="13"/>
+  <computer id="385" name="ASCI Blue Mountain"/>
+  <computer id="386" name="Columbia"/>
+  <computer id="387" name="HP Integrity"/>
+  <computer id="388" name="APEXC"/>
+  <computer id="389" name="Datasaab D2"/>
+  <computer id="390" name="BRLESC"/>
+  <computer id="391" name="DYSEAC"/>
+  <computer id="393" name="Hydra"/>
+  <computer id="394" name="FUJIC"/>
+  <computer id="395" name="RAYDAC"/>
+  <computer id="396" name="Harvard Mark III"/>
+  <computer id="397" name="DATAR"/>
+  <computer id="398" name="ReserVec"/>
+  <computer id="399" name="DASK"/>
+  <computer id="400" name="UTEC"/>
+  <computer id="401" name="DRTE Computer"/>
+  <computer id="402" name="PowerEdge"/>
+  <computer id="403" name="Apple Network Server"/>
+  <computer id="404" name="Goodyear MPP"/>
+  <computer id="405" name="Macintosh 128K technical details"/>
+  <computer id="406" name="Power Macintosh G3"/>
+  <computer id="407" name="CER-10"/>
+  <computer id="408" name="CER-20"/>
+  <computer id="409" name="IBM BladeCenter" introduced="2002-01-01 00:00:00.0" company_id="13"/>
+  <computer id="410" name="Wisconsin Integrally Synchronized Computer"/>
+  <computer id="411" name="Amstrad CPC" company_id="38"/>
+  <computer id="412" name="Amstrad CPC 6128" company_id="38"/>
+  <computer id="413" name="Amstrad CPC 664" company_id="38"/>
+  <computer id="414" name="Amstrad CPC 464" company_id="38"/>
+  <computer id="415" name="Intergraph"/>
+  <computer id="416" name="Enterprise"/>
+  <computer id="417" name="MTX500"/>
+  <computer id="418" name="Acorn Electron"/>
+  <computer id="419" name="Sony Vaio P" introduced="2009-02-01 00:00:00.0" company_id="17"/>
+  <computer id="420" name="VAIO" company_id="17"/>
+  <computer id="421" name="Sony Vaio P VGN-P588E/Q"/>
+  <computer id="422" name="Sony Vaio P VGN-P530H/G"/>
+  <computer id="423" name="Sony Vaio P VGN-P530H/W"/>
+  <computer id="424" name="Sony Vaio P VGN-P530H/Q"/>
+  <computer id="425" name="Sony Vaio P VGN-P530H/R"/>
+  <computer id="426" name="Sony Vaio P VGN-P588E/R"/>
+  <computer id="427" name="Sony Vaio P VGN-P598E/Q"/>
+  <computer id="428" name="Timex Sinclair 1000" introduced="1982-07-01 00:00:00.0" company_id="23"/>
+  <computer id="429" name="Komputer 2086"/>
+  <computer id="430" name="Galaksija"/>
+  <computer id="431" name="Vector-06C"/>
+  <computer id="432" name="Elektronika BK"/>
+  <computer id="433" name="Sun386i" company_id="39"/>
+  <computer id="434" name="Xerox Daybreak" introduced="1985-01-01 00:00:00.0" discontinued="1989-01-01 00:00:00.0"/>
+  <computer id="435" name="Xerox NoteTaker" company_id="26"/>
+  <computer id="437" name="LGP-30"/>
+  <computer id="438" name="LGP-21"/>
+  <computer id="439" name="ASUS Eee PC 900" introduced="2008-05-01 00:00:00.0" company_id="37"/>
+  <computer id="440" name="Atari TT030"/>
+  <computer id="441" name="Bi Am ZX-Spectrum 48/64"/>
+  <computer id="442" name="Bi Am ZX-Spectrum 128"/>
+  <computer id="443" name="PlayStation Portable"/>
+  <computer id="444" name="MSI Wind Netbook"/>
+  <computer id="445" name="Sharp Mebius NJ70A" introduced="2009-04-21 00:00:00.0"/>
+  <computer id="446" name="HTC Snap" company_id="41"/>
+  <computer id="447" name="Commodore Educator 64" company_id="6"/>
+  <computer id="448" name="Amiga 1500" company_id="6"/>
+  <computer id="449" name="Commodore 65" company_id="6"/>
+  <computer id="450" name="Commodore 16" company_id="6"/>
+  <computer id="451" name="Commodore CBM-II" company_id="6"/>
+  <computer id="452" name="Commodore Plus/4" company_id="6"/>
+  <computer id="453" name="Commodore LCD" company_id="6"/>
+  <computer id="454" name="Commodore MAX Machine" company_id="6"/>
+  <computer id="455" name="Aster CT-80"/>
+  <computer id="456" name="Test" introduced="2009-01-01 00:00:00.0" discontinued="2009-01-01 00:00:00.0"/>
+  <computer id="457" name="MSI GX723"/>
+  <computer id="458" name="Eee PC 1000HV" introduced="2009-05-22 00:00:00.0"/>
+  <computer id="459" name="VTech Laser 200" introduced="1983-01-01 00:00:00.0"/>
+  <computer id="460" name="CrunchPad"/>
+  <computer id="461" name="Neo Geo" introduced="1990-01-01 00:00:00.0"/>
+  <computer id="462" name="Sega Mega Drive"/>
+  <computer id="463" name="Sega Master System"/>
+  <computer id="464" name="TurboGrafx-16"/>
+  <computer id="465" name="Sun-3" company_id="39"/>
+  <computer id="466" name="Pleiades"/>
+  <computer id="467" name="IBM Sequoia"/>
+  <computer id="468" name="Inves Spectrum 48k plus"/>
+  <computer id="469" name="iPhone 3G"/>
+  <computer id="470" name="iPhone 3GS"/>
+  <computer id="471" name="Beagle Board" company_id="40"/>
+  <computer id="472" name="HP nPar"/>
+  <computer id="473" name="MacBook Family"/>
+  <computer id="474" name="Reservisor"/>
+  <computer id="475" name="BladeSystem"/>
+  <computer id="476" name="lenovo thinkpad t60p"/>
+  <computer id="477" name="lenovo thinkpad x200" company_id="36"/>
+  <computer id="478" name="lenovo thinkpad t60"/>
+  <computer id="479" name="lenovo thinkpad w700"/>
+  <computer id="480" name="lenovo thinkpad t41"/>
+  <computer id="481" name="lenovo thinkpad z61p"/>
+  <computer id="482" name="lenovo thinkpad x61s"/>
+  <computer id="483" name="lenovo thinkpad t43"/>
+  <computer id="484" name="lenovo thinkpad r400"/>
+  <computer id="485" name="lenovo thinkpad x60s"/>
+  <computer id="486" name="lenovo thinkpad x301"/>
+  <computer id="487" name="lenovo thinkpad t42"/>
+  <computer id="488" name="lenovo thinkpad r61"/>
+  <computer id="489" name="lenovo thinkpad w500"/>
+  <computer id="490" name="lenovo thinkpad sl400"/>
+  <computer id="491" name="lenovo thinkpad x40"/>
+  <computer id="492" name="lenovo thinkpad x200 tablet" company_id="36"/>
+  <computer id="493" name="lenovo thinkpad t400s"/>
+  <computer id="494" name="Nokia N900" introduced="2009-10-01 00:00:00.0" company_id="16"/>
+  <computer id="495" name="Internet Tablet"/>
+  <computer id="496" name="Meiko Computing Surface" introduced="1986-01-01 00:00:00.0" discontinued="1993-01-01 00:00:00.0"/>
+  <computer id="497" name="CS-2"/>
+  <computer id="499" name="IBM 5100" introduced="1975-01-01 00:00:00.0" company_id="13"/>
+  <computer id="503" name="System/34" introduced="1978-01-01 00:00:00.0" discontinued="1983-01-01 00:00:00.0" company_id="13"/>
+  <computer id="504" name="System/32" introduced="1975-01-01 00:00:00.0" company_id="13"/>
+  <computer id="507" name="English Electric DEUCE"/>
+  <computer id="508" name="CER-203"/>
+  <computer id="509" name="CER-22"/>
+  <computer id="510" name="Kentucky Linux Athlon Testbed"/>
+  <computer id="511" name="QNAP TS-101"/>
+  <computer id="512" name="iPad" introduced="2010-01-01 00:00:00.0" discontinued="2011-03-02 00:00:00.0" company_id="1"/>
+  <computer id="513" name="iPhone 2G"/>
+  <computer id="514" name="Inslaw"/>
+  <computer id="515" name="WePad" introduced="2010-07-01 00:00:00.0"/>
+  <computer id="516" name="MacBook Parts" company_id="1"/>
+  <computer id="517" name="MacBook 13-inch Core 2 Duo 2.13GHz (MC240LL/A) DDR2 Model" company_id="1"/>
+  <computer id="518" name="MacBook 13-inch Core 2 Duo 2.13GHz (MC240T/A) DDR2 Model"/>
+  <computer id="519" name="MacBook 13-inch Core 2 Duo 2.13GHz (MC240X/A) DDR2 Model"/>
+  <computer id="520" name="MacBook 13-inch Core 2 Duo 2.26GHz (Unibody MC207LL/A) DDR3 Model"/>
+  <computer id="521" name="MC240LL/A"/>
+  <computer id="522" name="D.K.COMMUNICATION"/>
+  <computer id="523" name="iPhone 4" company_id="1"/>
+  <computer id="524" name="Nintendo 3DS" introduced="2010-03-23 00:00:00.0" company_id="24"/>
+  <computer id="525" name="ASUS Eee PC 1005PE" introduced="2010-01-01 00:00:00.0" company_id="37"/>
+  <computer id="526" name="National Law Enforcement System"/>
+  <computer id="527" name="BlackBerry PlayBook" company_id="42"/>
+  <computer id="528" name="Barnes &amp; Noble nook" introduced="2009-10-20 00:00:00.0"/>
+  <computer id="529" name="SAM Coup&#233;"/>
+  <computer id="530" name="HTC Dream" introduced="2008-10-22 00:00:00.0" company_id="41"/>
+  <computer id="531" name="Samsung Galaxy Tab" introduced="2010-09-02 00:00:00.0" company_id="43"/>
+  <computer id="532" name="BlackBerry PlayBook" introduced="2010-09-27 00:00:00.0" company_id="42"/>
+  <computer id="533" name="Tianhe-I"/>
+  <computer id="534" name="Kno"/>
+  <computer id="535" name="ThinkPad 701 C"/>
+  <computer id="536" name="ThinkPad 340 CSE"/>
+  <computer id="537" name="ThinkPad 755 CX"/>
+  <computer id="538" name="ThinkPad 755 CE"/>
+  <computer id="539" name="ThinkPad 370 C"/>
+  <computer id="540" name="Coleco Adam" introduced="1983-01-01 00:00:00.0"/>
+  <computer id="541" name="Nebulae"/>
+  <computer id="542" name="Alex eReader"/>
+  <computer id="543" name="Acer Iconia"/>
+  <computer id="544" name="Archos 101"/>
+  <computer id="545" name="Fujitsu Lifebook T900"/>
+  <computer id="546" name="Motorola Xoom"/>
+  <computer id="547" name="ViewSonic G Tablet"/>
+  <computer id="548" name="DEC Professional" introduced="1982-01-01 00:00:00.0" company_id="10"/>
+  <computer id="549" name="DEC Multia" introduced="1994-11-07 00:00:00.0" company_id="10"/>
+  <computer id="550" name="DEC Firefly" company_id="10"/>
+  <computer id="551" name="DEC 3000 AXP" company_id="10"/>
+  <computer id="552" name="DEC 2000 AXP" introduced="1993-05-25 00:00:00.0" company_id="10"/>
+  <computer id="553" name="DEC 4000 AXP" introduced="1992-11-10 00:00:00.0" company_id="10"/>
+  <computer id="554" name="DEC 7000/10000 AXP" introduced="1992-11-10 00:00:00.0" company_id="10"/>
+  <computer id="555" name="DEC Professional 350"/>
+  <computer id="556" name="DEC Rainbow 100"/>
+  <computer id="557" name="DEC Professional 325"/>
+  <computer id="558" name="DECmate II" company_id="10"/>
+  <computer id="559" name="DECmate" company_id="10"/>
+  <computer id="560" name="DECsystem" company_id="10"/>
+  <computer id="561" name="NetApp Filer"/>
+  <computer id="562" name="DEC GT40" company_id="10"/>
+  <computer id="563" name="ecoATM"/>
+  <computer id="564" name="MindWave BrainCubed Education Bundle"/>
+  <computer id="565" name="PalmPilot"/>
+  <computer id="566" name="Upcoming iPhone 5" company_id="1"/>
+  <computer id="567" name="Dell Inspiron 560 Desktop Computer "/>
+  <computer id="568" name="IPad 2" company_id="1"/>
+  <computer id="569" name="HP TouchPad" introduced="2011-02-09 00:00:00.0" company_id="27"/>
+  <computer id="570" name="HP Veer" introduced="2011-02-09 00:00:00.0" company_id="27"/>
+  <computer id="571" name="Lenovo Thinkpad Edge 11" company_id="36"/>
+  <computer id="572" name="Dell Vostro"/>
+  <computer id="573" name="Gateway LT3103U" introduced="2008-01-01 00:00:00.0"/>
+  <computer id="574" name="iPhone 4S" introduced="2011-10-14 00:00:00.0" company_id="1"/>
+  <computer id="991" name="name" introduced="2012-12-12 00:12:12.0" discontinued="2010-12-12 00:12:12.0" company_id="3"/>
+  <computer id="998" name="name" introduced="2011-02-03 00:12:12.0" discontinued="2010-02-03 00:12:12.0" company_id="3"/>
+  <computer id="999" name="name" introduced="2011-02-03 00:12:12.0" company_id="3"/>
+  <computer id="1000" name="name" company_id="3"/>
+  <computer id="1001" name="name" company_id="4"/>
+  <computer id="1002" name="nioii" company_id="11"/>
+  <computer id="1003" name="blili" company_id="3"/>
+  <computer id="1004" name="bliii" company_id="3"/>
+  <computer id="1005" name="dfdf" company_id="3"/>
+  <computer id="1006" name="edd" company_id="9"/>
+  <computer id="1007" name="huit" company_id="9"/>
+  <computer id="1008" name="fgfg" company_id="7"/>
+  <company id="1" name="Apple Inc."/>
+  <company id="2" name="Thinking Machines"/>
+  <company id="3" name="RCA"/>
+  <company id="4" name="Netronics"/>
+  <company id="5" name="Tandy Corporation"/>
+  <company id="6" name="Commodore International"/>
+  <company id="7" name="MOS Technology"/>
+  <company id="8" name="Micro Instrumentation and Telemetry Systems"/>
+  <company id="9" name="IMS Associates, Inc."/>
+  <company id="10" name="Digital Equipment Corporation"/>
+  <company id="11" name="Lincoln Laboratory"/>
+  <company id="12" name="Moore School of Electrical Engineering"/>
+  <company id="13" name="IBM"/>
+  <company id="14" name="Amiga Corporation"/>
+  <company id="15" name="Canon"/>
+  <company id="16" name="Nokia"/>
+  <company id="17" name="Sony"/>
+  <company id="18" name="OQO"/>
+  <company id="19" name="NeXT"/>
+  <company id="20" name="Atari"/>
+  <company id="22" name="Acorn computer"/>
+  <company id="23" name="Timex Sinclair"/>
+  <company id="24" name="Nintendo"/>
+  <company id="25" name="Sinclair Research Ltd"/>
+  <company id="26" name="Xerox"/>
+  <company id="27" name="Hewlett-Packard"/>
+  <company id="28" name="Zemmix"/>
+  <company id="29" name="ACVS"/>
+  <company id="30" name="Sanyo"/>
+  <company id="31" name="Cray"/>
+  <company id="32" name="Evans &amp; Sutherland"/>
+  <company id="33" name="E.S.R. Inc."/>
+  <company id="34" name="OMRON"/>
+  <company id="35" name="BBN Technologies"/>
+  <company id="36" name="Lenovo Group"/>
+  <company id="37" name="ASUS"/>
+  <company id="38" name="Amstrad"/>
+  <company id="39" name="Sun Microsystems"/>
+  <company id="40" name="Texas Instruments"/>
+  <company id="41" name="HTC Corporation"/>
+  <company id="42" name="Research In Motion"/>
+  <company id="43" name="Samsung Electronics"/>
+</dataset>
