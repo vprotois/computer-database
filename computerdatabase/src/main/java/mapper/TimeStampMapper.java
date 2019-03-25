@@ -29,6 +29,25 @@ public class TimeStampMapper {
 			return timeStampDate;
 		}
 	}
+	
+	public static Timestamp simpleStringToTimestamp(String stringDate){
+		if(stringDate == null ||stringDate.equals("null")||"".equals(stringDate)) {
+			return null;
+		} else {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			Date date;
+			try {
+				date = dateFormat.parse(stringDate);
+			}catch(ParseException e) {
+				log.error("Couldn't parse "+stringDate + " to timestamp ");
+				return null;
+			}
+			Timestamp timeStampDate = new Timestamp(date.getTime());
+			return timeStampDate;
+		}
+	}
+	
+	
 
 
 

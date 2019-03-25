@@ -71,8 +71,8 @@ public class AddComputer extends HttpServlet {
 		Computer c = new ComputerBuilder()
 						.withName(name)
 						.withCompanyId(Long.parseLong(companyId))
-						.withIntroduced(TimeStampMapper.stringToTimestamp(introduced))
-						.withDiscontinued(TimeStampMapper.stringToTimestamp(discontinued))
+						.withIntroduced(TimeStampMapper.simpleStringToTimestamp(introduced))
+						.withDiscontinued(TimeStampMapper.simpleStringToTimestamp(discontinued))
 						.build();
 		
 		try {

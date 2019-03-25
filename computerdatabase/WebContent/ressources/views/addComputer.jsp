@@ -10,6 +10,7 @@
 <link href=<c:url value ="/ressources/css/bootstrap.min.css"/> rel="stylesheet" media="screen">
 <link href=<c:url value ="/ressources/css/font-awesome.css"/>  rel="stylesheet" media="screen">
 <link href=<c:url value = "/ressources/css/main.css"/> rel="stylesheet" 	media="screen">
+<script src="WebContent/ressources/js/validator.js" ></script>
 </head>
 <body>
     <header class="navbar navbar-inverse navbar-fixed-top">
@@ -48,10 +49,11 @@
                             </div>                  
                         </fieldset>
                         <div class="actions pull-right">
-                            <input type="submit" value="add" class="btn btn-primary">
+                            <input type="submit" id="add_button" value="add" class="btn btn-primary">
                             or
                             <a href="dashboard" id="cancel_button" class="btn btn-default">Cancel</a>
                         </div>
+            
                     </form>
                 </div>
             </div>
