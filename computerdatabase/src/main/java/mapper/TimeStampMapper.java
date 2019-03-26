@@ -38,10 +38,15 @@ public class TimeStampMapper {
 			Date date;
 			try {
 				date = dateFormat.parse(stringDate);
+				
 			}catch(ParseException e) {
 				log.error("Couldn't parse "+stringDate + " to timestamp ");
 				return null;
 			}
+			if(!dateFormat.format(date).equals(stringDate)) {
+				return null;
+			}
+			
 			Timestamp timeStampDate = new Timestamp(date.getTime());
 			return timeStampDate;
 		}

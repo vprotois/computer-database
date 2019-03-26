@@ -14,7 +14,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriverService;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import junit.framework.TestCase;
@@ -33,6 +33,8 @@ class DashBoardTest extends TestCase {
 	private static final String RESULTS_ID = "results";
 	private static final String ADD_COMPUTER_ID = "addComputer";
 	private static final String SEARCHBOX_ID = "searchbox";
+	private static final String NAME_COMPUTER_ID = "name";
+	private static final String SEARCH_BUTTON_ID = "searchsubmit";
 
 	  @BeforeAll
 	  public static void createDriver() {
@@ -47,13 +49,13 @@ class DashBoardTest extends TestCase {
 					fail("service couldn't start");
 				}
 	    driver = new RemoteWebDriver(service.getUrl(),
-	        DesiredCapabilities.chrome());
+	    		new ChromeOptions());
 	  }
 
 	  @AfterAll
 	  public static void quitDriver() {
-		 service.stop();
 	    driver.quit();
+	    service.stop();
 	  }
 	
 	 
@@ -103,8 +105,11 @@ class DashBoardTest extends TestCase {
 		driver.get(URL_DASHBOARD);
 		WebElement searchBox = driver.findElement(By.id(SEARCHBOX_ID));
 		searchBox.sendKeys("name");
+		WebElement searchButton = driver.findElement(By.id(SEARCH_BUTTON_ID));
+		searchButton.click();
+		
 		WebElement results = driver.findElement(By.id(RESULTS_ID));
-		List<WebElement> list = results.findElements(By.id("name"));
+		List<WebElement> list = results.findElements(By.id(NAME_COMPUTER_ID));
 		list.stream().forEach(e -> assertEquals("name",e.getText()));
 
 	}

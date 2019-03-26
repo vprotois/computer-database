@@ -39,7 +39,7 @@ public class DashBoard extends HttpServlet {
 	
 		Integer size = getParamSize(req);
 		Integer index= getParamIndex(req);
-		String search = (String) req.getAttribute("search");
+		String search = (String) req.getParameter("search");
 		
 		ComputerServices cont = new ComputerServices();
 		Optional<Pages<DTOComputer>> optpages;
@@ -52,19 +52,21 @@ public class DashBoard extends HttpServlet {
 		if(!optpages.isPresent()) {
 			resp.sendRedirect(ERROR_500);
 		}
+		else {
+			Pages<DTOComputer> p = optpages.get();
+			
+			req.setAttribute(PAGE_COMPUTERS, p);
+			
+			req.setAttribute(NUMBER_COMPUTERS, p.getDataSize());
+			req.setAttribute(PAGE_DATA, p.getPageData());
+			req.setAttribute(NEXT_PAGE,p.nextIndex());
+			req.setAttribute(PREVIOUS_PAGE,p.previousIndex());
+			this.getServletContext()
+			.getRequestDispatcher(VIEW_LIST_COMPUTERS)
+			.forward(req, resp);
+		}
 		
-		Pages<DTOComputer> p = optpages.get();
 		
-		req.setAttribute(PAGE_COMPUTERS, p);
-		
-		req.setAttribute(NUMBER_COMPUTERS, p.getDataSize());
-		req.setAttribute(PAGE_DATA, p.getPageData());
-		req.setAttribute(NEXT_PAGE,p.nextIndex());
-		req.setAttribute(PREVIOUS_PAGE,p.previousIndex());
-		
-		this.getServletContext()
-		.getRequestDispatcher(VIEW_LIST_COMPUTERS)
-		.forward(req, resp);
 	}
 
 

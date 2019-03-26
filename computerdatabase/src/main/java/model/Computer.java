@@ -79,7 +79,7 @@ public class Computer extends Entity{
 	
 	@Override
 	public String toString() {
-		return "'" +this.getId().longValue() + "','" +
+		return "'" +this.getId()+ "','" +
 				this.getName() + "','" +
 				this.getIntroduced() + "','" +
 				this.getDiscontinued() + "','" +

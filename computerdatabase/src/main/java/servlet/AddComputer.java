@@ -77,11 +77,12 @@ public class AddComputer extends HttpServlet {
 		
 		try {
 			cont.addComputer(c);
+			doGet(req, resp);
 		} catch (CreateComputerError e) {
 			resp.sendRedirect(ERROR_500);
 		}
 		
-		doGet(req, resp);
+		
 		
 	}
 	

@@ -27,7 +27,7 @@ public class DAOComputer {
 	private static String selectAll = "SELECT cr.id, cr.name, cr.introduced, cr.discontinued, cr.company_id, cy.name FROM computer as cr "
 			+ "LEFT JOIN company as cy ON cr.company_id=cy.id ";
 	private static String selectCompWithId  = selectAll + "WHERE cr.id =?;";
-	private static String selectCompWithName  = selectAll + "WHERE name=?;";
+	private static String selectCompWithName  = selectAll + "WHERE cr.name=?;";
 	private static String InsertComputerWithId = "INSERT INTO computer "
 			+ "(id, name, introduced, discontinued,company_id) VALUES "
 			+ "(?,?,?,?,?);";
@@ -90,7 +90,7 @@ public class DAOComputer {
 			prep.executeUpdate();
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
-			log.error("Error when creating the computer : "+ c);
+			log.error("Error when creating computer : "+ c);
 			throw new CreateComputerError();
 		}
 

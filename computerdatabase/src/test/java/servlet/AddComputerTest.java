@@ -45,8 +45,8 @@ class AddComputerTest {
 
 	@AfterAll
 	public static void quitDriver() {
-		service.stop();
 		driver.quit();
+		service.stop();
 	}
 
 
