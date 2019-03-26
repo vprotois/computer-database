@@ -3,6 +3,7 @@ package mapper;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Timestamp;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,24 +11,25 @@ class TimeStampMapperTest {
 
 	@Test
 	void simpleStringToTimestampNullTest() {
-		Timestamp t1 = TimeStampMapper.simpleStringToTimestamp("");
-		assertNull(t1);
+		Optional<Timestamp> t1 = TimeStampMapper.simpleStringToTimestamp("");
+		assertFalse(t1.isPresent());
 		t1 = TimeStampMapper.simpleStringToTimestamp(null);
-		assertNull(t1);
+		assertFalse(t1.isPresent());
 		t1 = TimeStampMapper.simpleStringToTimestamp("null");
-		assertNull(t1);
+		assertFalse(t1.isPresent());
 	}
 
 	@Test
 	void simpleStringToTimestampErrorTest() {
-		Timestamp t1 = TimeStampMapper.simpleStringToTimestamp("12/123/12");
-		assertNull(t1);
+		Optional<Timestamp> t1 = TimeStampMapper.simpleStringToTimestamp("12/123/12");
+		assertFalse(t1.isPresent());
 		
 	}
 	
 	@Test
 	void simpleStringToTimestampTest() {
-		Timestamp t1 = TimeStampMapper.simpleStringToTimestamp("12/12/1999");
-		assertEquals("1999-12-12 00:00:00.0",t1.toString());
+		Optional<Timestamp> t1 = TimeStampMapper.simpleStringToTimestamp("12/12/1999");
+		assertTrue(t1.isPresent());
+		assertEquals("1999-12-12 00:00:00.0",t1.get().toString());
 	}
 }

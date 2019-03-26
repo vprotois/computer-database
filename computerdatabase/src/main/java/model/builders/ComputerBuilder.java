@@ -2,8 +2,6 @@ package model.builders;
 
 import java.sql.Timestamp;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import model.Company;
 import model.Computer;
@@ -11,7 +9,6 @@ import model.Computer;
 
 public class ComputerBuilder {
 
-	private static Logger log= LoggerFactory.getLogger(ComputerBuilder.class);
 	
 	private Long id;
 	private String name;
@@ -24,10 +21,6 @@ public class ComputerBuilder {
 	}
 	
 	public Computer build() {
-		if( name == null) {
-			log.warn("name can't be null");
-			return null;
-		}
 		return new Computer(id,name,company,introduced,discontinued,companyId);
 	}
 	
@@ -57,12 +50,6 @@ public class ComputerBuilder {
 	}
 	
 	public ComputerBuilder withDiscontinued(Timestamp t) {
-		if (t == null )
-			return this;
-		if (introduced == null || introduced.compareTo(t)>0) {
-			log.warn("Invalid Discontinued");
-			return this;
-		}
 		this.discontinued = t;
 		return this;
 	}

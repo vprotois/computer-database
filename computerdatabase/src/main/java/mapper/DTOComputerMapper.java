@@ -7,22 +7,21 @@ public class DTOComputerMapper {
 
 	private static final String EMPTY = "";
 	
-	public static DTOComputer mapComputerToDTO(Computer c) {
+	public static DTOComputer mapComputerToDTO(Computer computer) {
 		DTOComputer dto = new DTOComputer();
-		dto.setId(c.getId().longValue());
-		dto.setName( c.getName());
-		if(c.getIntroduced() == null) {
+		dto.setId(computer.getId().longValue());
+		dto.setName( computer.getName());
+		if(computer.getIntroduced() == null) {
 			dto.setIntroduced(EMPTY);			
 		}else {
-			dto.setIntroduced(c.getIntroduced().toString());
+			dto.setIntroduced(computer.getIntroduced().toString());
 		}
-		if(c.getDiscontinued() == null) {
+		if(computer.getDiscontinued() == null) {
 			dto.setDiscontinued(EMPTY);			
 		}else {
-			dto.setDiscontinued(c.getDiscontinued().toString());
+			dto.setDiscontinued(computer.getDiscontinued().toString());
 		}
-		dto.setCompany( c.getCompany().getName());
-		
+		dto.setCompany( computer.getCompany().getName());
 		return dto;
 	}
 	

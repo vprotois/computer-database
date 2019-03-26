@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -41,9 +42,9 @@ public class AddComputer extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		
 		
-		CompanyServices service = new CompanyServices();
+		CompanyServices companyService = new CompanyServices();
 		
-		Optional<List<Company>> list = service.listCompanies();
+		Optional<List<Company>> list = companyService.listCompanies();
 		if(list.isPresent()) {
 			req.setAttribute(COMPANIES_ATTRIBUTE, list.get());
 		}else {
@@ -65,18 +66,27 @@ public class AddComputer extends HttpServlet {
 		String discontinued = req.getParameter(DISCONTINUED_DATE);
 		String companyId = req.getParameter(COMPANY_ID);
 		
-		
-		ComputerServices cont = new ComputerServices();
+		ComputerServices computerService = new ComputerServices();
+		Timestamp timestampIntr =null;
+		Timestamp timestampDisc =null;
+		Optional<Timestamp> optTimestampIntr = TimeStampMapper.simpleStringToTimestamp(introduced);
+		if(optTimestampIntr.isPresent()) {
+			timestampIntr = optTimestampIntr.get();
+		}
+		Optional<Timestamp> optTimestampDisc = TimeStampMapper.simpleStringToTimestamp(discontinued);
+		if(optTimestampIntr.isPresent()) {
+			timestampDisc = optTimestampDisc.get();
+		}
 		
 		Computer c = new ComputerBuilder()
 						.withName(name)
 						.withCompanyId(Long.parseLong(companyId))
-						.withIntroduced(TimeStampMapper.simpleStringToTimestamp(introduced))
-						.withDiscontinued(TimeStampMapper.simpleStringToTimestamp(discontinued))
+						.withIntroduced(timestampIntr)
+						.withDiscontinued(timestampDisc)
 						.build();
 		
 		try {
-			cont.addComputer(c);
+			computerService.addComputer(c);
 			doGet(req, resp);
 		} catch (CreateComputerError e) {
 			resp.sendRedirect(ERROR_500);

@@ -24,42 +24,49 @@ import persistance.DAOFactory;
 public class ComputerServices {
 
 	public static Logger log= LoggerFactory.getLogger(ComputerServices.class);
-	
+	public static final String NAME = "name";
+	public static final String INTRODUCED = "introduced";
+	public static final String DISCONTINUED = "discontinued";
+	public static final String COMPANY_ID = "company_id";
+			
 	public ComputerServices() {
 		
 	}
 
 	public void buildComputerWithId(String[] args) throws CreateComputerError {
-		
 		ComputerBuilder c = new ComputerBuilder()
 				.withId(Long.parseLong(args[0]))
 				.withName(args[1])
-				.withIntroduced(TimeStampMapper.stringToTimestamp(args[2]))
-				.withDiscontinued(TimeStampMapper.stringToTimestamp(args[3]))
+				.withIntroduced(getTimestamp(args[2]))
+				.withDiscontinued(getTimestamp(args[3]))
 				.withCompanyId(Long.parseLong(args[4]));
 		
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		daoComputer.createComputer(c.build());
-
 	}
 	
+	private Timestamp getTimestamp(String stringTimestamp) {
+		Optional<Timestamp> optIntroduced = TimeStampMapper.stringToTimestamp(stringTimestamp);
+		if(optIntroduced.isPresent()) {
+			return optIntroduced.get();
+		}
+		return null;
+	}
 	
 	public void buildComputer(String name,String introduced,String discontinued,String companyId) throws CreateComputerError {
-		
-		ComputerBuilder c = new ComputerBuilder()
+		ComputerBuilder compBuilder = new ComputerBuilder()
 				.withName(name)
-				.withIntroduced(TimeStampMapper.stringToTimestamp(introduced))
-				.withDiscontinued(TimeStampMapper.stringToTimestamp(discontinued))
+				.withIntroduced(getTimestamp(introduced))
+				.withDiscontinued(getTimestamp(discontinued))
 				.withCompanyId(Long.parseLong(companyId));
-		
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
-		daoComputer.createComputer(c.build());
+		daoComputer.createComputer(compBuilder.build());
 
 	}
 	
-	public void addComputer(Computer c) throws CreateComputerError {
+	public void addComputer(Computer comp) throws CreateComputerError {
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
-		daoComputer.createComputer(c);
+		daoComputer.createComputer(comp);
 	}
 	
 
@@ -75,7 +82,6 @@ public class ComputerServices {
 		return Optional.empty();
 	}
 	
-	
 	public Optional<Pages<DTOComputer>> pagesDTOComputer(Integer size, Integer index){
 		Optional<List<DTOComputer>> list = listDTOComputer();
 		if(list.isPresent()) {
@@ -88,7 +94,6 @@ public class ComputerServices {
 		}
 		return Optional.empty();
 	}
-	
 	
 	public Optional<List<Computer>> listComputer() {
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
@@ -132,7 +137,6 @@ public class ComputerServices {
 			return Optional.of(pages);
 		}
 	}
-
 	
 	public DTOComputer getComputerDTO(Long id) throws ComputerNotFoundException {
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
@@ -143,8 +147,6 @@ public class ComputerServices {
 		DTOComputer dto = DTOComputerMapper.mapComputerToDTO(c.get());
 		return dto;
 	}
-	
-	
 
 	public void deleteComputer(Long id)  {
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
@@ -160,19 +162,19 @@ public class ComputerServices {
 		}
 		Computer c = optc.get();
 		switch (args[1]) {
-		case "name":
+		case NAME:
 			c.setName(args[2]);
 			break;
-		case "introduced":
-			c.setIntroduced(TimeStampMapper.stringToTimestamp(args[2]));
+		case INTRODUCED:
+			c.setIntroduced(getTimestamp(args[2]));
 			break;
-		case "discontinued":
-			Timestamp t = TimeStampMapper.stringToTimestamp(args[2]);
+		case DISCONTINUED:
+			Timestamp t = getTimestamp(args[2]);
 			if(t.compareTo(c.getIntroduced())> 0) {
 				c.setDiscontinued(t);
 			}
 			break;
-		case "company_id":
+		case COMPANY_ID:
 			c.setCompanyId(Long.parseLong(args[2]));
 			break;
 		default:

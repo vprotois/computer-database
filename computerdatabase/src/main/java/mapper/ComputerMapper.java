@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import model.Company;
 import model.Computer;
@@ -19,11 +20,11 @@ public class ComputerMapper {
 		return list;
 	}
 	
-	public static Computer mapSingleComputer(ResultSet results) throws SQLException{
+	public static Optional<Computer> mapSingleComputer(ResultSet results) throws SQLException{
 		if (results.next()) {
-			return buildFromResult(results);
+			return Optional.of(buildFromResult(results));
 		}
-		return null;
+		return Optional.empty();
 	}
 	
 	private static Computer buildFromResult(ResultSet results) throws SQLException {

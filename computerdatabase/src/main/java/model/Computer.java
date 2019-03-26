@@ -76,7 +76,6 @@ public class Computer extends Entity{
 			return this.companyId.equals( ((Computer) o).companyId);
 	}
 	
-	
 	@Override
 	public String toString() {
 		return "'" +this.getId()+ "','" +
@@ -98,7 +97,6 @@ public class Computer extends Entity{
 		return company;
 	}
 	
-
 	public void setCompany(Company company) {
 		this.company = company;
 	}

@@ -26,16 +26,16 @@ public class DAOComputer {
 	
 	private static String selectAll = "SELECT cr.id, cr.name, cr.introduced, cr.discontinued, cr.company_id, cy.name FROM computer as cr "
 			+ "LEFT JOIN company as cy ON cr.company_id=cy.id ";
-	private static String selectCompWithId  = selectAll + "WHERE cr.id =?;";
-	private static String selectCompWithName  = selectAll + "WHERE cr.name=?;";
+	private static String selectCompWithId  = selectAll + "WHERE cr.id =?";
+	private static String selectCompWithName  = selectAll + "WHERE cr.name=?";
 	private static String InsertComputerWithId = "INSERT INTO computer "
 			+ "(id, name, introduced, discontinued,company_id) VALUES "
 			+ "(?,?,?,?,?);";
 	private static String InsertComputer = "INSERT INTO computer "
 			+ "(name, introduced, discontinued,company_id) VALUES "
 			+ "(?,?,?,?);";
-	private static String update = "UPDATE computer SET name=?,introduced=?,discontinued=?,company_id=? WHERE id = ?;";
-	private static String delete = "DELETE FROM computer WHERE id =?;";
+	private static String update = "UPDATE computer SET name=?,introduced=?,discontinued=?,company_id=? WHERE id = ?";
+	private static String delete = "DELETE FROM computer WHERE id =?";
 
 	public Optional<List<Computer>> listComputers(){
 		try (Connection conn = DAOFactory.getConnection()) {
@@ -55,7 +55,7 @@ public class DAOComputer {
 			PreparedStatement stmt = conn.prepareStatement(selectCompWithId);
 			stmt.setLong(1,id);
 			ResultSet results = stmt.executeQuery();
-			return Optional.of(ComputerMapper.mapSingleComputer(results));
+			return ComputerMapper.mapSingleComputer(results);
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 			log.error("Error when getting the details of computer : "+id);

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -71,12 +72,14 @@ class ComputerMapperTest {
 	
 	@Test
 	void testSingleComputer() throws SQLException {
-		Computer c = ComputerMapper.mapSingleComputer(rs);
-		assertEquals(new Long(1),c.getId());
-		assertEquals("azaz1234",c.getName());
-		assertEquals(new Timestamp(1000),c.getIntroduced());
-		assertEquals(new Timestamp(4000),c.getDiscontinued());
-		assertEquals(new Long(5),c.getCompanyId());
+		Optional<Computer> optComputer = ComputerMapper.mapSingleComputer(rs);
+		assertTrue(optComputer.isPresent());
+		Computer computer = optComputer.get();
+		assertEquals(new Long(1),computer.getId());
+		assertEquals("azaz1234",computer.getName());
+		assertEquals(new Timestamp(1000),computer.getIntroduced());
+		assertEquals(new Timestamp(4000),computer.getDiscontinued());
+		assertEquals(new Long(5),computer.getCompanyId());
 	}
 
 	@Test

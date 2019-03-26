@@ -56,7 +56,6 @@ public class DashBoard extends HttpServlet {
 			Pages<DTOComputer> p = optpages.get();
 			
 			req.setAttribute(PAGE_COMPUTERS, p);
-			
 			req.setAttribute(NUMBER_COMPUTERS, p.getDataSize());
 			req.setAttribute(PAGE_DATA, p.getPageData());
 			req.setAttribute(NEXT_PAGE,p.nextIndex());
@@ -64,13 +63,8 @@ public class DashBoard extends HttpServlet {
 			this.getServletContext()
 			.getRequestDispatcher(VIEW_LIST_COMPUTERS)
 			.forward(req, resp);
-		}
-		
-		
+		}	
 	}
-
-
-	
 
 	private Integer getParamIndex(HttpServletRequest req) throws ServletException {
 		Integer index;

@@ -28,8 +28,7 @@ public class CLIControler {
 	private static final int DELETE_COMPUTER = 6;
 	private static final int LIST_COMPUTERS_PAGES= 7;
 	private static final int LIST_COMPANIES_PAGES = 8;
-	
-	
+		
 	private static final int PREVIOUS_PAGE = 1;
 	private static final int NEXT_PAGE = 2;
 	
@@ -40,7 +39,6 @@ public class CLIControler {
 			menuInput = InputControler.getInputInt(0,8);
 			menu(menuInput);
 		}while(menuInput!=ABORT);
-
 
 	}
 
@@ -146,9 +144,7 @@ public class CLIControler {
 		} catch (ComputerNotFoundException e) {
 			InterfaceConsole.display("Computer not in base");
 		}
-	}
-	
-	
+	}	
 	
 	public static <T> void pageMenu(Pages<T> pages) {
 		Integer pageInput;

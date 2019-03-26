@@ -1,6 +1,7 @@
 package servlet;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
@@ -25,7 +26,8 @@ class AddComputerTest {
 	private static final String URL_ADD_COMPUTER = "http://localhost:8080/computerdatabase/add";
 	
 	private static final String CANCEL_BUTTON_ID = "cancel_button";
-
+	private static final String INTRODUCED_TEXTBOX_ID = "introduced";
+	private static final String DISCONTINUED_TEXTBOX_ID = "discontinued";
 
 	@BeforeAll
 	public static void createDriver() {
@@ -56,6 +58,43 @@ class AddComputerTest {
 		WebElement cancelButton = driver.findElement(By.id(CANCEL_BUTTON_ID));
 		cancelButton.click();
 		assertEquals(driver.getCurrentUrl(),URL_DASHBOARD);
+	}
+	
+	@Test
+	void disableIsDiscontinuedAtStart() {
+		driver.get(URL_ADD_COMPUTER);
+		WebElement discontinuedBox = driver.findElement(By.id(DISCONTINUED_TEXTBOX_ID));
+		assertTrue("true".equals(discontinuedBox.getAttribute("disabled")));
+	}
+	
+	@Test
+	void goodIntroducedEnableDiscontinued() {
+		driver.get(URL_ADD_COMPUTER);
+		WebElement introducedBox = driver.findElement(By.id(INTRODUCED_TEXTBOX_ID));
+		introducedBox.sendKeys("12/12/1222");
+		WebElement discontinuedBox = driver.findElement(By.id(DISCONTINUED_TEXTBOX_ID));
+		assertEquals("false",discontinuedBox.getAttribute("disabled"));
+	}
+	
+	@Test
+	void badIntroducedDoNotEnableDiscontinued() {
+		driver.get(URL_ADD_COMPUTER);
+		WebElement introducedBox = driver.findElement(By.id(INTRODUCED_TEXTBOX_ID));
+		introducedBox.sendKeys("12/112/2");
+		WebElement discontinuedBox = driver.findElement(By.id(DISCONTINUED_TEXTBOX_ID));
+		assertEquals("true",discontinuedBox.getAttribute("disabled"));
+	}
+	
+	@Test
+	void badIntroducedDisableDiscontinued() {
+		driver.get(URL_ADD_COMPUTER);
+		WebElement introducedBox = driver.findElement(By.id(INTRODUCED_TEXTBOX_ID));
+		introducedBox.sendKeys("12/12/1222");
+		WebElement discontinuedBox = driver.findElement(By.id(DISCONTINUED_TEXTBOX_ID));
+		assertTrue("false".equals(discontinuedBox.getAttribute("disabled")));
+		introducedBox.sendKeys("12111/1233/1222");
+		assertTrue("true".equals(discontinuedBox.getAttribute("disabled")));
+		
 	}
 
 }

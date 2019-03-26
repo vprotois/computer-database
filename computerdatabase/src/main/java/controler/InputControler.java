@@ -7,11 +7,11 @@ import java.io.InputStreamReader;
 public class InputControler {
 
 	public static Integer getInputInt() {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedReader bufferReader = new BufferedReader(new InputStreamReader(System.in));
 		Integer inputInt = null;
 		System.out.println("Enter a number");
 		try {
-			inputInt = Integer.parseInt(br.readLine());
+			inputInt = Integer.parseInt(bufferReader.readLine());
 		} catch (NumberFormatException e) {
 			System.out.println("Error format, null will be taken");
 		} catch (IOException e) {
@@ -22,11 +22,11 @@ public class InputControler {
 	}
 
 	public static Long getInputLong() {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedReader bufferReader = new BufferedReader(new InputStreamReader(System.in));
 		Long inputInt = null;
 		System.out.println("Enter a number");
 		try {
-			inputInt = Long.parseLong(br.readLine());
+			inputInt = Long.parseLong(bufferReader.readLine());
 		} catch (NumberFormatException e) {
 			System.out.println("Error format, null will be taken");
 		} catch (IOException e) {
@@ -45,15 +45,13 @@ public class InputControler {
 				inputInt.intValue() > max);
 		return inputInt.intValue();
 	}
-
-	
 	
 	public static String getInputString() {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedReader bufferReader = new BufferedReader(new InputStreamReader(System.in));
 		String inputString = null;
 		System.out.println("Input String");
 		try {
-			inputString = br.readLine();
+			inputString = bufferReader.readLine();
 		} catch (IOException e) {
 			System.out.println("Error IOstream");
 			System.out.println(e.getMessage());
@@ -62,12 +60,12 @@ public class InputControler {
 	}
 	
 	public static String[] getInputString(int number) {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedReader bufferReader = new BufferedReader(new InputStreamReader(System.in));
 		String[] inputString = null;
 		do {
 			System.out.println("Input String with "+number+" arguments");
 			try {
-				inputString = br.readLine().split(" ");
+				inputString = bufferReader.readLine().split(" ");
 			} catch (IOException e) {
 				System.out.println(e.getMessage());
 			}
