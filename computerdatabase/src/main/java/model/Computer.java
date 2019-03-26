@@ -2,39 +2,87 @@ package model;
 
 import java.sql.Timestamp;
 
-public class Computer {
-	private Integer id;
+public class Computer extends Entity{
 	private String name;
-	private Integer company_id;
-	private Timestamp introduced;
-	private Timestamp discontinued;
+	private Company company;
+	private Timestamp introduced, discontinued;
+	private Long companyId;
 	
 	public Computer() {
 	}
 
-	public Computer(int id, String name, int company_id, Timestamp introduced, Timestamp discontinued) {
+	public Computer(Long id, String name, Company company, Timestamp introduced, Timestamp discontinued,Long companyId) {
 		this.id = id;
 		this.name = name;
-		this.company_id = company_id;
+		this.company = company;
 		this.introduced = introduced;
 		this.discontinued = discontinued;
+		this.companyId = companyId;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof Computer)) {
+			return false;
+		}
+		return idEquals(o) 
+			&& nameEquals(o)
+			&& companyEquals(o)
+			&& introducedEquals(o)
+			&& discontinuedEquals(o)
+			&& companyIdEquals(o);
+				
+	}
+
+	private boolean idEquals(Object o) {
+		if (this.id == null)
+			return (((Computer) o).id ==null);
+		else
+			return this.id.equals( ((Computer) o).id);
+	}
+	
+	private boolean nameEquals(Object o) {
+		if (this.name == null)
+			return (((Computer) o).name==null);
+		else
+			return this.name.equals( ((Computer) o).name);
+	}
+	
+	private boolean companyEquals(Object o) {
+		if (this.company == null)
+			return (((Computer) o).company==null);
+		else
+			return this.company.equals( ((Computer) o).company);
+	}
+	
+	private boolean introducedEquals(Object o) {
+		if (this.introduced== null)
+			return (((Computer) o).introduced==null);
+		else
+			return this.introduced.equals( ((Computer) o).introduced);
+	}
+	
+	private boolean discontinuedEquals(Object o) {
+		if (this.discontinued== null)
+			return (((Computer) o).discontinued==null);
+		else
+			return this.discontinued.equals( ((Computer) o).discontinued);
+	}
+	
+	private boolean companyIdEquals(Object o) {
+		if (this.companyId== null)
+			return (((Computer) o).companyId==null);
+		else
+			return this.companyId.equals( ((Computer) o).companyId);
 	}
 	
 	@Override
 	public String toString() {
-		return "'" +this.getId().toString() + "','" +
+		return "'" +this.getId()+ "','" +
 				this.getName() + "','" +
 				this.getIntroduced() + "','" +
 				this.getDiscontinued() + "','" +
-				this.getCompany_id()+"'";
-	}
-	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
+				this.getCompanyId()+"'";
 	}
 
 	public String getName() {
@@ -45,12 +93,12 @@ public class Computer {
 		this.name = name;
 	}
 
-	public Integer getCompany_id() {
-		return company_id;
+	public Company getCompany() {
+		return company;
 	}
-
-	public void setCompany_id(Integer company_id) {
-		this.company_id = company_id;
+	
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 	public Timestamp getIntroduced() {
@@ -69,6 +117,15 @@ public class Computer {
 		this.discontinued = discontinued;
 	}
 
+	public Long getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
+	}
+
+	
 	
 	
 	
