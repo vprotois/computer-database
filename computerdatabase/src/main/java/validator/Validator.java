@@ -31,20 +31,21 @@ public class Validator {
 		}
 		
 		if(computer.getCompany() != null) {
-			CompanyServices companyServices = new CompanyServices();
-			Optional<List<Company>> optList = companyServices.listCompanies();
-			if(!optList.isPresent()) {
-				throw new ValidatorException(ERROR_COMPUTER_COMPANIES);
-			}
-			List<Company> list = optList.get();
-			if(!list.contains(computer.getCompany())) {
-				throw new ValidatorException(ERROR_COMPUTER_BAD_COMPANY);
-			}
+			companyValidator(computer.getCompany());
 		}
 	}
 	
 	
-	public static boolean companyValidator(Company company) {
+	public static boolean companyValidator(Company company) throws ValidatorException {
+		CompanyServices companyServices = new CompanyServices();
+		Optional<List<Company>> optList = companyServices.listCompanies();
+		if(!optList.isPresent()) {
+			throw new ValidatorException(ERROR_COMPUTER_COMPANIES);
+		}
+		List<Company> list = optList.get();
+		if(!list.contains(company)) {
+			throw new ValidatorException(ERROR_COMPUTER_BAD_COMPANY);
+		}
 		return company.getId() !=null && company.getName() != null;
 	}
 

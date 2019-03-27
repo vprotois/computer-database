@@ -1,4 +1,4 @@
-package servlet;
+package controler.servlet;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import exception.CreateComputerError;
+import exception.ValidatorException;
 import mapper.TimeStampMapper;
 import model.Company;
 import model.Computer;
@@ -88,7 +89,7 @@ public class AddComputer extends HttpServlet {
 		try {
 			computerService.addComputer(c);
 			doGet(req, resp);
-		} catch (CreateComputerError e) {
+		} catch (CreateComputerError  | ValidatorException e) {
 			resp.sendRedirect(ERROR_500);
 		}
 		

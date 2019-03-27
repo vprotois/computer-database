@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import exception.ComputerNotFoundException;
 import exception.CreateComputerError;
 import exception.UpdateComputerError;
+import exception.ValidatorException;
 import mapper.DTOComputerMapper;
 import mapper.TimeStampMapper;
 import model.Computer;
@@ -20,6 +21,7 @@ import model.builders.PagesBuilder;
 import model.dto.DTOComputer;
 import persistance.DAOComputer;
 import persistance.DAOFactory;
+import validator.Validator;
 
 public class ComputerServices {
 
@@ -53,19 +55,22 @@ public class ComputerServices {
 		return null;
 	}
 	
-	public void buildComputer(String name,String introduced,String discontinued,String companyId) throws CreateComputerError {
+	public void buildComputer(String name,String introduced,String discontinued,String companyId) throws CreateComputerError, ValidatorException {
 		ComputerBuilder compBuilder = new ComputerBuilder()
 				.withName(name)
 				.withIntroduced(getTimestamp(introduced))
 				.withDiscontinued(getTimestamp(discontinued))
 				.withCompanyId(Long.parseLong(companyId));
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
-		daoComputer.createComputer(compBuilder.build());
+		Computer comp = compBuilder.build();
+		Validator.computerValidator(comp);
+		daoComputer.createComputer(comp);
 
 	}
 	
-	public void addComputer(Computer comp) throws CreateComputerError {
+	public void addComputer(Computer comp) throws CreateComputerError, ValidatorException {
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
+		Validator.computerValidator(comp);
 		daoComputer.createComputer(comp);
 	}
 	

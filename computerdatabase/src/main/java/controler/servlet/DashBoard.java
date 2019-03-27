@@ -1,4 +1,4 @@
-package servlet;
+package controler.servlet;
 
 import java.io.IOException;
 import java.util.Optional;
