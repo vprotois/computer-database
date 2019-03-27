@@ -25,7 +25,7 @@ public class DAOCompany {
 	}
 	
 	public Optional<Company> getCompany(Long id){
-		try (Connection conn = DAOFactory.getConnection()) {
+		try (Connection conn = ConnectionPool.getDataSource().getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(selectId);
 			stmt.setLong(1,id);
 			ResultSet results =  stmt.executeQuery();
@@ -39,7 +39,7 @@ public class DAOCompany {
 	}
 
 	public Optional<List<Company>> getCompanies(){
-		try (Connection conn = DAOFactory.getConnection()) {
+		try (Connection conn = ConnectionPool.getDataSource().getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(selectAll);
 			ResultSet results =  stmt.executeQuery();
 			return Optional.of(CompanyMapper.mapCompaniesList(results));
