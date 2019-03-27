@@ -1,7 +1,8 @@
 package servlet;
 
 
-import static org.junit.Assert.assertNotEquals;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.io.IOException;

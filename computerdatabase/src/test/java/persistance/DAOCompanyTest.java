@@ -7,7 +7,8 @@ import java.util.Optional;
 import org.dbunit.DBTestCase;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 import model.Company;
 
 

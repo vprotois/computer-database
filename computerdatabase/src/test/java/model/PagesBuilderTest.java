@@ -1,12 +1,12 @@
 package model;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
 
 import model.builders.PagesBuilder;
 
@@ -14,7 +14,7 @@ public class PagesBuilderTest {
 
 	List<String> list;
 	
-	@Before
+	@BeforeAll
 	public void setup() {
 		list = new ArrayList<String>();
 		list.add("aaa");list.add("bbb");list.add("ccc");
