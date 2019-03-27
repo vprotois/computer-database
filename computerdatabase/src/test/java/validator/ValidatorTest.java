@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 
 import org.junit.jupiter.api.Test;
 
+import exception.ValidatorException;
 import model.Computer;
 import model.builders.ComputerBuilder;
 
@@ -16,14 +17,22 @@ class ValidatorTest {
 		Computer testedComputer = new ComputerBuilder()
 									.withName("name")
 									.build();
-		assertTrue(Validator.computerValidator(testedComputer));
+		try {
+			Validator.computerValidator(testedComputer);
+		} catch (ValidatorException e) {
+			fail(e.getMessage());
+		}
 	}
 	
 	@Test
 	public void NoName() {
 		Computer testedComputer = new ComputerBuilder()
 										.build();
-		assertFalse(Validator.computerValidator(testedComputer));
+		try {
+			Validator.computerValidator(testedComputer);
+		} catch (ValidatorException e) {
+			assertEquals(Validator.ERROR_COMPUTER_NAME,e.getMessage());
+		}
 	}
 	
 	@Test
@@ -31,7 +40,11 @@ class ValidatorTest {
 		Computer testedComputer = new ComputerBuilder()
 										.withName("")
 										.build();
-		assertFalse(Validator.computerValidator(testedComputer));
+		try {
+			Validator.computerValidator(testedComputer);
+		} catch (ValidatorException e) {
+			assertEquals(Validator.ERROR_COMPUTER_NAME,e.getMessage());
+		}
 	}
 
 	@Test
@@ -40,7 +53,11 @@ class ValidatorTest {
 									.withName("name")
 									.withIntroduced(new Timestamp(4000))
 									.build();
-		assertTrue(Validator.computerValidator(testedComputer));
+		try {
+			Validator.computerValidator(testedComputer);
+		} catch (ValidatorException e) {
+			fail(e.getMessage());
+		}
 	}
 	
 	@Test
@@ -50,7 +67,11 @@ class ValidatorTest {
 									.withIntroduced(new Timestamp(4000))
 									.withDiscontinued(new Timestamp(8000))
 									.build();
-		assertTrue(Validator.computerValidator(testedComputer));
+		try {
+			Validator.computerValidator(testedComputer);
+		} catch (ValidatorException e) {
+			fail(e.getMessage());
+		}
 	}
 	
 	@Test
@@ -60,7 +81,11 @@ class ValidatorTest {
 									.withIntroduced(new Timestamp(4000))
 									.withDiscontinued(new Timestamp(2000))
 									.build();
-		assertFalse(Validator.computerValidator(testedComputer));
+		try {
+			Validator.computerValidator(testedComputer);
+		} catch (ValidatorException e) {
+			assertEquals(Validator.ERROR_COMPUTER_DICS_INFERIOR,e.getMessage());
+		}
 	}
 	
 	@Test
@@ -69,7 +94,11 @@ class ValidatorTest {
 									.withName("name")
 									.withDiscontinued(new Timestamp(2000))
 									.build();
-		assertFalse(Validator.computerValidator(testedComputer));
+		try {
+			Validator.computerValidator(testedComputer);
+		} catch (ValidatorException e) {
+			assertEquals(Validator.ERROR_COMPUTER_DISC_WITHOUT_INTR,e.getMessage());
+		}
 	}
 	
 }

@@ -142,7 +142,7 @@ public class ComputerServices {
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		Optional<Computer> c = daoComputer.getCompDetails(id);
 		if(!c.isPresent()) {
-			throw new ComputerNotFoundException();
+			throw new ComputerNotFoundException("Computer not in base");
 		}
 		DTOComputer dto = DTOComputerMapper.mapComputerToDTO(c.get());
 		return dto;
@@ -158,7 +158,7 @@ public class ComputerServices {
 		Long id = Long.parseLong(args[0]);
 		Optional<Computer> optc = daoComputer.getCompDetails(id);
 		if(!optc.isPresent()) {
-			throw new UpdateComputerError();
+			throw new UpdateComputerError("Computer not in base");
 		}
 		Computer c = optc.get();
 		switch (args[1]) {

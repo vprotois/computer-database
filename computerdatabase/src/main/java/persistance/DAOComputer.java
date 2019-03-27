@@ -91,7 +91,7 @@ public class DAOComputer {
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 			log.error("Error when creating computer : "+ c);
-			throw new CreateComputerError();
+			throw new CreateComputerError(e.getMessage());
 		}
 
 	}
@@ -120,7 +120,7 @@ public class DAOComputer {
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 			log.error("Error when updating computer : "+c);
-			throw new UpdateComputerError();
+			throw new UpdateComputerError(e.getMessage());
 		}
 	}
 
