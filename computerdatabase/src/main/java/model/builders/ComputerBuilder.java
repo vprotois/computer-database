@@ -77,5 +77,36 @@ public class ComputerBuilder {
 		return this;
 	}
 	
+	public ComputerBuilder withId(Long i) {
+		this.id = Optional.of(new Long(i));
+		return this;
+	}
+	
+	public ComputerBuilder withCompanyId(Long i) {
+		this.companyId = Optional.of(new Long(i));
+		return this;
+	}
+	
+	public ComputerBuilder withName(String name) {
+		this.name = Optional.of(name);
+		return this;
+	}
+	
+	public ComputerBuilder withCompany(Company co) {
+		this.company = Optional.of(co);
+		return this;
+	}
+	
+	public ComputerBuilder withIntroduced(Timestamp t) {
+		this.introduced = Optional.of(t);
+		return this;
+	}
+	
+	public ComputerBuilder withDiscontinued(Timestamp t) {
+		this.discontinued = Optional.of(t);
+		return this;
+	}
+
+	
 	
 }

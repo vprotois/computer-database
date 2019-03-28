@@ -28,14 +28,14 @@ public class ComputerMapper {
 	}
 	
 	private static Computer buildFromResult(ResultSet results) throws SQLException {
-		return new ComputerBuilder().withId(Optional.of(results.getLong("cr.id")))
-				.withName(Optional.of(results.getString("cr.name")))
-				.withIntroduced(Optional.of(results.getTimestamp("cr.introduced")))
-				.withDiscontinued(Optional.of(results.getTimestamp("cr.discontinued")))
-				.withCompanyId(Optional.of(results.getLong("cr.company_id")))
-				.withCompany(Optional.of(new Company(
+		return new ComputerBuilder().withId(results.getLong("id"))
+				.withName(results.getString("name"))
+				.withIntroduced(results.getTimestamp("introduced"))
+				.withDiscontinued(results.getTimestamp("discontinued"))
+				.withCompanyId(results.getLong("company_id"))
+				.withCompany(new Company(
 						results.getLong("cr.company_id"),
-						results.getString("cy.name"))))
+						results.getString("cy.name")))
 				.build();
 	}
 
