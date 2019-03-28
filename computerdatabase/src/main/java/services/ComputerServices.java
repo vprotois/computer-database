@@ -37,30 +37,24 @@ public class ComputerServices {
 
 	public void buildComputerWithId(String[] args) throws CreateComputerError {
 		ComputerBuilder c = new ComputerBuilder()
-				.withId(Long.parseLong(args[0]))
-				.withName(args[1])
-				.withIntroduced(getTimestamp(args[2]))
-				.withDiscontinued(getTimestamp(args[3]))
-				.withCompanyId(Long.parseLong(args[4]));
+				.withId(Optional.of(Long.parseLong(args[0])))
+				.withName(Optional.of(args[1]))
+				.withIntroduced(TimeStampMapper.stringToTimestamp(args[2]))
+				.withDiscontinued(TimeStampMapper.stringToTimestamp(args[3]))
+				.withCompanyId(Optional.of(Long.parseLong(args[4])));
 		
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		daoComputer.createComputer(c.build());
 	}
 	
-	private Timestamp getTimestamp(String stringTimestamp) {
-		Optional<Timestamp> optIntroduced = TimeStampMapper.stringToTimestamp(stringTimestamp);
-		if(optIntroduced.isPresent()) {
-			return optIntroduced.get();
-		}
-		return null;
-	}
+
 	
 	public void buildComputer(String name,String introduced,String discontinued,String companyId) throws CreateComputerError, ValidatorException {
 		ComputerBuilder compBuilder = new ComputerBuilder()
-				.withName(name)
-				.withIntroduced(getTimestamp(introduced))
-				.withDiscontinued(getTimestamp(discontinued))
-				.withCompanyId(Long.parseLong(companyId));
+				.withName(Optional.of(name))
+				.withIntroduced(TimeStampMapper.stringToTimestamp(introduced))
+				.withDiscontinued(TimeStampMapper.stringToTimestamp(discontinued))
+				.withCompanyId(Optional.of(Long.parseLong(companyId)));
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		Computer comp = compBuilder.build();
 		Validator.computerValidator(comp);
@@ -171,10 +165,10 @@ public class ComputerServices {
 			c.setName(args[2]);
 			break;
 		case INTRODUCED:
-			c.setIntroduced(getTimestamp(args[2]));
+			c.setIntroduced(TimeStampMapper.stringToTimestamp(args[2]).get());
 			break;
 		case DISCONTINUED:
-			Timestamp t = getTimestamp(args[2]);
+			Timestamp t = TimeStampMapper.stringToTimestamp(args[2]).get();
 			if(t.compareTo(c.getIntroduced())> 0) {
 				c.setDiscontinued(t);
 			}

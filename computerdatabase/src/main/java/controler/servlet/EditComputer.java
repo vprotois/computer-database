@@ -60,24 +60,16 @@ public class EditComputer extends HttpServlet {
 		String companyId = req.getParameter(COMPANY_ID);
 		
 		ComputerServices computerService = new ComputerServices();
-		Timestamp timestampIntr =null;
-		Timestamp timestampDisc =null;
-		Optional<Timestamp> optTimestampIntr = TimeStampMapper.simpleStringToTimestamp(introduced);
-		if(optTimestampIntr.isPresent()) {
-			timestampIntr = optTimestampIntr.get();
-		}
-		Optional<Timestamp> optTimestampDisc = TimeStampMapper.simpleStringToTimestamp(discontinued);
-		if(optTimestampIntr.isPresent()) {
-			timestampDisc = optTimestampDisc.get();
-		}
-		
-		Long company = null;
+		Optional<Timestamp> timestampIntr = TimeStampMapper.simpleStringToTimestamp(introduced);
+		Optional<Timestamp> timestampDisc = TimeStampMapper.simpleStringToTimestamp(discontinued);
+
+		Optional<Long> company = Optional.empty();
 		if(companyId != null) {
-			company = Long.parseLong(companyId);
+			company = Optional.of(Long.parseLong(companyId));
 		}
 		
 		Computer c = new ComputerBuilder()
-						.withName(name)
+						.withName(Optional.of(name))
 						.withCompanyId(company)
 						.withIntroduced(timestampIntr)
 						.withDiscontinued(timestampDisc)
