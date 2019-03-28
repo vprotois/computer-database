@@ -29,7 +29,7 @@
 				<div class="pull-left">
 					<form id="searchForm" action="" method="GET" class="form-inline">
 						<input type="search" id="searchbox" name="search"
-							class="form-control" placeholder="Search name" value= <%= request.getParameter("search") %>/> 
+							class="form-control" placeholder="Search name" value="${search}"/> 
 							<input type="submit" id="searchsubmit" value="Filter by name" class="btn btn-primary" />
 					</form>
 				</div>
@@ -59,12 +59,15 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<th>Computer name</th>
-						<th>Introduced date</th>
-						<!-- Table header for Discontinued Date -->
-						<th>Discontinued date</th>
+						<th><a href="${urlPath}?index=${previous_page_index}&search=${search}&order=name">
+						Computer name</a></th>
+						<th><a href="${urlPath}?index=${previous_page_index}&search=${search}&order=introduced">
+						Introduced date</a></th>
+						<th><a href="${urlPath}?index=${previous_page_index}&search=${search}&order=discontinued">
+						Discontinued date</a></th>
 						<!-- Table header for Company -->
-						<th>Company</th>
+						<th><a href="${urlPath}?index=${previous_page_index}&search=${search}&order=company_id">
+						Company</a></th>
 					</tr>
 				</thead>
 				<!-- Browse attribute computers -->
@@ -88,10 +91,10 @@
 	<footer class="navbar-fixed-bottom">
 		<div class="container text-center">
 			<ul class="pagination">
-				<li><a href="${urlPath}?index=${previous_page_index}"
+				<li><a href="${urlPath}?index=${previous_page_index}&search=${search}&order=${order}"
 					aria-label="Previous" id="previous"> <span aria-hidden="true">&laquo;</span>
-				</a> <a href="${urlPath}?index=${next_page_index}" aria-label="Next"> <span
-						aria-hidden="true" id="next">&raquo;</span>
+				</a> <a href="${urlPath}?index=${next_page_index}&search=${search}&order=${order}"
+					 aria-label="Next"> <span aria-hidden="true" id="next">&raquo;</span>
 				</a></li>
 			</ul>
 		</div>

@@ -81,11 +81,16 @@ public class ComputerServices {
 		return Optional.empty();
 	}
 	
-	public Optional<Pages<DTOComputer>> pagesDTOComputer(Integer size, Integer index){
-		Optional<List<DTOComputer>> list = listDTOComputer();
+	public Optional<Pages<DTOComputer>> pagesDTOComputer(Integer size, Integer index,String order){
+		Optional<List<Computer>> list = listComputer();
 		if(list.isPresent()) {
+			List<DTOComputer> listDTO =null;
+			listDTO = mapAndSortList(order, list, listDTO);
+			if(listDTO == null) {
+				return Optional.empty();
+			}
 			Pages<DTOComputer> pages = new PagesBuilder<DTOComputer>()
-					.withData(list.get())
+					.withData(listDTO)
 					.withIndex(index)
 					.withSize(size)
 					.build();
@@ -116,17 +121,18 @@ public class ComputerServices {
 		}
 	}
 	
-	public Optional<Pages <DTOComputer>> pagesComputerWithName(String name, Integer size, Integer index) {
+	public Optional<Pages <DTOComputer>> pagesComputerWithName(String name, Integer size, Integer index,String order) {
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		Optional<List<Computer>> list = daoComputer.getListFromName(name);
 		if(!list.isPresent()) {
 			return Optional.empty();
 		}
-		else {			
-			
-			List<DTOComputer> listDTO = list.get().stream()
-										.map(c -> DTOComputerMapper.mapComputerToDTO(c))
-										.collect(Collectors.toList());
+		else {
+			List<DTOComputer> listDTO =null;
+			listDTO = mapAndSortList(order, list, listDTO);
+			if(listDTO == null) {
+				return Optional.empty();
+			}
 			
 			Pages <DTOComputer> pages = new PagesBuilder<DTOComputer>()
 					.withData(listDTO)
@@ -135,6 +141,44 @@ public class ComputerServices {
 					.build();
 			return Optional.of(pages);
 		}
+	}
+
+	private List<DTOComputer> mapAndSortList(String order, Optional<List<Computer>> list, List<DTOComputer> listDTO) {
+		switch(order) {
+		case "":
+			listDTO = list.get().stream()
+			.map(c -> DTOComputerMapper.mapComputerToDTO(c))
+			.collect(Collectors.toList());				
+			break;
+		case NAME:
+			listDTO = list.get().stream()
+			.map(c -> DTOComputerMapper.mapComputerToDTO(c))
+			.sorted((c1,c2) ->  c1.getName().compareTo(c2.getName()))
+			.collect(Collectors.toList());				
+			break;
+		case INTRODUCED:
+			listDTO = list.get().stream()
+			.sorted((c1,c2) -> c1.getIntroduced() != null ? 
+					(c2.getIntroduced()  != null ? c1.getIntroduced().compareTo(c2.getIntroduced()):0 ): Integer.MIN_VALUE)
+			.map(c -> DTOComputerMapper.mapComputerToDTO(c))
+			.collect(Collectors.toList());				
+			break;
+		case DISCONTINUED:
+			listDTO = list.get().stream()
+			.sorted((c1,c2) -> c1.getDiscontinued() != null ? c2.getDiscontinued() != null ? c1.getDiscontinued() .compareTo(c2.getDiscontinued()) : 0 :  Integer.MIN_VALUE)
+			.map(c -> DTOComputerMapper.mapComputerToDTO(c))
+			.collect(Collectors.toList());				
+			break;
+		case COMPANY_ID:
+			listDTO = list.get().stream()
+			.map(c -> DTOComputerMapper.mapComputerToDTO(c))
+			.sorted((c1,c2) -> c1.getCompany()
+							.compareTo(c2.getCompany()))
+			.collect(Collectors.toList());				
+			break;
+		default:
+		}
+		return listDTO;
 	}
 	
 	public DTOComputer getComputerDTO(Long id) throws ComputerNotFoundException {

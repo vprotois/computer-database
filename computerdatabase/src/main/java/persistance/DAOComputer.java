@@ -36,6 +36,8 @@ public class DAOComputer {
 			+ "(?,?,?,?);";
 	private static String update = "UPDATE computer SET name=?,introduced=?,discontinued=?,company_id=? WHERE id = ?";
 	private static String delete = "DELETE FROM computer WHERE id =?";
+	
+	
 
 	public Optional<List<Computer>> listComputers(){
 		try (Connection conn = ConnectionPool.getDataSource().getConnection()) {
@@ -157,5 +159,7 @@ public class DAOComputer {
 			return false;
 		}
 	}
+	
+	
 
 }

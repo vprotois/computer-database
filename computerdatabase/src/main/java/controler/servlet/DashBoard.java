@@ -38,13 +38,16 @@ public class DashBoard extends HttpServlet {
 		Integer size = getParamSize(req);
 		Integer index= getParamIndex(req);
 		String search = (String) req.getParameter("search");
-		
+		String order  = (String) req.getParameter("order");
+		if(order == null) {
+			order = "";
+		}
 		ComputerServices computerServ = new ComputerServices();
 		Optional<Pages<DTOComputer>> optpages;
-		if(search == null) {
-			optpages = computerServ.pagesDTOComputer(size, index);			
+		if(search == null || "".equals(search)) {
+			optpages = computerServ.pagesDTOComputer(size, index,order);			
 		}else{
-			optpages = computerServ.pagesComputerWithName(search, size, index);
+			optpages = computerServ.pagesComputerWithName(search, size, index,order);
 		}
 		
 		if(!optpages.isPresent()) {
@@ -60,6 +63,8 @@ public class DashBoard extends HttpServlet {
 			req.setAttribute(PAGE_DATA, p.getPageData());
 			req.setAttribute(NEXT_PAGE,p.nextIndex());
 			req.setAttribute(PREVIOUS_PAGE,p.previousIndex());
+			req.setAttribute("order", order);
+			req.setAttribute("search", search);
 			this.getServletContext()
 			.getRequestDispatcher(ServletData.VIEW_LIST_COMPUTERS)
 			.forward(req, resp);
