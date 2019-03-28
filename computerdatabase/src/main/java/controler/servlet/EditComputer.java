@@ -2,6 +2,8 @@ package controler.servlet;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.ServletException;
@@ -13,8 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import exception.UpdateComputerError;
 import exception.ValidatorException;
 import mapper.TimeStampMapper;
+import model.Company;
 import model.Computer;
 import model.builders.ComputerBuilder;
+import services.CompanyServices;
 import services.ComputerServices;
 
 
@@ -23,6 +27,7 @@ public class EditComputer extends HttpServlet {
 
 	private static final long serialVersionUID = -8458639712921797680L;
 
+	private static final String COMPANIES_ATTRIBUTE = "companies";
 	private static final String COMPUTER_NAME = "computerName";
 	private static final String INTRODUCED_DATE = "introduced";
 	private static final String DISCONTINUED_DATE = "discontinued";
@@ -30,12 +35,21 @@ public class EditComputer extends HttpServlet {
 	
 	private static final String VIEW_EDIT_COMPUTER = "/ressources/views/editComputer.jsp";
 	private static final String REDIRECT_LIST_COMPUTERS = "/computerdatabase/dashboard";
-	private static final String ERROR_500 = "/computerdatabase/500";
+	private static final String ERROR_500 = "/ressources/views/500.jsp";
 	
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		
 		Optional<Long> id = getParamId(req);
+		CompanyServices companyService = new CompanyServices();
+		
+		Optional<List<Company>> list = companyService.listCompanies();
+		if(list.isPresent()) {
+			req.setAttribute(COMPANIES_ATTRIBUTE, list.get());
+		}else {
+			req.setAttribute(COMPANIES_ATTRIBUTE, new ArrayList<Company>());
+		}
+		
 		
 		if(!id.isPresent()) {
 			resp.sendRedirect(REDIRECT_LIST_COMPUTERS);
@@ -64,11 +78,12 @@ public class EditComputer extends HttpServlet {
 		Optional<Timestamp> timestampDisc = TimeStampMapper.simpleStringToTimestamp(discontinued);
 
 		Optional<Long> company = Optional.empty();
-		if(companyId != null) {
+		if(companyId != null && !"O".equals(companyId)){
 			company = Optional.of(Long.parseLong(companyId));
 		}
 		
 		Computer c = new ComputerBuilder()
+						.withId(getParamId(req).get())
 						.withName(name)
 						.withCompanyId(company)
 						.withIntroduced(timestampIntr)

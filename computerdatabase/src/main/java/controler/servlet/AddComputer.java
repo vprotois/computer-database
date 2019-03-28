@@ -23,9 +23,7 @@ import services.ComputerServices;
 
 @WebServlet(name = "AddComputer",urlPatterns= {"/add"})
 public class AddComputer extends HttpServlet {	
-	/**
-	 * generated serial ID
-	 */
+
 	private static final long serialVersionUID = 6730501184846318246L;
 	
 	private static final String COMPANIES_ATTRIBUTE = "companies";
@@ -76,7 +74,7 @@ public class AddComputer extends HttpServlet {
 		}
 		
 		Computer c = new ComputerBuilder()
-						.withName(Optional.of(name))
+						.withName(name)
 						.withCompanyId(company)
 						.withIntroduced(timestampIntr)
 						.withDiscontinued(timestampDisc)
@@ -86,7 +84,10 @@ public class AddComputer extends HttpServlet {
 			computerService.addComputer(c);
 			resp.sendRedirect(REDIRECT_LIST_COMPUTERS);
 		} catch (CreateComputerError  | ValidatorException e) {
-			resp.sendRedirect(ERROR_500);
+			req.setAttribute("exception", e);
+			req.getServletContext()
+			.getRequestDispatcher(ERROR_500)
+			.forward(req, resp);
 		}
 		
 		

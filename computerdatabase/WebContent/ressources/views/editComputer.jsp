@@ -24,27 +24,30 @@
                     <div class="label label-default pull-right">
                         id: ${id_computer}
                     </div>
-                    <h1>Edit Computer</h1>s
+                    <h1>Edit Computer</h1>
 
                     <form action="edit" method="POST">
-                        <input type="hidden" value="${id_computer}" id="id"/> <!-- TODO: Change this value with the computer id -->
+                        <input type="hidden" value="${id_computer}" name="id" id="id"/> 
                         <fieldset>
                             <div class="form-group">
                                 <label for="computerName">Computer name</label>
-                                <input type="text" class="form-control" id="computerName" placeholder="Computer name">
+                                <input type="text" class="form-control" name="computerName" id="computerName" placeholder="Computer name">
                             </div>
                             <div class="form-group">
                                 <label for="introduced">Introduced date</label>
-                                <input type="date" class="form-control" id="introduced" placeholder="Introduced date">
+                                <input type="date" class="form-control" name="introduced"  id="introduced" placeholder="Introduced date">
                             </div>
                             <div class="form-group">
                                 <label for="discontinued">Discontinued date</label>
-                                <input type="date" class="form-control" id="discontinued" placeholder="Discontinued date">
+                                <input type="date" class="form-control" name="discontinued" id="discontinued" placeholder="Discontinued date">
                             </div>
                             <div class="form-group">
                                 <label for="companyId">Company</label>
-                                <select class="form-control" id="companyId" >
+                                <select class="form-control" id="companyId" name ="companyId">
                                     <option value="0">--</option>
+                                    <c:forEach items="${companies}" var="company">
+										<option value="${company.id}">${company.name}</option>
+									</c:forEach>
                                 </select>
                             </div>            
                         </fieldset>

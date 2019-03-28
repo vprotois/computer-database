@@ -18,7 +18,6 @@ public class Error_500 extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 	
 		
-		
 		this.getServletContext()
 		.getRequestDispatcher(ERROR_500)
 		.forward(req, resp);
