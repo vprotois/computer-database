@@ -27,15 +27,6 @@ public class EditComputer extends HttpServlet {
 
 	private static final long serialVersionUID = -8458639712921797680L;
 
-	private static final String COMPANIES_ATTRIBUTE = "companies";
-	private static final String COMPUTER_NAME = "computerName";
-	private static final String INTRODUCED_DATE = "introduced";
-	private static final String DISCONTINUED_DATE = "discontinued";
-	private static final String COMPANY_ID = "companyId";
-	
-	private static final String VIEW_EDIT_COMPUTER = "/ressources/views/editComputer.jsp";
-	private static final String REDIRECT_LIST_COMPUTERS = "/computerdatabase/dashboard";
-	private static final String ERROR_500 = "/ressources/views/500.jsp";
 	
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -45,40 +36,36 @@ public class EditComputer extends HttpServlet {
 		
 		Optional<List<Company>> list = companyService.listCompanies();
 		if(list.isPresent()) {
-			req.setAttribute(COMPANIES_ATTRIBUTE, list.get());
+			req.setAttribute(ServletData.COMPANIES_ATTRIBUTE, list.get());
 		}else {
-			req.setAttribute(COMPANIES_ATTRIBUTE, new ArrayList<Company>());
+			req.setAttribute(ServletData.COMPANIES_ATTRIBUTE, new ArrayList<Company>());
 		}
 		
-		
 		if(!id.isPresent()) {
-			resp.sendRedirect(REDIRECT_LIST_COMPUTERS);
+			resp.sendRedirect(ServletData.REDIRECT_LIST_COMPUTERS);
 		}else {
 			req.setAttribute("id_computer", id.get());
 			
 			this.getServletContext()
-			.getRequestDispatcher(VIEW_EDIT_COMPUTER)
+			.getRequestDispatcher(ServletData.VIEW_EDIT_COMPUTER)
 			.forward(req, resp);
 		}
-		
-		
 
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
-		
-		String name = req.getParameter(COMPUTER_NAME);
-		String introduced = req.getParameter(INTRODUCED_DATE);
-		String discontinued = req.getParameter(DISCONTINUED_DATE);
-		String companyId = req.getParameter(COMPANY_ID);
+		String name = req.getParameter(ServletData.COMPUTER_NAME);
+		String introduced = req.getParameter(ServletData.INTRODUCED_DATE);
+		String discontinued = req.getParameter(ServletData.DISCONTINUED_DATE);
+		String companyId = req.getParameter(ServletData.COMPANY_ID);
 		
 		ComputerServices computerService = new ComputerServices();
 		Optional<Timestamp> timestampIntr = TimeStampMapper.simpleStringToTimestamp(introduced);
 		Optional<Timestamp> timestampDisc = TimeStampMapper.simpleStringToTimestamp(discontinued);
 
 		Optional<Long> company = Optional.empty();
-		if(companyId != null && !"O".equals(companyId)){
+		if(companyId != null && !"".equals(companyId)){
 			company = Optional.of(Long.parseLong(companyId));
 		}
 		
@@ -92,14 +79,13 @@ public class EditComputer extends HttpServlet {
 		
 		try {
 			computerService.updateComputer(c);
-			resp.sendRedirect(REDIRECT_LIST_COMPUTERS);
+			resp.sendRedirect(ServletData.REDIRECT_LIST_COMPUTERS);
 		} catch (ValidatorException | UpdateComputerError e) {
 			req.setAttribute("exception", e);
 			req.getServletContext()
-			.getRequestDispatcher(ERROR_500)
+			.getRequestDispatcher(ServletData.VIEW_ERROR_500)
 			.forward(req, resp);
 		}
-
 
 	}
 	

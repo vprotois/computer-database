@@ -102,14 +102,22 @@ public class DAOComputer {
 		prep.setString(2,c.getName());
 		prep.setTimestamp(3,c.getIntroduced());
 		prep.setTimestamp(4,c.getDiscontinued());
-		prep.setLong(5,c.getCompanyId());
+		if(c.getCompanyId()!=null) {
+			prep.setLong(5,c.getCompanyId());			
+		}else {
+			prep.setNull(5,Types.BIGINT);
+		}
 	}
 	
 	private void fillStatementInsert(Computer c, PreparedStatement prep) throws SQLException {
 		prep.setString(1,c.getName());
 		prep.setTimestamp(2,c.getIntroduced());
 		prep.setTimestamp(3,c.getDiscontinued());
-		prep.setLong(4,c.getCompanyId());
+		if(c.getCompanyId()!=null) {
+			prep.setLong(4,c.getCompanyId());			
+		}else {
+			prep.setNull(4,Types.BIGINT);
+		}
 	}
 
 	public void updateComputer(Computer c) throws UpdateComputerError{
@@ -129,7 +137,11 @@ public class DAOComputer {
 		prep.setString(1,c.getName());
 		prep.setTimestamp(2,c.getIntroduced());
 		prep.setTimestamp(3,c.getDiscontinued());
-		prep.setLong(4,c.getCompanyId());
+		if(c.getCompanyId()!=null) {
+			prep.setLong(4,c.getCompanyId());			
+		}else {
+			prep.setNull(4,Types.BIGINT);
+		}
 		prep.setLong(5,c.getId());
 	}
 

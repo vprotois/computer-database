@@ -21,14 +21,14 @@ public class DAOComputerTest extends TestCase {
 	@Test
 	public void testcreateUpdateDelete() throws CreateComputerError, UpdateComputerError {
 		DAOComputer dao = DAOFactory.createDAOcomputer();
-		Computer c = new Computer(-3L,"neg",null,null,null,2L);
+		Computer c = new Computer(-7L,"neg",null,null,null,null);
 		dao.createComputer(c);
-		assertEquals(c,dao.getCompDetails(-3L));
-		c = new Computer(-3L,"neg",null,null,null,2L);
+		assertEquals(Optional.of(c),dao.getCompDetails(-6L));
+		c = new Computer(-6L,"neg",null,null,null,null);
 		dao.updateComputer(c);
-		assertEquals(c,dao.getCompDetails(-3L));
-		dao.deleteComputer(-3L);
-		assertNull(dao.getCompDetails(-3L));
+		assertEquals(Optional.of(c),dao.getCompDetails(-6L));
+		dao.deleteComputer(-6L);
+		assertEquals(Optional.empty(),dao.getCompDetails(-6L));
 	}
 	
 	public void testFailedCreate() {

@@ -27,8 +27,7 @@ public class DashBoard extends HttpServlet {
 	private static final int DEFAULT_INDEX_PAGE = 0;
 	private static final int DEFAULT_SIZE_PAGE = 10;
 	
-	private static final String ERROR_500 = "/computerdatabase/500";
-	private static final String VIEW_LIST_COMPUTERS = "/ressources/views/dashboard.jsp";
+
 
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -46,7 +45,9 @@ public class DashBoard extends HttpServlet {
 		}
 		
 		if(!optpages.isPresent()) {
-			resp.sendRedirect(ERROR_500);
+			this.getServletContext()
+			.getRequestDispatcher(ServletData.VIEW_ERROR_500)
+			.forward(req, resp);
 		}
 		else {
 			Pages<DTOComputer> p = optpages.get();
@@ -57,7 +58,7 @@ public class DashBoard extends HttpServlet {
 			req.setAttribute(NEXT_PAGE,p.nextIndex());
 			req.setAttribute(PREVIOUS_PAGE,p.previousIndex());
 			this.getServletContext()
-			.getRequestDispatcher(VIEW_LIST_COMPUTERS)
+			.getRequestDispatcher(ServletData.VIEW_LIST_COMPUTERS)
 			.forward(req, resp);
 		}
 	}
