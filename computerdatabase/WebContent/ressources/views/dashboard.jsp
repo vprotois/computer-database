@@ -18,11 +18,10 @@
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="dashboard.html"> Application -
-				Computer Database </a>
+			<a class="navbar-brand" href="dashboard.html"> 
+			Application - Computer Database </a>
 		</div>
 	</header>
-
 	<section id="main">
 		<div class="container">
 			<h1 id="homeTitle">${number_computer} Computers found</h1>
@@ -30,15 +29,15 @@
 				<div class="pull-left">
 					<form id="searchForm" action="" method="GET" class="form-inline">
 						<input type="search" id="searchbox" name="search"
-							class="form-control" placeholder="Search name" value= <%= request.getParameter("search") %>/> <input
-							type="submit" id="searchsubmit" value="Filter by name"
-							class="btn btn-primary" />
+							class="form-control" placeholder="Search name" value= <%= request.getParameter("search") %>/> 
+							<input type="submit" id="searchsubmit" value="Filter by name" class="btn btn-primary" />
 					</form>
 				</div>
 				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="add">Add
-						Computer</a> <a class="btn btn-default" id="editComputer" href="#"
-						onclick="$.fn.toggleEditMode();">Edit</a>
+					<a class="btn btn-success" id="addComputer" href="add">Add Computer	</a> 
+					<a class="btn btn-default" id="editComputer" href="#" onclick="$.fn.toggleEditMode();">
+						Edit
+					</a>
 				</div>
 			</div>
 		</div>
@@ -53,7 +52,6 @@
 					<tr>
 						<!-- Variable declarations for passing labels as parameters -->
 						<!-- Table header for Computer Name -->
-
 						<th class="editMode" style="width: 60px; height: 22px;"><input
 							type="checkbox" id="selectall" /> <span
 							style="vertical-align: top;"> - <a href="#"
@@ -67,15 +65,14 @@
 						<th>Discontinued date</th>
 						<!-- Table header for Company -->
 						<th>Company</th>
-
 					</tr>
 				</thead>
 				<!-- Browse attribute computers -->
 				<tbody id="results">
 					<c:forEach items="${page_data}" var="computer">
 						<tr>
-							<td class="editMode"><input type="checkbox" name="cb"
-								class="cb" value="0"></td>
+							<td class="editMode">
+							  <input type="checkbox" name="cb" class="cb" value="0"></td>
 							<td id="name">${computer.name}</td>
 							<td>${computer.introduced}</td>
 							<td>${computer.discontinued}</td>
@@ -102,11 +99,9 @@
 			<button type="button" class="btn btn-default">50</button>
 			<button type="button" class="btn btn-default">100</button>
 		</div>
-
 	</footer>
 	<script src="ressources/js/jquery.min.js"></script>
 	<script src="ressources/js/bootstrap.min.js"></script>
 	<script src="ressources/js/dashboard.js"></script>
-
 </body>
 </html>

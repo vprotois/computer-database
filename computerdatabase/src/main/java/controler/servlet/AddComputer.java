@@ -27,7 +27,6 @@ public class AddComputer extends HttpServlet {
 	 * generated serial ID
 	 */
 	private static final long serialVersionUID = 6730501184846318246L;
-
 	
 	private static final String COMPANIES_ATTRIBUTE = "companies";
 	
@@ -36,9 +35,9 @@ public class AddComputer extends HttpServlet {
 	private static final String DISCONTINUED_DATE = "discontinued";
 	private static final String COMPANY_ID = "companyId";
 	
-	
-	private static final String ERROR_500 = "/ressources/views/500.jsp";
+	private static final String ERROR_500 = "/computerdatabase/500";
 	private static final String VIEW_ADD_COMPUTERS = "/ressources/views/addComputer.jsp";
+	private static final String REDIRECT_LIST_COMPUTERS = "/computerdatabase/dashboard";
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		
@@ -88,7 +87,7 @@ public class AddComputer extends HttpServlet {
 		
 		try {
 			computerService.addComputer(c);
-			doGet(req, resp);
+			resp.sendRedirect(REDIRECT_LIST_COMPUTERS);
 		} catch (CreateComputerError  | ValidatorException e) {
 			resp.sendRedirect(ERROR_500);
 		}

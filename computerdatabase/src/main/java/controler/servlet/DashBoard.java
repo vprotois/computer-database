@@ -16,9 +16,6 @@ import services.ComputerServices;
 @WebServlet(name = "DashBoard",urlPatterns= {"/dashboard"})
 public class DashBoard extends HttpServlet {
 	
-	/**
-	 * generated serial ID
-	 */
 	private static final long serialVersionUID = 5874765507120279702L;
 	
 	private static final String PAGE_COMPUTERS = "computerPage";
@@ -26,15 +23,14 @@ public class DashBoard extends HttpServlet {
 	private static final String NEXT_PAGE = "next_page_index";
 	private static final String PREVIOUS_PAGE = "previous_page_index";
 	private static final String PAGE_DATA = "page_data";
-	
-	
+		
 	private static final int DEFAULT_INDEX_PAGE = 0;
 	private static final int DEFAULT_SIZE_PAGE = 10;
 	
-	
-	private static final String ERROR_500 = "/ressources/views/500.jsp";
+	private static final String ERROR_500 = "/computerdatabase/500";
 	private static final String VIEW_LIST_COMPUTERS = "/ressources/views/dashboard.jsp";
 
+	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 	
 		Integer size = getParamSize(req);
@@ -63,7 +59,7 @@ public class DashBoard extends HttpServlet {
 			this.getServletContext()
 			.getRequestDispatcher(VIEW_LIST_COMPUTERS)
 			.forward(req, resp);
-		}	
+		}
 	}
 
 	private Integer getParamIndex(HttpServletRequest req) throws ServletException {

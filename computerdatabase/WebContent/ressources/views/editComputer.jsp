@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>Computer Database</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
-<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="../css/font-awesome.css" rel="stylesheet" media="screen">
-<link href="../css/main.css" rel="stylesheet" media="screen">
+<link href=<c:url value ="/ressources/css/bootstrap.min.css"/>rel="stylesheet" media="screen">
+<link href=<c:url value ="/ressources/css/font-awesome.css"/>rel="stylesheet" media="screen">
+<link href=<c:url value = "/ressources/css/main.css"/> rel="stylesheet"media="screen">
 </head>
 <body>
     <header class="navbar navbar-inverse navbar-fixed-top">
@@ -22,12 +22,12 @@
             <div class="row">
                 <div class="col-xs-8 col-xs-offset-2 box">
                     <div class="label label-default pull-right">
-                        id: 0
+                        id: ${id_computer}
                     </div>
-                    <h1>Edit Computer</h1>
+                    <h1>Edit Computer</h1>s
 
-                    <form action="editComputer" method="POST">
-                        <input type="hidden" value="0" id="id"/> <!-- TODO: Change this value with the computer id -->
+                    <form action="edit" method="POST">
+                        <input type="hidden" value="${id_computer}" id="id"/> <!-- TODO: Change this value with the computer id -->
                         <fieldset>
                             <div class="form-group">
                                 <label for="computerName">Computer name</label>
@@ -58,5 +58,7 @@
             </div>
         </div>
     </section>
+    <script src="ressources/js/jquery.min.js"></script>
+	<script src="ressources/js/bootstrap.min.js"></script>
 </body>
 </html>
