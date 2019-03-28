@@ -69,7 +69,7 @@ public class EditComputer extends HttpServlet {
 		}
 		
 		Computer c = new ComputerBuilder()
-						.withName(Optional.of(name))
+						.withName(name)
 						.withCompanyId(company)
 						.withIntroduced(timestampIntr)
 						.withDiscontinued(timestampDisc)
@@ -79,7 +79,10 @@ public class EditComputer extends HttpServlet {
 			computerService.updateComputer(c);
 			resp.sendRedirect(REDIRECT_LIST_COMPUTERS);
 		} catch (ValidatorException | UpdateComputerError e) {
-			resp.sendRedirect(ERROR_500);
+			req.setAttribute("exception", e);
+			req.getServletContext()
+			.getRequestDispatcher(ERROR_500)
+			.forward(req, resp);
 		}
 
 

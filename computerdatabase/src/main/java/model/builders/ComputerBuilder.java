@@ -17,7 +17,12 @@ public class ComputerBuilder {
 	private Optional<Long> companyId;
 	
 	public ComputerBuilder(){
-		
+		this.id = Optional.empty();
+		this.name= Optional.empty();
+		this.company= Optional.empty();
+		this.introduced= Optional.empty();
+		this.discontinued= Optional.empty();
+		this.companyId= Optional.empty();
 	}
 	
 	public Computer build() {
@@ -78,32 +83,44 @@ public class ComputerBuilder {
 	}
 	
 	public ComputerBuilder withId(Long i) {
-		this.id = Optional.of(new Long(i));
+		if(i != null) {
+			this.id = Optional.of(new Long(i));
+		}
 		return this;
 	}
 	
 	public ComputerBuilder withCompanyId(Long i) {
-		this.companyId = Optional.of(new Long(i));
+		if(i != null) {
+			this.companyId = Optional.of(new Long(i));
+		}
 		return this;
 	}
 	
 	public ComputerBuilder withName(String name) {
-		this.name = Optional.of(name);
+		if(name != null) {
+			this.name = Optional.of(name);
+		}
 		return this;
 	}
 	
 	public ComputerBuilder withCompany(Company co) {
-		this.company = Optional.of(co);
+		if (co != null) {
+			this.company = Optional.of(co);
+		}
 		return this;
 	}
 	
 	public ComputerBuilder withIntroduced(Timestamp t) {
-		this.introduced = Optional.of(t);
+		if(t != null) {
+			this.introduced = Optional.of(t);
+		}
 		return this;
 	}
 	
 	public ComputerBuilder withDiscontinued(Timestamp t) {
-		this.discontinued = Optional.of(t);
+		if(t != null) {
+			this.discontinued = Optional.of(t);
+		}
 		return this;
 	}
 

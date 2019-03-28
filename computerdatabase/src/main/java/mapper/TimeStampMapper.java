@@ -3,6 +3,11 @@ package mapper;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalField;
 import java.util.Date;
 import java.util.Optional;
 
@@ -35,19 +40,18 @@ public class TimeStampMapper {
 		if(stringDate == null ||stringDate.equals("null")||"".equals(stringDate)) {
 			return Optional.empty();
 		} else {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			Date date;
+			DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(("dd/MM/yyyy"));
+			LocalDate date;
 			try {
-				date = dateFormat.parse(stringDate);
-				
-			}catch(ParseException e) {
+			date = LocalDate.parse(stringDate, dateFormat);
+			}catch(DateTimeParseException e){
 				log.error("Couldn't parse "+stringDate + " to timestamp ");
 				return Optional.empty();
 			}
 			if(!dateFormat.format(date).equals(stringDate)) {
 				return Optional.empty();
 			}
-			Timestamp timeStampDate = new Timestamp(date.getTime());
+			Timestamp timeStampDate = Timestamp.valueOf(date.atStartOfDay());
 			return Optional.of(timeStampDate);
 		}
 	}

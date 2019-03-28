@@ -28,11 +28,11 @@ public class ComputerMapper {
 	}
 	
 	private static Computer buildFromResult(ResultSet results) throws SQLException {
-		return new ComputerBuilder().withId(results.getLong("id"))
-				.withName(results.getString("name"))
-				.withIntroduced(results.getTimestamp("introduced"))
-				.withDiscontinued(results.getTimestamp("discontinued"))
-				.withCompanyId(results.getLong("company_id"))
+		return new ComputerBuilder().withId(results.getLong("cr.id"))
+				.withName(results.getString("cr.name"))
+				.withIntroduced(results.getTimestamp("cr.introduced"))
+				.withDiscontinued(results.getTimestamp("cr.discontinued"))
+				.withCompanyId(results.getLong("cr.company_id"))
 				.withCompany(new Company(
 						results.getLong("cr.company_id"),
 						results.getString("cy.name")))

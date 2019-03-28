@@ -1,6 +1,5 @@
 $(document).ready(function() {
 	
-	
 	let format = /(^$|[0-9]{2}[/][0-9]{2}[/][0-9]{4}$)/;		
 	$("#discontinued").attr("disabled",true)
 	
