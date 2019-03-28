@@ -28,16 +28,15 @@ public class AddComputer extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		
-		
 		CompanyServices companyService = new CompanyServices();
 		
 		Optional<List<Company>> list = companyService.listCompanies();
+		
 		if(list.isPresent()) {
 			req.setAttribute(ServletData.COMPANIES_ATTRIBUTE, list.get());
 		}else {
 			req.setAttribute(ServletData.COMPANIES_ATTRIBUTE, new ArrayList<Company>());
 		}
-		
 		
 		this.getServletContext()
 		.getRequestDispatcher(ServletData.VIEW_ADD_COMPUTERS)
@@ -46,7 +45,6 @@ public class AddComputer extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		
 
 		String name = req.getParameter(ServletData.COMPUTER_NAME);
 		String introduced = req.getParameter(ServletData.INTRODUCED_DATE);

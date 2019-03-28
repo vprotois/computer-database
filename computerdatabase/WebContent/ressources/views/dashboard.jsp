@@ -72,7 +72,7 @@
 					<c:forEach items="${page_data}" var="computer">
 						<tr>
 							<td class="editMode">
-							  <input type="checkbox" name="cb" class="cb" value="0"></td>
+							  <input type="checkbox" name="cb" class="cb" value="${computer.id}"></td>
 							 <td> <a  href="<c:url value="/edit?id=${computer.id}"/>" onclick="" id ="name">
 							    ${computer.name}</a></td>
 							<td>${computer.introduced}</td>
