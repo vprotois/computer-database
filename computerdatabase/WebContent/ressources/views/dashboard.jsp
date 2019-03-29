@@ -59,15 +59,36 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<th><a href="${urlPath}?index=${previous_page_index}&search=${search}&order=name">
-						Computer name</a></th>
-						<th><a href="${urlPath}?index=${previous_page_index}&search=${search}&order=introduced">
-						Introduced date</a></th>
-						<th><a href="${urlPath}?index=${previous_page_index}&search=${search}&order=discontinued">
-						Discontinued date</a></th>
-						<!-- Table header for Company -->
-						<th><a href="${urlPath}?index=${previous_page_index}&search=${search}&order=company_id">
-						Company</a></th>
+						
+						<th>Computer name
+						<a href="${urlPath}?index=${previous_page_index}&search=${search}&order=name&asc=false">
+						<i class="fa fa-arrow-down"></i></a>
+						<a href="${urlPath}?index=${previous_page_index}&search=${search}&order=name&asc=true">
+						<i class="fa fa-arrow-up"></i></a>
+						</th>
+						
+						<th>Introduced date
+						<a href="${urlPath}?index=${previous_page_index}&search=${search}&order=introduced&asc=false">
+						<i class="fa fa-arrow-down"></i></a>
+						<a href="${urlPath}?index=${previous_page_index}&search=${search}&order=introduced&asc=true">
+						<i class="fa fa-arrow-up"></i></a>
+						</th>
+						
+						<th>Discontinued date
+						<a href="${urlPath}?index=${previous_page_index}&search=${search}&order=discontinued&asc=false">
+						<i class="fa fa-arrow-down"></i></a>
+						<a href="${urlPath}?index=${previous_page_index}&search=${search}&order=discontinued&asc=true">
+						<i class="fa fa-arrow-up"></i></a>
+						</th>
+						
+						
+						<th>Company
+						<a href="${urlPath}?index=${previous_page_index}&search=${search}&order=company_id&asc=false">
+						<i class="fa fa-arrow-down"></i></a>
+						<a href="${urlPath}?index=${previous_page_index}&search=${search}&order=company_id&asc=true">
+						<i class="fa fa-arrow-up"></i></a>
+						</th>
+						
 					</tr>
 				</thead>
 				<!-- Browse attribute computers -->

@@ -1,6 +1,7 @@
 package services;
 
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -82,11 +83,11 @@ public class ComputerServices {
 		return Optional.empty();
 	}
 	
-	public Optional<Pages<DTOComputer>> pagesDTOComputer(Integer size, Integer index,String order){
+	public Optional<Pages<DTOComputer>> pagesDTOComputer(Integer size, Integer index,String order,Boolean asc){
 		Optional<List<Computer>> list = listComputer();
 		if(list.isPresent()) {
 			List<DTOComputer> listDTO =null;
-			listDTO = mapAndSortList(order, list, listDTO);
+			listDTO = mapAndSortList(order,asc, list, listDTO);
 			if(listDTO == null) {
 				return Optional.empty();
 			}
@@ -122,7 +123,7 @@ public class ComputerServices {
 		}
 	}
 	
-	public Optional<Pages <DTOComputer>> pagesComputerWithName(String name, Integer size, Integer index,String order) {
+	public Optional<Pages <DTOComputer>> pagesComputerWithName(String name, Integer size, Integer index,String order,Boolean asc) {
 		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		Optional<List<Computer>> list = daoComputer.getListFromName(name);
 		if(!list.isPresent()) {
@@ -130,7 +131,7 @@ public class ComputerServices {
 		}
 		else {
 			List<DTOComputer> listDTO =null;
-			listDTO = mapAndSortList(order, list, listDTO);
+			listDTO = mapAndSortList(order,asc, list, listDTO);
 			if(listDTO == null) {
 				return Optional.empty();
 			}
@@ -144,7 +145,7 @@ public class ComputerServices {
 		}
 	}
 
-	private List<DTOComputer> mapAndSortList(String order, Optional<List<Computer>> list, List<DTOComputer> listDTO) {
+	private List<DTOComputer> mapAndSortList(String order,Boolean asc, Optional<List<Computer>> list, List<DTOComputer> listDTO) {
 		switch(order) {
 		case EMPTY:
 			listDTO = list.get().stream()
@@ -178,6 +179,9 @@ public class ComputerServices {
 			.collect(Collectors.toList());				
 			break;
 		default:
+		}
+		if(asc) {
+			Collections.reverse(listDTO);
 		}
 		return listDTO;
 	}

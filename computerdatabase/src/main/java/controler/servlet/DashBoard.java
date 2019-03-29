@@ -39,15 +39,20 @@ public class DashBoard extends HttpServlet {
 		Integer index= getParamIndex(req);
 		String search = (String) req.getParameter("search");
 		String order  = (String) req.getParameter("order");
+		String asc = (String) req.getParameter("asc");
 		if(order == null) {
 			order = "";
 		}
+		if(asc==null) {
+			asc = "false";
+		}
+		
 		ComputerServices computerServ = new ComputerServices();
 		Optional<Pages<DTOComputer>> optpages;
 		if(search == null || "".equals(search)) {
-			optpages = computerServ.pagesDTOComputer(size, index,order);			
+			optpages = computerServ.pagesDTOComputer(size, index,order,"true".equals(asc));			
 		}else{
-			optpages = computerServ.pagesComputerWithName(search, size, index,order);
+			optpages = computerServ.pagesComputerWithName(search, size, index,order,"true".equals(asc));
 		}
 		
 		if(!optpages.isPresent()) {
