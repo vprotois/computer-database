@@ -27,7 +27,7 @@ public class DAOComputer {
 	private static String selectAll = "SELECT cr.id, cr.name, cr.introduced, cr.discontinued, cr.company_id, cy.name FROM computer as cr "
 			+ "LEFT JOIN company as cy ON cr.company_id=cy.id ";
 	private static String selectCompWithId  = selectAll + "WHERE cr.id =?";
-	private static String selectCompWithName  = selectAll + "WHERE cr.name=?";
+	private static String selectCompWithName  = selectAll + "WHERE cr.name LIKE ? OR cy.name LIKE ?";
 	private static String InsertComputerWithId = "INSERT INTO computer "
 			+ "(id, name, introduced, discontinued,company_id) VALUES "
 			+ "(?,?,?,?,?);";
@@ -68,7 +68,8 @@ public class DAOComputer {
 	public Optional<List<Computer>> getListFromName(String name){
 		try (Connection conn = ConnectionPool.getDataSource().getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(selectCompWithName);
-			stmt.setString(1,name);
+			stmt.setString(1,"%"+name+"%");
+			stmt.setString(2, "%"+name+"%");
 			ResultSet results = stmt.executeQuery();
 			return Optional.of(ComputerMapper.mapComputerList(results));
 		}catch(SQLException e) {

@@ -5,7 +5,7 @@ import model.dto.DTOComputer;
 
 public class DTOComputerMapper {
 
-	private static final String EMPTY = " ";
+	private static final String EMPTY = "";
 	
 	public static DTOComputer mapComputerToDTO(Computer computer) {
 		DTOComputer dto = new DTOComputer();
@@ -15,7 +15,8 @@ public class DTOComputerMapper {
 				computer.getIntroduced().toString() : EMPTY);
 		dto.setDiscontinued(computer.getDiscontinued() != null? 
 				computer.getDiscontinued().toString() : EMPTY);
-		dto.setCompany( computer.getCompany() != null ? computer.getCompany().getName() : EMPTY);
+		dto.setCompany( computer.getCompany() != null ? computer.getCompany().getName()!= null ? 
+							computer.getCompany().getName() : EMPTY : EMPTY);
 		return dto;
 	}
 	

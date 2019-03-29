@@ -30,6 +30,7 @@ public class ComputerServices {
 	public static final String INTRODUCED = "introduced";
 	public static final String DISCONTINUED = "discontinued";
 	public static final String COMPANY_ID = "company_id";
+	public static final String EMPTY = "";
 			
 	public ComputerServices() {
 		
@@ -145,7 +146,7 @@ public class ComputerServices {
 
 	private List<DTOComputer> mapAndSortList(String order, Optional<List<Computer>> list, List<DTOComputer> listDTO) {
 		switch(order) {
-		case "":
+		case EMPTY:
 			listDTO = list.get().stream()
 			.map(c -> DTOComputerMapper.mapComputerToDTO(c))
 			.collect(Collectors.toList());				
