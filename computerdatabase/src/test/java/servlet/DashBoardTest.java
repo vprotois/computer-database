@@ -26,7 +26,7 @@ class DashBoardTest extends TestCase {
 	private static ChromeDriverService service;
 	private static WebDriver driver;
 	
-	private static String URL_DASHBOARD = "http://localhost:8080/computerdatabase/dashboard";
+	private static final String URL_DASHBOARD = "http://localhost:8080/computerdatabase/dashboard";
 	private static final String URL_ADD_COMPUTER = "http://localhost:8080/computerdatabase/add";
 	
 	private static final String PREVIOUS_BUTTON_ID = "previous";
@@ -65,7 +65,7 @@ class DashBoardTest extends TestCase {
 		driver.get(URL_DASHBOARD);
 		WebElement results = driver.findElement(By.id(RESULTS_ID));
 		List<WebElement> list = results.findElements(By.tagName("tr"));
-		assertNotEquals(0,list.size());
+		assertNotEquals(Integer.valueOf(0),Integer.valueOf(list.size()));
 	}
 	  
 	  

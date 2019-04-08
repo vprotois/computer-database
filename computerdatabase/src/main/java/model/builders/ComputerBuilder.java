@@ -37,9 +37,6 @@ public class ComputerBuilder {
 		if(this.name.isPresent()) {
 			name = this.name.get();
 		}
-		if(this.company.isPresent()) {
-			company = this.company.get();
-		}
 		if(this.introduced.isPresent()) {
 			introduced = this.introduced.get();
 		}
@@ -48,6 +45,10 @@ public class ComputerBuilder {
 		}
 		if(this.companyId.isPresent()) {
 			companyId = this.companyId.get();
+		}
+		if(this.company.isPresent()) {
+			company = this.company.get();
+			companyId = company.getId();
 		}
 		return new Computer(id,name,company,introduced,discontinued,companyId);
 	}

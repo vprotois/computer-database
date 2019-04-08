@@ -55,7 +55,8 @@ public class ComputerBuilderTest extends TestCase{
 				.withName("ane")
 				.withCompany(company)
 				.build();
-		assertEquals(c1,c2);
+		assertEquals(c1.getCompany(),company);
+		assertEquals(c2.getCompanyId(),Long.valueOf(1L));
 	}
 	
 	

@@ -26,7 +26,10 @@ public class DashBoard extends HttpServlet {
 	private static final String NEXT_PAGE = "next_page_index";
 	private static final String PREVIOUS_PAGE = "previous_page_index";
 	private static final String PAGE_DATA = "page_data";
-		
+	private static final String PAGE_SIZE = "size";
+	private static final String PAGE_ORDER = "order";
+	private static final String PAGE_SEARCH = "search";
+	
 	private static final int DEFAULT_INDEX_PAGE = 0;
 	private static final int DEFAULT_SIZE_PAGE = 10;
 	
@@ -62,14 +65,14 @@ public class DashBoard extends HttpServlet {
 		}
 		else {
 			Pages<DTOComputer> p = optpages.get();
-			
 			req.setAttribute(PAGE_COMPUTERS, p);
 			req.setAttribute(NUMBER_COMPUTERS, p.getDataSize());
 			req.setAttribute(PAGE_DATA, p.getPageData());
 			req.setAttribute(NEXT_PAGE,p.nextIndex());
 			req.setAttribute(PREVIOUS_PAGE,p.previousIndex());
-			req.setAttribute("order", order);
-			req.setAttribute("search", search);
+			req.setAttribute(PAGE_SIZE, size);
+			req.setAttribute(PAGE_ORDER, order);
+			req.setAttribute(PAGE_SEARCH, search);
 			this.getServletContext()
 			.getRequestDispatcher(ServletData.VIEW_LIST_COMPUTERS)
 			.forward(req, resp);
@@ -103,8 +106,9 @@ public class DashBoard extends HttpServlet {
 
 	private Integer getParamSize(HttpServletRequest req) {
 		Integer size;
-		if(req.getParameter("size")!=null) {
-			size = Integer.parseInt(req.getParameter("size"));
+		String sizeInput = req.getParameter("size");
+		if(sizeInput!=null) {
+			size = Integer.parseInt(sizeInput);
 		}else{
 			size = DEFAULT_SIZE_PAGE;
 		}

@@ -1,7 +1,5 @@
 package mapper;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,9 +11,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import junit.framework.TestCase;
 import model.Company;
 
-class CompanyMapperTest {
+class CompanyMapperTest  extends TestCase{
 
 	@Mock
 	ResultSet rs = Mockito.mock(ResultSet.class);

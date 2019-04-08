@@ -24,7 +24,7 @@
 	</header>
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${number_computer} Computers found</h1>
+			<h1 id="homeTitle"> ${number_computers} Computers found</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="" method="GET" class="form-inline">
@@ -61,31 +61,31 @@
 						</span></th>
 						
 						<th>Computer name
-						<a href="${urlPath}?index=${previous_page_index}&search=${search}&order=name&asc=false">
+						<a href="${urlPath}?index=${previous_page_index}&search=${search}&size=${size}&order=name&asc=false">
 						<i class="fa fa-arrow-down"></i></a>
-						<a href="${urlPath}?index=${previous_page_index}&search=${search}&order=name&asc=true">
+						<a href="${urlPath}?index=${previous_page_index}&search=${search}&size=${size}&order=name&asc=true">
 						<i class="fa fa-arrow-up"></i></a>
 						</th>
 						
 						<th>Introduced date
-						<a href="${urlPath}?index=${previous_page_index}&search=${search}&order=introduced&asc=false">
+						<a href="${urlPath}?index=${previous_page_index}&search=${search}&size=${size}&order=introduced&asc=false">
 						<i class="fa fa-arrow-down"></i></a>
-						<a href="${urlPath}?index=${previous_page_index}&search=${search}&order=introduced&asc=true">
+						<a href="${urlPath}?index=${previous_page_index}&search=${search}&size=${size}&order=introduced&asc=true">
 						<i class="fa fa-arrow-up"></i></a>
 						</th>
 						
 						<th>Discontinued date
-						<a href="${urlPath}?index=${previous_page_index}&search=${search}&order=discontinued&asc=false">
+						<a href="${urlPath}?index=${previous_page_index}&search=${search}&size=${size}&order=discontinued&asc=false">
 						<i class="fa fa-arrow-down"></i></a>
-						<a href="${urlPath}?index=${previous_page_index}&search=${search}&order=discontinued&asc=true">
-						<i class="fa fa-arrow-up"></i></a>
+						<a href="${urlPath}?index=${previous_page_index}&search=${search}&size=${size}&order=discontinued&asc=true">
+						<i class="fa fa-arrow-up"></i> </a>
 						</th>
 						
 						
 						<th>Company
-						<a href="${urlPath}?index=${previous_page_index}&search=${search}&order=company_id&asc=false">
+						<a href="${urlPath}?index=${previous_page_index}&search=${search}&size=${size}&order=company_id&asc=false">
 						<i class="fa fa-arrow-down"></i></a>
-						<a href="${urlPath}?index=${previous_page_index}&search=${search}&order=company_id&asc=true">
+						<a href="${urlPath}?index=${previous_page_index}&search=${search}&size=${size}&order=company_id&asc=true">
 						<i class="fa fa-arrow-up"></i></a>
 						</th>
 						
@@ -110,6 +110,17 @@
 	</section>
 
 	<footer class="navbar-fixed-bottom">
+		<div class="btn-group btn-group-sm pull-right" role="group">
+			  <a href="${urlPath}?index=${previous_page_index}&search=${search}&size=10">
+			   <button type="button" class="btn btn-default"> 10</button>
+			  </a> 
+			<a href="${urlPath}?index=${previous_page_index}&search=${search}&size=50">
+			   <button type="button" class="btn btn-default"> 50</button>
+			  </a> 
+			<a href="${urlPath}?index=${previous_page_index}&search=${search}&size=100">
+			   <button type="button" class="btn btn-default"> 100</button>
+			  </a> 
+		</div>
 		<div class="container text-center">
 			<ul class="pagination">
 				<li><a href="${urlPath}?index=${previous_page_index}&search=${search}&order=${order}"
@@ -118,11 +129,6 @@
 					 aria-label="Next"> <span aria-hidden="true" id="next">&raquo;</span>
 				</a></li>
 			</ul>
-		</div>
-		<div class="btn-group btn-group-sm pull-right" role="group">
-			<button type="button" class="btn btn-default">10</button>
-			<button type="button" class="btn btn-default">50</button>
-			<button type="button" class="btn btn-default">100</button>
 		</div>
 	</footer>
 	<script src="ressources/js/jquery.min.js"></script>

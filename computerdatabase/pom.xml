@@ -85,7 +85,7 @@
 			<artifactId>taglibs-standard-impl</artifactId>
 			<version>${taglibs-standard-impl}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
