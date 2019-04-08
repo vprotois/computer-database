@@ -31,4 +31,14 @@ public class CompanyServices {
 		return Optional.of(pages);
 		
 	}
+	
+	public Optional<Company> getCompany(Long id){
+		DAOCompany daoCompany = (DAOCompany) DAOFactory.createDAOcompany();
+		return daoCompany.getCompany(id);
+	}
+	
+	public void deleteCompany(Long id) {
+		DAOCompany daoCompany = (DAOCompany) DAOFactory.createDAOcompany();
+		daoCompany.deleteCompany(id);
+	}
 }

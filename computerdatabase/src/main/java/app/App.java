@@ -15,7 +15,7 @@ public class App
 
 	
 	public static void main( String[] args )
-    {	
+    {
 			log.info("App starting");
 			new CLIControler().start();
 			log.info("App closing");

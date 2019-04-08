@@ -23,6 +23,7 @@ public class InterfaceConsole {
 		System.out.println("6 - Delete computer");
 		System.out.println("7 - List computers with pages");
 		System.out.println("8 - List companies with pages");
+		System.out.println("9 - Delete Company");
 	}
 	
 	public static void displayPageMenu() {

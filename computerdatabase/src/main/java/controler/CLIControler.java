@@ -28,6 +28,7 @@ public class CLIControler {
 	private static final int DELETE_COMPUTER = 6;
 	private static final int LIST_COMPUTERS_PAGES= 7;
 	private static final int LIST_COMPANIES_PAGES = 8;
+	private static final int DELETE_COMPANY = 9;
 		
 	private static final int PREVIOUS_PAGE = 1;
 	private static final int NEXT_PAGE = 2;
@@ -36,7 +37,7 @@ public class CLIControler {
 		int menuInput = 0; 
 		do {
 			InterfaceConsole.displayMenu();
-			menuInput = InputControler.getInputInt(0,8);
+			menuInput = InputControler.getInputInt(0,9);
 			menu(menuInput);
 		}while(menuInput!=ABORT);
 
@@ -66,13 +67,18 @@ public class CLIControler {
 			break;
 		case DELETE_COMPUTER:
 			input = InputControler.getInputLong();
-			computerServices.deleteComputer(input);
+			computerServices.deleteComputer(input)
+			;
 			break;
 		case LIST_COMPUTERS_PAGES:
 			listPagesComputer();
 			break;
 		case LIST_COMPANIES_PAGES:
 			listCompanyPages();
+			break;
+		case DELETE_COMPANY:
+			input = InputControler.getInputLong();
+			companyServices.deleteCompany(input);
 			break;
 		default:
 			break;
