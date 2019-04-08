@@ -22,7 +22,7 @@ public class InterfaceConsole {
 		System.out.println("5 - Update computer");
 		System.out.println("6 - Delete computer");
 		System.out.println("7 - List computers with pages");
-		System.out.println("8 - List companies with pages");
+		System.out.println("8 - LisList t companies with pages");
 		System.out.println("9 - Delete Company");
 	}
 	

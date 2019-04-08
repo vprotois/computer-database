@@ -6,6 +6,7 @@ import java.util.Optional;
 import exception.ComputerNotFoundException;
 import exception.CreateComputerError;
 import exception.UpdateComputerError;
+import exception.ValidatorException;
 import model.Company;
 import model.Computer;
 import model.Pages;
@@ -67,8 +68,7 @@ public class CLIControler {
 			break;
 		case DELETE_COMPUTER:
 			input = InputControler.getInputLong();
-			computerServices.deleteComputer(input)
-			;
+			computerServices.deleteComputer(input);
 			break;
 		case LIST_COMPUTERS_PAGES:
 			listPagesComputer();
@@ -91,6 +91,8 @@ public class CLIControler {
 			InterfaceConsole.display("ComputerUpdated");
 		} catch (UpdateComputerError e) {
 			InterfaceConsole.display("Failed to update computer :"+ e.getMessage());
+		} catch (ValidatorException e) {
+			InterfaceConsole.display(e.getMessage());
 		}
 	}
 
@@ -100,6 +102,8 @@ public class CLIControler {
 			InterfaceConsole.display("ComputerCreated");
 		} catch (CreateComputerError e) {
 			InterfaceConsole.display("Failed to create computer :"+ e.getMessage());
+		} catch (ValidatorException e) {
+			InterfaceConsole.display(e.getMessage());
 		}
 	}
 
