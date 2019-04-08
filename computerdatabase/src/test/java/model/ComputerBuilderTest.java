@@ -1,12 +1,14 @@
 package model;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+
+import junit.framework.TestCase;
+
 import java.sql.Timestamp;
 
 import model.builders.ComputerBuilder;
 
-public class ComputerBuilderTest {
+public class ComputerBuilderTest extends TestCase{
 
 	@Test
 	public void testBuild() {
@@ -43,22 +45,17 @@ public class ComputerBuilderTest {
 		assertNull(c2.getCompanyId());
 	}
 	
+	
 	@Test
-	public void testBuildWrongTimestamp() {
-		Timestamp t1 = new Timestamp(2000000);
-		Timestamp t2 = new Timestamp(100000);
-		Computer c1 = new Computer(1L, "ane",null,t1,t2,null);
+	public void testBuildCompany() {
+		Company company = new Company(1L,"name");
+		Computer c1 = new Computer(1L, "ane",company,null,null,null);
 		Computer c2 = new ComputerBuilder()
 				.withId(1L)
 				.withName("ane")
-				.withIntroduced(t1)
-				.withDiscontinued(t2)
+				.withCompany(company)
 				.build();
-		assertNotEquals(c1,c2);
-		assertEquals(c2.getIntroduced(),t1);
-		assertNull(c2.getDiscontinued());
-		assertNull(c2.getCompany());
-		assertNull(c2.getCompanyId());
+		assertEquals(c1,c2);
 	}
 	
 	

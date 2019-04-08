@@ -237,8 +237,8 @@ public class ComputerServices {
 	}
 	
 	public void updateComputer(Computer computer) throws UpdateComputerError, ValidatorException{
-		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		Validator.computerValidator(computer);
+		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		daoComputer.updateComputer(computer);
 	}
 	

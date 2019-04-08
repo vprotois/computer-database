@@ -30,6 +30,7 @@ class ValidatorTest {
 										.build();
 		try {
 			Validator.computerValidator(testedComputer);
+			fail("no exception thrown");
 		} catch (ValidatorException e) {
 			assertEquals(Validator.ERROR_COMPUTER_NAME,e.getMessage());
 		}
@@ -40,8 +41,10 @@ class ValidatorTest {
 		Computer testedComputer = new ComputerBuilder()
 										.withName("")
 										.build();
+		
 		try {
 			Validator.computerValidator(testedComputer);
+			fail("no exception thrown");
 		} catch (ValidatorException e) {
 			assertEquals(Validator.ERROR_COMPUTER_NAME,e.getMessage());
 		}
@@ -83,8 +86,9 @@ class ValidatorTest {
 									.build();
 		try {
 			Validator.computerValidator(testedComputer);
+			fail("no exception thrown");
 		} catch (ValidatorException e) {
-			assertEquals(Validator.ERROR_COMPUTER_DICS_INFERIOR,e.getMessage());
+			assertEquals(Validator.ERROR_COMPUTER_DISC_INFERIOR,e.getMessage());
 		}
 	}
 	
@@ -96,6 +100,7 @@ class ValidatorTest {
 									.build();
 		try {
 			Validator.computerValidator(testedComputer);
+			fail("no exception thrown");
 		} catch (ValidatorException e) {
 			assertEquals(Validator.ERROR_COMPUTER_DISC_WITHOUT_INTR,e.getMessage());
 		}

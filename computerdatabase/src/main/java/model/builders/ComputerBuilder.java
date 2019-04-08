@@ -44,7 +44,7 @@ public class ComputerBuilder {
 			introduced = this.introduced.get();
 		}
 		if(this.discontinued.isPresent()) {
-			introduced = this.discontinued.get();
+			discontinued = this.discontinued.get();
 		}
 		if(this.companyId.isPresent()) {
 			companyId = this.companyId.get();
