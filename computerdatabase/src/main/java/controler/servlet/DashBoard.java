@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import exception.ComputerNotFoundException;
 import model.Pages;
 import model.dto.DTOComputer;
 import services.ComputerServices;
@@ -33,50 +34,56 @@ public class DashBoard extends HttpServlet {
 	private static final int DEFAULT_INDEX_PAGE = 0;
 	private static final int DEFAULT_SIZE_PAGE = 10;
 	
-
-
-	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 	
 		Integer size = getParamSize(req);
 		Integer index= getParamIndex(req);
 		String search = (String) req.getParameter("search");
-		String order  = (String) req.getParameter("order");
-		String asc = (String) req.getParameter("asc");
-		if(order == null) {
-			order = "";
-		}
-		if(asc==null) {
-			asc = "false";
-		}
+		String order = getParamOrder(req);
+		String asc = getParamAsc(req);
 		
 		ComputerServices computerServ = new ComputerServices();
+		Optional<Pages<DTOComputer>> optpages = Optional.empty();
+		
+		optpages = getOptPages(size, index, search, order, asc, computerServ);
+		
+		if(!optpages.isPresent()) {
+			req.setAttribute("exception", new ComputerNotFoundException("List not found"));
+			this.getServletContext()
+			.getRequestDispatcher(ServletData.VIEW_ERROR_500)
+			.forward(req, resp);
+		}
+		else {
+			setDashboardAttributes(req, size, search, order, optpages);
+			this.getServletContext()
+			.getRequestDispatcher(ServletData.VIEW_LIST_COMPUTERS)
+			.forward(req, resp);
+		}
+	}
+
+
+	private Optional<Pages<DTOComputer>> getOptPages(Integer size, Integer index, String search, String order,
+			String asc, ComputerServices computerServ) {
 		Optional<Pages<DTOComputer>> optpages;
 		if(search == null || "".equals(search)) {
 			optpages = computerServ.pagesDTOComputer(size, index,order,"true".equals(asc));			
 		}else{
 			optpages = computerServ.pagesComputerWithName(search, size, index,order,"true".equals(asc));
 		}
-		
-		if(!optpages.isPresent()) {
-			this.getServletContext()
-			.getRequestDispatcher(ServletData.VIEW_ERROR_500)
-			.forward(req, resp);
-		}
-		else {
-			Pages<DTOComputer> p = optpages.get();
-			req.setAttribute(PAGE_COMPUTERS, p);
-			req.setAttribute(NUMBER_COMPUTERS, p.getDataSize());
-			req.setAttribute(PAGE_DATA, p.getPageData());
-			req.setAttribute(NEXT_PAGE,p.nextIndex());
-			req.setAttribute(PREVIOUS_PAGE,p.previousIndex());
-			req.setAttribute(PAGE_SIZE, size);
-			req.setAttribute(PAGE_ORDER, order);
-			req.setAttribute(PAGE_SEARCH, search);
-			this.getServletContext()
-			.getRequestDispatcher(ServletData.VIEW_LIST_COMPUTERS)
-			.forward(req, resp);
-		}
+		return optpages;
+	}
+
+	private void setDashboardAttributes(HttpServletRequest req, Integer size, String search, String order,
+			Optional<Pages<DTOComputer>> optpages) {
+		Pages<DTOComputer> p = optpages.get();
+		req.setAttribute(PAGE_COMPUTERS, p);
+		req.setAttribute(NUMBER_COMPUTERS, p.getDataSize());
+		req.setAttribute(PAGE_DATA, p.getPageData());
+		req.setAttribute(NEXT_PAGE,p.nextIndex());
+		req.setAttribute(PREVIOUS_PAGE,p.previousIndex());
+		req.setAttribute(PAGE_SIZE, size);
+		req.setAttribute(PAGE_ORDER, order);
+		req.setAttribute(PAGE_SEARCH, search);
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -115,6 +122,23 @@ public class DashBoard extends HttpServlet {
 		return size;
 	}
 	
+	private String getParamAsc(HttpServletRequest req) {
+		String asc = (String) req.getParameter("asc");
+		
+		if(asc==null) {
+			asc = "false";
+		}
+		return asc;
+	}
+	
+	private String getParamOrder(HttpServletRequest req) {
+		String order;
+		order = (String) req.getParameter("order");
+		if(order == null) {
+			order = "";
+		}
+		return order;
+	}
 	
 
 }

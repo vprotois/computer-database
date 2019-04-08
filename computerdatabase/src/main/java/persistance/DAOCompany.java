@@ -56,33 +56,39 @@ public class DAOCompany {
 		Connection conn = null;
 		try {
 			conn = ConnectionPool.getDataSource().getConnection();
-
 			try  {
+				
 				conn.setAutoCommit(false);
-				PreparedStatement stmt = conn.prepareStatement(deleteComputers);
-				stmt.setLong(1, id);
-				stmt.executeUpdate();
-				stmt = conn.prepareStatement(deleteFromId);
-				stmt.setLong(1, id);
-				stmt.executeUpdate();
+				deleteComputerUpdate(id, conn);
+				deleteCompanyUpdate(id, conn);
 				conn.commit();
+				
 			} catch (SQLException e) {
 				if(conn != null) {
 					conn.rollback();
-
 				}
-				log.error("Error when deleting company :"+e.getMessage());
+				log.error("Error when deleting company : "+e.getMessage());
 			}finally {
-
 				if (conn != null && ! conn.isClosed()) {
 					conn.close();
-
-
 				}
 			} 
 		}catch (SQLException e1) {
 			e1.printStackTrace();
 		}
+	}
+
+	private void deleteCompanyUpdate(Long id, Connection conn) throws SQLException {
+		PreparedStatement stmt;
+		stmt = conn.prepareStatement(deleteFromId);
+		stmt.setLong(1, id);
+		stmt.executeUpdate();
+	}
+
+	private void deleteComputerUpdate(Long id, Connection conn) throws SQLException {
+		PreparedStatement stmt = conn.prepareStatement(deleteComputers);
+		stmt.setLong(1, id);
+		stmt.executeUpdate();
 	}
 
 }

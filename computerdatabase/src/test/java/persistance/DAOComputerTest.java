@@ -3,7 +3,6 @@ package persistance;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -15,13 +14,6 @@ import model.Computer;
 
 @ExtendWith(MockitoExtension.class)
 public class DAOComputerTest extends TestCase {
-
-	
-	@BeforeEach
-	public void failTest() {
-		System.out.println("test");
-		fail();
-	}
 	
 	
 	@Test
