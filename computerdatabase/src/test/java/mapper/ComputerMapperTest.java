@@ -1,7 +1,5 @@
 package mapper;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -14,10 +12,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import junit.framework.TestCase;
 import model.Computer;
 
 
-class ComputerMapperTest {
+class ComputerMapperTest extends TestCase {
 
 	@Mock
 	ResultSet rs = Mockito.mock(ResultSet.class);
@@ -41,31 +40,31 @@ class ComputerMapperTest {
 	}
 
 	private void mockitoSetUpCompanyId() throws SQLException {
-		Mockito.when(rs.getLong("company_id"))
+		Mockito.when(rs.getLong("cr.company_id"))
 				.thenReturn(new Long(5))
 				.thenReturn(new Long(5));
 	}
 
 	private void mockitoSetUpDiscontinued() throws SQLException {
-		Mockito.when(rs.getTimestamp("discontinued"))
+		Mockito.when(rs.getTimestamp("cr.discontinued"))
 				.thenReturn(new Timestamp(4000))
 				.thenReturn(new Timestamp(64564));
 	}
 
 	private void mockitoSetUpIntroduced() throws SQLException {
-		Mockito.when(rs.getTimestamp("introduced"))
+		Mockito.when(rs.getTimestamp("cr.introduced"))
 				.thenReturn(new Timestamp(1000))
 				.thenReturn(new Timestamp(4564));
 	}
 
 	private void mockitoSetUpName() throws SQLException {
-		Mockito.when(rs.getString("name"))
+		Mockito.when(rs.getString("cr.name"))
 				.thenReturn("azaz1234")
 				.thenReturn("QWERT");
 	}
 
 	private void mockitoSetUpId() throws SQLException {
-		Mockito.when(rs.getLong("id"))
+		Mockito.when(rs.getLong("cr.id"))
 				.thenReturn(new Long(1))
 				.thenReturn(new Long(4));
 	}
@@ -85,9 +84,9 @@ class ComputerMapperTest {
 	@Test
 	void testListComputer() throws SQLException {
 		List<Computer> list = new ArrayList<Computer>();
-		list.add(new Computer(1L,"azaz1234",null,new Timestamp(1000),new Timestamp(4000),5L));
-		list.add(new Computer(4L,"QWERT",null,new Timestamp(4564),new Timestamp(64564),5L));
+		list.add(new Computer(new Long(1),"azaz1234",null,new Timestamp(1000),new Timestamp(4000),new Long(5)));
+		list.add(new Computer(new Long(4),"QWERT",null,new Timestamp(4564),new Timestamp(64564),new Long(5)));
 		List<Computer> result = ComputerMapper.mapComputerList(rs);
-		assertEquals(list,result);
+		assertEquals(list.toString(),result.toString());
 	}
 }

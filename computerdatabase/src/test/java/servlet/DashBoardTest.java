@@ -61,11 +61,11 @@ class DashBoardTest extends TestCase {
 	
 	 
 	@Test
-	public void listNotEmpty() {
+	public void listNotEmptyTest() {
 		driver.get(URL_DASHBOARD);
 		WebElement results = driver.findElement(By.id(RESULTS_ID));
 		List<WebElement> list = results.findElements(By.tagName("tr"));
-		assertNotEquals(Integer.valueOf(0),Integer.valueOf(list.size()));
+		assertNotEquals(Integer.valueOf(0).toString(),Integer.valueOf(list.size()).toString());
 	}
 	  
 	  
