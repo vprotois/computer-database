@@ -21,20 +21,23 @@ import model.builders.ComputerBuilder;
 import model.builders.PagesBuilder;
 import model.dto.DTOComputer;
 import persistance.DAOComputer;
-import persistance.DAOFactory;
 import validator.Validator;
 
 public class ComputerServices {
 
-	public static Logger log= LoggerFactory.getLogger(ComputerServices.class);
+	private static Logger log= LoggerFactory.getLogger(ComputerServices.class);
+	private DAOComputer daoComputer;
+	
 	public static final String NAME = "name";
 	public static final String INTRODUCED = "introduced";
 	public static final String DISCONTINUED = "discontinued";
 	public static final String COMPANY_ID = "company_id";
 	public static final String EMPTY = "";
 			
-	public ComputerServices() {
-		
+	
+	
+	public ComputerServices(DAOComputer daoComputer) {
+		this.daoComputer = daoComputer;
 	}
 
 	public void buildComputerWithId(String[] args) throws CreateComputerError, ValidatorException {
@@ -44,8 +47,6 @@ public class ComputerServices {
 				.withIntroduced(TimeStampMapper.stringToTimestamp(args[2]))
 				.withDiscontinued(TimeStampMapper.stringToTimestamp(args[3]))
 				.withCompanyId(Optional.of(Long.parseLong(args[4])));
-		
-		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		
 		Computer computer = cBuilder.build();
 		Validator.computerValidator(computer);
@@ -60,7 +61,7 @@ public class ComputerServices {
 				.withIntroduced(TimeStampMapper.stringToTimestamp(introduced))
 				.withDiscontinued(TimeStampMapper.stringToTimestamp(discontinued))
 				.withCompanyId(Optional.of(Long.parseLong(companyId)));
-		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
+		
 		Computer comp = compBuilder.build();
 		Validator.computerValidator(comp);
 		daoComputer.createComputer(comp);
@@ -68,7 +69,6 @@ public class ComputerServices {
 	}
 	
 	public void addComputer(Computer comp) throws CreateComputerError, ValidatorException {
-		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		Validator.computerValidator(comp);
 		daoComputer.createComputer(comp);
 	}
@@ -105,7 +105,6 @@ public class ComputerServices {
 	}
 	
 	public Optional<List<Computer>> listComputer() {
-		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		Optional<List<Computer>> list = daoComputer.listComputers();
 		return list;
 	}
@@ -127,7 +126,6 @@ public class ComputerServices {
 	}
 	
 	public Optional<Pages <DTOComputer>> pagesComputerWithName(String name, Integer size, Integer index,String order,Boolean asc) {
-		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		Optional<List<Computer>> list = daoComputer.getListFromName(name);
 		if(!list.isPresent()) {
 			return Optional.empty();
@@ -190,7 +188,7 @@ public class ComputerServices {
 	}
 	
 	public DTOComputer getComputerDTO(Long id) throws ComputerNotFoundException {
-		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
+		
 		Optional<Computer> c = daoComputer.getCompDetails(id);
 		if(!c.isPresent()) {
 			throw new ComputerNotFoundException("Computer not in base");
@@ -200,12 +198,11 @@ public class ComputerServices {
 	}
 
 	public void deleteComputer(Long id)  {
-		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
 		daoComputer.deleteComputer(id);
 	}
 
 	public void updateComputer(String[] args) throws UpdateComputerError, ValidatorException{
-		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
+
 		Long id = Long.parseLong(args[0]);
 		Optional<Computer> optcomputer = daoComputer.getCompDetails(id);
 		if(!optcomputer.isPresent()) {
@@ -238,7 +235,7 @@ public class ComputerServices {
 	
 	public void updateComputer(Computer computer) throws UpdateComputerError, ValidatorException{
 		Validator.computerValidator(computer);
-		DAOComputer daoComputer = (DAOComputer) DAOFactory.createDAOcomputer();
+
 		daoComputer.updateComputer(computer);
 	}
 	

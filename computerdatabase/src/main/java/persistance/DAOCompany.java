@@ -10,70 +10,73 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+import com.zaxxer.hikari.HikariDataSource;
+
 import mapper.CompanyMapper;
 import model.Company;
 
 public class DAOCompany {
 
-	private static Logger log= LoggerFactory.getLogger(DAOCompany.class);
+	private static Logger log = LoggerFactory.getLogger(DAOCompany.class);
+	private HikariDataSource dataSource;
 
-	private static final String selectAll ="SELECT id,name FROM company;";
+	private static final String selectAll = "SELECT id,name FROM company;";
 	private static final String selectId = "SELECT id,name FROM company WHERE id = ?;";
 	private static final String deleteFromId = "DELETE FROM company WHERE id = ?;";
 	private static final String deleteComputers = "DELETE FROM computer WHERE company_id = ?;";
 
-	public DAOCompany() {
-		super();
+	public DAOCompany(HikariDataSource dataSource) {
+		this.dataSource = dataSource;
 	}
 
-	public Optional<Company> getCompany(Long id){
-		try (Connection conn = ConnectionPool.getDataSource().getConnection()) {
+	public Optional<Company> getCompany(Long id) {
+		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(selectId);
-			stmt.setLong(1,id);
-			ResultSet results =  stmt.executeQuery();
+			stmt.setLong(1, id);
+			ResultSet results = stmt.executeQuery();
 
 			return CompanyMapper.mapSingleCompany(results);
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			log.error("Error when getting Company :" + id);
-		}
-		return Optional.empty();		
-	}
-
-	public Optional<List<Company>> getCompanies(){
-		try (Connection conn = ConnectionPool.getDataSource().getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement(selectAll);
-			ResultSet results =  stmt.executeQuery();
-			return Optional.of(CompanyMapper.mapCompaniesList(results));
-		}catch(SQLException e){
-			log.error("Error when getting company list :"+e.getMessage());
 		}
 		return Optional.empty();
 	}
 
+	public Optional<List<Company>> getCompanies() {
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(selectAll);
+			ResultSet results = stmt.executeQuery();
+			return Optional.of(CompanyMapper.mapCompaniesList(results));
+		} catch (SQLException e) {
+			log.error("Error when getting company list :" + e.getMessage());
+		}
+		return Optional.empty();
+	}
 
 	public void deleteCompany(Long id) {
 		Connection conn = null;
 		try {
-			conn = ConnectionPool.getDataSource().getConnection();
-			try  {
-				
+			conn = dataSource.getConnection();
+			try {
+
 				conn.setAutoCommit(false);
 				deleteComputerUpdate(id, conn);
 				deleteCompanyUpdate(id, conn);
 				conn.commit();
-				
+
 			} catch (SQLException e) {
-				if(conn != null) {
+				if (conn != null) {
 					conn.rollback();
 				}
-				log.error("Error when deleting company : "+e.getMessage());
-			}finally {
-				if (conn != null && ! conn.isClosed()) {
+				log.error("Error when deleting company : " + e.getMessage());
+			} finally {
+				if (conn != null && !conn.isClosed()) {
 					conn.close();
 				}
-			} 
-		}catch (SQLException e1) {
+			}
+		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
 	}

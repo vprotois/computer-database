@@ -15,11 +15,11 @@ import services.CompanyServices;
 import services.ComputerServices;
 import ui.InterfaceConsole;
 
-public class CLIControler {
-
-	private ComputerServices computerServices = new ComputerServices();
-	private CompanyServices  companyServices  = new CompanyServices();
-
+public class CLIControler {	
+	
+	private CompanyServices companyServices;
+	private ComputerServices computerServices;
+	
 	private static final int ABORT = 0;
 	private static final int LIST_COMPUTERS = 1;
 	private static final int LIST_COMPANIES = 2;
@@ -33,6 +33,12 @@ public class CLIControler {
 		
 	private static final int PREVIOUS_PAGE = 1;
 	private static final int NEXT_PAGE = 2;
+	
+	public CLIControler(ComputerServices computerServices, CompanyServices companyServices) {
+		this.computerServices = computerServices;
+		this.companyServices = companyServices;
+	}
+	
 	
 	public void start() {
 		int menuInput = 0; 
@@ -147,10 +153,10 @@ public class CLIControler {
 	}
 
 	private void showDetailsComputer(Long input) {
-		DTOComputer c;
+		DTOComputer computer;
 		try {
-			c = computerServices.getComputerDTO(input);
-			InterfaceConsole.display(c);
+			computer = computerServices.getComputerDTO(input);
+			InterfaceConsole.display(computer);
 		} catch (ComputerNotFoundException e) {
 			InterfaceConsole.display("Computer not in base");
 		}

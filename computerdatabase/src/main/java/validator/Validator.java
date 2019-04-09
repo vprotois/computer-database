@@ -50,22 +50,13 @@ public class Validator {
 
 
 	private static void nameValid(Computer computer) throws ValidatorException {
-		if (computer == null || computer.getName() == null || "".equals(computer.getName())) {
+		if (computer == null || "".equals(computer.getName())) {
 			throw new ValidatorException(ERROR_COMPUTER_NAME);
 		}
 	}
 	
 	
 	public static void companyValidator(Company company) throws ValidatorException {
-		CompanyServices companyServices = new CompanyServices();
-		Optional<List<Company>> optList = companyServices.listCompanies();
-		if(!optList.isPresent()) {
-			throw new ValidatorException(ERROR_COMPUTER_COMPANIES);
-		}
-		List<Company> list = optList.get();
-		if(!list.contains(company)) {
-			throw new ValidatorException(ERROR_COMPANY_NOT_FOUND);
-		}
 		
 		if(company.getId() == null) {
 			throw new ValidatorException(ERROR_COMPANY_INVALID_ID);

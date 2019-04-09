@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.zaxxer.hikari.HikariDataSource;
 
 import exception.CreateComputerError;
 import exception.UpdateComputerError;
@@ -19,9 +20,11 @@ import model.Computer;
 public class DAOComputer {
 
 	private static Logger log= LoggerFactory.getLogger(DAOComputer.class);
+	private HikariDataSource dataSource;
 	
-	public DAOComputer() {
-		super();
+	
+	public DAOComputer(HikariDataSource dataSource) {
+		this.dataSource = dataSource;
 	}
 	
 	private static String selectAll = "SELECT cr.id, cr.name, cr.introduced, cr.discontinued, cr.company_id, cy.name FROM computer as cr "
@@ -40,7 +43,8 @@ public class DAOComputer {
 	
 
 	public Optional<List<Computer>> listComputers(){
-		try (Connection conn = ConnectionPool.getDataSource().getConnection()) {
+		
+		try (Connection conn = dataSource.getConnection()) {
 			Statement stmt = conn.createStatement();
 			ResultSet results = stmt.executeQuery(selectAll);
 			return Optional.of(ComputerMapper.mapComputerList(results));
@@ -53,7 +57,7 @@ public class DAOComputer {
 
 
 	public Optional<Computer> getCompDetails(Long id){
-		try (Connection conn = ConnectionPool.getDataSource().getConnection()) {
+		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(selectCompWithId);
 			stmt.setLong(1,id);
 			ResultSet results = stmt.executeQuery();
@@ -66,7 +70,7 @@ public class DAOComputer {
 	}
 	
 	public Optional<List<Computer>> getListFromName(String name){
-		try (Connection conn = ConnectionPool.getDataSource().getConnection()) {
+		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(selectCompWithName);
 			stmt.setString(1,"%"+name+"%");
 			stmt.setString(2, "%"+name+"%");
@@ -80,7 +84,7 @@ public class DAOComputer {
 	}
 
 	public void createComputer(Computer c) throws CreateComputerError {
-		try (Connection conn = ConnectionPool.getDataSource().getConnection()) {
+		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement prep;
 			if(c.getId() != null) {
 				prep = conn.prepareStatement(InsertComputerWithId);
@@ -124,7 +128,7 @@ public class DAOComputer {
 	}
 
 	public void updateComputer(Computer c) throws UpdateComputerError{
-		try (Connection conn = ConnectionPool.getDataSource().getConnection()) {
+		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement prep = conn.prepareStatement(update);
 			fillStatementUpdate(c, prep);
 			prep.executeUpdate();
@@ -149,7 +153,7 @@ public class DAOComputer {
 	}
 
 	public boolean deleteComputer(Long id){
-		try (Connection conn = ConnectionPool.getDataSource().getConnection()) {
+		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(delete);
 			stmt.setLong(1,id);
 			stmt.executeUpdate();

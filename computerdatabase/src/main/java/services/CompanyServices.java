@@ -3,16 +3,21 @@ package services;
 import java.util.List;
 import java.util.Optional;
 
+
 import model.Company;
 import model.Pages;
 import model.builders.PagesBuilder;
 import persistance.DAOCompany;
-import persistance.DAOFactory;
 
 public class CompanyServices {
 
+	private DAOCompany daoCompany;
+	
+	public CompanyServices (DAOCompany daoCompany) {
+		this.daoCompany = daoCompany;
+	}
+	
 	public Optional<List<Company>> listCompanies() {
-		DAOCompany daoCompany = (DAOCompany) DAOFactory.createDAOcompany();
 		Optional<List<Company>> companies = daoCompany.getCompanies();
 		return companies;
 	}
@@ -33,12 +38,10 @@ public class CompanyServices {
 	}
 	
 	public Optional<Company> getCompany(Long id){
-		DAOCompany daoCompany = (DAOCompany) DAOFactory.createDAOcompany();
 		return daoCompany.getCompany(id);
 	}
 	
 	public void deleteCompany(Long id) {
-		DAOCompany daoCompany = (DAOCompany) DAOFactory.createDAOcompany();
 		daoCompany.deleteCompany(id);
 	}
 }

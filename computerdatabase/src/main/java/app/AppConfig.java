@@ -1,7 +1,9 @@
 package app;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.GenericApplicationContext;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -16,10 +18,10 @@ import controler.CLIControler;
 
 @Configuration
 public class AppConfig {
-
+	
 	@Bean
 	public HikariConfig HikariConfig() {
-		return new HikariConfig("/datasource.properties");
+		return new HikariConfig("src/main/ressources/datasource.properties");
 	}
 
 	@Bean
@@ -29,26 +31,26 @@ public class AppConfig {
 
 	@Bean
 	public DAOComputer DAOComputer() {
-		return new DAOComputer();
+		return new DAOComputer(HikariDataSource());
 	}
 
 	@Bean
 	public DAOCompany DAOCompany() {
-		return new DAOCompany();
+		return new DAOCompany(HikariDataSource());
 	}
 	
 	@Bean
 	public CompanyServices CompanyServices() {
-		return new CompanyServices();
+		return new CompanyServices(DAOCompany());
 	}
 
 	@Bean
 	public ComputerServices computerServices() {
-		return new ComputerServices();
+		return new ComputerServices(DAOComputer());
 	}
 	
 	@Bean
 	public CLIControler CLIControler() {
-		return new CLIControler();
+		return new CLIControler(computerServices(),CompanyServices());
 	}
 }
