@@ -16,14 +16,11 @@ public class Validator {
 	public static final String ERROR_COMPUTER_DISC_WITHOUT_INTR = "Can't have discontinued without introduced";
 	public static final String ERROR_COMPUTER_DISC_INFERIOR = "Can't have discontinued inferior than introduced";
 	
-	
-	
 	public static void computerValidator(Computer computer) throws ValidatorException {
 		nameValid(computer);
 		intrAndDiscValid(computer);
 		companyValid(computer);
 	}
-
 
 	private static void companyValid(Computer computer) throws ValidatorException {
 		if(computer.getCompany() != null) {
@@ -44,16 +41,13 @@ public class Validator {
 		}
 	}
 
-
 	private static void nameValid(Computer computer) throws ValidatorException {
 		if (computer == null || "".equals(computer.getName())) {
 			throw new ValidatorException(ERROR_COMPUTER_NAME);
 		}
 	}
 	
-	
 	public static void companyValidator(Company company) throws ValidatorException {
-		
 		if(company.getId() == null) {
 			throw new ValidatorException(ERROR_COMPANY_INVALID_ID);
 		}

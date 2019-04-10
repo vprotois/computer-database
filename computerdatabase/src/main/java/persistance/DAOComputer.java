@@ -50,8 +50,7 @@ public class DAOComputer {
 			ResultSet results = stmt.executeQuery(selectAll);
 			return Optional.of(ComputerMapper.mapComputerList(results));
 		}catch(SQLException e){
-			System.out.println(e.getMessage());
-			log.error("Error when getting the computer List");
+			log.error("Error when getting the computer List : "+e.getMessage());
 		}
 		return Optional.empty();
 	}
@@ -64,8 +63,7 @@ public class DAOComputer {
 			ResultSet results = stmt.executeQuery();
 			return ComputerMapper.mapSingleComputer(results);
 		}catch(SQLException e) {
-			System.out.println(e.getMessage());
-			log.error("Error when getting the details of computer : "+id);
+			log.error("Error when getting the details of computer "+id+" : "+e.getMessage());
 		}
 		return Optional.empty();		
 	}
@@ -78,8 +76,7 @@ public class DAOComputer {
 			ResultSet results = stmt.executeQuery();
 			return Optional.of(ComputerMapper.mapComputerList(results));
 		}catch(SQLException e) {
-			System.out.println(e.getMessage());
-			log.error("Error when getting the list of computer with name : "+name);
+			log.error("Error when getting the list of computer with name "+name+" : "+e.getMessage());
 		}
 		return Optional.empty();		
 	}
@@ -97,8 +94,7 @@ public class DAOComputer {
 			}
 			prep.executeUpdate();
 		}catch(SQLException e) {
-			System.out.println(e.getMessage());
-			log.error("Error when creating computer : "+ c);
+			log.error("Error when creating computer "+c+" : "+ e.getMessage());
 			throw new CreateComputerError(e.getMessage());
 		}
 
@@ -135,7 +131,7 @@ public class DAOComputer {
 			prep.executeUpdate();
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
-			log.error("Error when updating computer : "+c);
+			log.error("Error when updating computer "+c+" : "+e.getMessage());
 			throw new UpdateComputerError(e.getMessage());
 		}
 	}
@@ -153,16 +149,15 @@ public class DAOComputer {
 		prep.setLong(5,c.getId());
 	}
 
-	public boolean deleteComputer(Long id){
+	public void deleteComputer(Long id) throws UpdateComputerError{
 		try (Connection conn = dataSource.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(delete);
 			stmt.setLong(1,id);
 			stmt.executeUpdate();
-			return true;
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
-			log.error("Error when deleting computer : "+ id);
-			return false;
+			log.error("Error when deleting computer "+id+" : "+ e.getMessage());
+			throw new UpdateComputerError(e.getMessage());
 		}
 	}
 	

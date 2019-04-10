@@ -74,7 +74,7 @@ public class CLIControler {
 			break;
 		case DELETE_COMPUTER:
 			input = InputControler.getInputLong();
-			computerServices.deleteComputer(input);
+			deleteComputer(input);
 			break;
 		case LIST_COMPUTERS_PAGES:
 			listPagesComputer();
@@ -88,6 +88,15 @@ public class CLIControler {
 			break;
 		default:
 			break;
+		}
+	}
+
+
+	private void deleteComputer(Long input) {
+		try {
+			computerServices.deleteComputer(input);
+		} catch (UpdateComputerError e) {
+			InterfaceConsole.display("Failed to delete computer : " + e.getMessage());
 		}
 	}
 

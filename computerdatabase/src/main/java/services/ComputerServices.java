@@ -33,8 +33,6 @@ public class ComputerServices {
 	public static final String DISCONTINUED = "discontinued";
 	public static final String COMPANY_ID = "company_id";
 	public static final String EMPTY = "";
-			
-	
 	
 	public ComputerServices(DAOComputer daoComputer) {
 		this.daoComputer = daoComputer;
@@ -53,8 +51,6 @@ public class ComputerServices {
 		daoComputer.createComputer(computer);
 	}
 	
-
-	
 	public void buildComputer(String name,String introduced,String discontinued,String companyId) throws CreateComputerError, ValidatorException {
 		ComputerBuilder compBuilder = new ComputerBuilder()
 				.withName(Optional.of(name))
@@ -72,7 +68,6 @@ public class ComputerServices {
 		Validator.computerValidator(comp);
 		daoComputer.createComputer(comp);
 	}
-	
 
 	public Optional<List<DTOComputer>> listDTOComputer(){
 		Optional<List<Computer>> list = listComputer();
@@ -109,7 +104,6 @@ public class ComputerServices {
 		return list;
 	}
 	
-	
 	public Optional<Pages <Computer>> pagesComputer(Integer size, Integer index) {
 		Optional<List<Computer>> list = listComputer();
 		if(!list.isPresent()) {
@@ -133,6 +127,7 @@ public class ComputerServices {
 		else {
 			List<DTOComputer> listDTO =null;
 			listDTO = mapAndSortList(order,asc, list, listDTO);
+			
 			if(listDTO == null) {
 				return Optional.empty();
 			}
@@ -193,11 +188,10 @@ public class ComputerServices {
 		if(!c.isPresent()) {
 			throw new ComputerNotFoundException("Computer not in base");
 		}
-		DTOComputer dto = DTOComputerMapper.mapComputerToDTO(c.get());
-		return dto;
+		return DTOComputerMapper.mapComputerToDTO(c.get());
 	}
 
-	public void deleteComputer(Long id)  {
+	public void deleteComputer(Long id) throws UpdateComputerError  {
 		daoComputer.deleteComputer(id);
 	}
 
@@ -218,15 +212,13 @@ public class ComputerServices {
 			break;
 		case DISCONTINUED:
 			Timestamp t = TimeStampMapper.stringToTimestamp(args[2]).get();
-			if(t.compareTo(computer.getIntroduced())> 0) {
-				computer.setDiscontinued(t);
-			}
+			computer.setDiscontinued(t);
 			break;
 		case COMPANY_ID:
 			computer.setCompanyId(Long.parseLong(args[2]));
 			break;
 		default:
-			log.error("Not a valid column");
+			log.error("Not a valid column : "+ args[1]);
 			return;
 		}
 		Validator.computerValidator(computer);
@@ -235,7 +227,6 @@ public class ComputerServices {
 	
 	public void updateComputer(Computer computer) throws UpdateComputerError, ValidatorException{
 		Validator.computerValidator(computer);
-
 		daoComputer.updateComputer(computer);
 	}
 	

@@ -2,7 +2,9 @@ package controler.servlet;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import exception.ComputerNotFoundException;
+import exception.UpdateComputerError;
 import model.Pages;
 import model.dto.DTOComputer;
 import services.ComputerServices;
@@ -111,9 +114,20 @@ public class DashBoard extends HttpServlet {
 		List<Long> list = Arrays.asList(toDeleteList.split(","))
 				.stream().map(s -> Long.parseLong(s)).collect(Collectors.toList());		
 
-		list.forEach(id -> computerService.deleteComputer(id));
+		Map<Long,String> notDeleted = new HashMap<>();
+		
+		list.forEach(id -> {
+			try {
+				computerService.deleteComputer(id);
+			} catch (UpdateComputerError e) {
+				notDeleted.put(id, e.getMessage());
+			}
+		});
 
-		resp.sendRedirect(ServletData.REDIRECT_LIST_COMPUTERS);
+		req.setAttribute("notDeletedMap", notDeleted);
+		this.getServletContext()
+		.getRequestDispatcher(ServletData.VIEW_LIST_COMPUTERS)
+		.forward(req, resp);
 	}
 
 
