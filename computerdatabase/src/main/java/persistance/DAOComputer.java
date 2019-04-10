@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.zaxxer.hikari.HikariDataSource;
 
 import exception.CreateComputerError;
 import exception.UpdateComputerError;
 
 import java.util.Optional;
+
+import javax.sql.DataSource;
 
 import mapper.ComputerMapper;
 import model.Computer;
@@ -20,11 +21,11 @@ import model.Computer;
 public class DAOComputer {
 
 	private static Logger log= LoggerFactory.getLogger(DAOComputer.class);
-	private HikariDataSource dataSource;
+	private DataSource dataSource;
 	
 	
-	public DAOComputer(HikariDataSource dataSource) {
-		this.dataSource = dataSource;
+	public DAOComputer(DataSource dataSource2) {
+		this.dataSource = dataSource2;
 	}
 	
 	private static String selectAll = "SELECT cr.id, cr.name, cr.introduced, cr.discontinued, cr.company_id, cy.name FROM computer as cr "

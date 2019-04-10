@@ -5,10 +5,8 @@ import org.springframework.context.support.GenericApplicationContext;
 
 import app.AppConfig;
 
-public class ServletData {
+public abstract class ServletData {
 
-	
-	
 	static final String COMPANIES_ATTRIBUTE = "companies";
 	static final String COMPUTER_NAME = "computerName";
 	static final String INTRODUCED_DATE = "introduced";
@@ -21,7 +19,7 @@ public class ServletData {
 	static final String VIEW_ADD_COMPUTERS = "/ressources/views/addComputer.jsp";
 
 	static final String REDIRECT_LIST_COMPUTERS = "/computerdatabase/dashboard";
-	static final GenericApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 	
+	static final GenericApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
 }

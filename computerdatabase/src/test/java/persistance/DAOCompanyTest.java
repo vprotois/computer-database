@@ -1,34 +1,33 @@
 package persistance;
 
-import java.io.FileInputStream;
 import java.util.List;
 import java.util.Optional;
 
-import org.dbunit.DBTestCase;
-import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.GenericApplicationContext;
 
+import app.AppConfig;
+import junit.framework.TestCase;
 import model.Company;
 
 
-public class DAOCompanyTest extends DBTestCase{
+public class DAOCompanyTest extends TestCase{
 
-	private static String path_data = "/home/excilys/eclipse-workspace/computer-database/computerdatabase/src/test/java/persistance/test_data.xml";
+	private DAOCompany  daoCompany;
+	GenericApplicationContext context;
 	
-	
-	@Override
-	protected IDataSet getDataSet() throws Exception {
-		return new FlatXmlDataSetBuilder().build(new FileInputStream(path_data));
+	@BeforeAll
+	public void setUp() {
+		context = new AnnotationConfigApplicationContext(AppConfig.class);
+		daoCompany  = context.getBean(DAOCompany.class);
 	}
-	
-	
 	
 	
 	@Test
 	public void getCompanies() {
-		DAOCompany dao = DAOFactory.createDAOcompany();
-		Optional<List<Company>> optList = dao.getCompanies();
+		Optional<List<Company>> optList = daoCompany.getCompanies();
 		assertTrue(optList.isPresent());
 		List<Company>list =optList.get();
 		assertEquals(new Integer(42),new Integer(list.size()));
@@ -43,8 +42,7 @@ public class DAOCompanyTest extends DBTestCase{
 	
 	@Test
 	public void testGetCompany() {
-		DAOCompany dao = DAOFactory.createDAOcompany();
-		Optional<Company> optc = dao.getCompany(24L);
+		Optional<Company> optc = daoCompany.getCompany(24L);
 		assertTrue(optc.isPresent());
 		Company c = optc.get();
 		companyValid(c);
@@ -54,8 +52,7 @@ public class DAOCompanyTest extends DBTestCase{
 	
 	@Test
 	public void testGetWrongCompany() {
-		DAOCompany dao = DAOFactory.createDAOcompany();
-		Optional<Company> c = dao.getCompany(-124L);
+		Optional<Company> c = daoCompany.getCompany(-124L);
 		assertFalse(c.isPresent());
 	}
 	

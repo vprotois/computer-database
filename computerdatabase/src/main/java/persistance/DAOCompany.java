@@ -7,11 +7,12 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-import com.zaxxer.hikari.HikariDataSource;
 
 import mapper.CompanyMapper;
 import model.Company;
@@ -19,15 +20,15 @@ import model.Company;
 public class DAOCompany {
 
 	private static Logger log = LoggerFactory.getLogger(DAOCompany.class);
-	private HikariDataSource dataSource;
+	private DataSource dataSource;
 
 	private static final String selectAll = "SELECT id,name FROM company;";
 	private static final String selectId = "SELECT id,name FROM company WHERE id = ?;";
 	private static final String deleteFromId = "DELETE FROM company WHERE id = ?;";
 	private static final String deleteComputers = "DELETE FROM computer WHERE company_id = ?;";
 
-	public DAOCompany(HikariDataSource dataSource) {
-		this.dataSource = dataSource;
+	public DAOCompany(DataSource dataSource2) {
+		this.dataSource = dataSource2;
 	}
 
 	public Optional<Company> getCompany(Long id) {
