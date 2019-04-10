@@ -27,12 +27,18 @@ public class EditComputer extends HttpServlet {
 
 	private static final long serialVersionUID = -8458639712921797680L;
 
+	private ComputerServices computerService;
+	private CompanyServices  companyService;
 	
+	public void init() {
+		computerService = ServletData.context.getBean(ComputerServices.class);
+		companyService  = ServletData.context.getBean(CompanyServices.class);
+
+	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		
 		Optional<Long> id = getParamId(req);
-		CompanyServices companyService = new CompanyServices();
 		
 		Optional<List<Company>> list = companyService.listCompanies();
 		if(list.isPresent()) {
@@ -60,7 +66,6 @@ public class EditComputer extends HttpServlet {
 		String discontinued = req.getParameter(ServletData.DISCONTINUED_DATE);
 		String companyId = req.getParameter(ServletData.COMPANY_ID);
 		
-		ComputerServices computerService = new ComputerServices();
 		Optional<Timestamp> timestampIntr = TimeStampMapper.simpleStringToTimestamp(introduced);
 		Optional<Timestamp> timestampDisc = TimeStampMapper.simpleStringToTimestamp(discontinued);
 

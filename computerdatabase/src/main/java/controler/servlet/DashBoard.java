@@ -19,9 +19,9 @@ import services.ComputerServices;
 
 @WebServlet(name = "DashBoard",urlPatterns= {"/dashboard"})
 public class DashBoard extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 5874765507120279702L;
-	
+
 	private static final String PAGE_COMPUTERS = "computerPage";
 	private static final String NUMBER_COMPUTERS = "number_computers";
 	private static final String NEXT_PAGE = "next_page_index";
@@ -30,23 +30,32 @@ public class DashBoard extends HttpServlet {
 	private static final String PAGE_SIZE = "size";
 	private static final String PAGE_ORDER = "order";
 	private static final String PAGE_SEARCH = "search";
-	
+
 	private static final int DEFAULT_INDEX_PAGE = 0;
 	private static final int DEFAULT_SIZE_PAGE = 10;
-	
+
+	private ComputerServices computerService;
+
+	public void init() {
+		computerService = ServletData.context.getBean(ComputerServices.class);
+
+	}
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-	
+
 		Integer size = getParamSize(req);
 		Integer index= getParamIndex(req);
 		String search = (String) req.getParameter("search");
 		String order = getParamOrder(req);
 		String asc = getParamAsc(req);
-		
-		ComputerServices computerServ = new ComputerServices();
+
+
+
+
 		Optional<Pages<DTOComputer>> optpages = Optional.empty();
-		
-		optpages = getOptPages(size, index, search, order, asc, computerServ);
-		
+
+		optpages = getOptPages(size, index, search, order, asc, computerService);
+
 		if(!optpages.isPresent()) {
 			req.setAttribute("exception", new ComputerNotFoundException("List not found"));
 			this.getServletContext()
@@ -85,21 +94,19 @@ public class DashBoard extends HttpServlet {
 		req.setAttribute(PAGE_ORDER, order);
 		req.setAttribute(PAGE_SEARCH, search);
 	}
-	
+
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-	
+
 		String toDeleteList = req.getParameter("selection");
-		
+
 		List<Long> list = Arrays.asList(toDeleteList.split(","))
-							.stream().map(s -> Long.parseLong(s)).collect(Collectors.toList());
-		
-		ComputerServices computerServ = new ComputerServices();
-		
-		list.forEach(id -> computerServ.deleteComputer(id));
-		
+				.stream().map(s -> Long.parseLong(s)).collect(Collectors.toList());		
+
+		list.forEach(id -> computerService.deleteComputer(id));
+
 		resp.sendRedirect(ServletData.REDIRECT_LIST_COMPUTERS);
 	}
-	
+
 
 	private Integer getParamIndex(HttpServletRequest req) throws ServletException {
 		Integer index;
@@ -121,16 +128,16 @@ public class DashBoard extends HttpServlet {
 		}
 		return size;
 	}
-	
+
 	private String getParamAsc(HttpServletRequest req) {
 		String asc = (String) req.getParameter("asc");
-		
+
 		if(asc==null) {
 			asc = "false";
 		}
 		return asc;
 	}
-	
+
 	private String getParamOrder(HttpServletRequest req) {
 		String order;
 		order = (String) req.getParameter("order");
@@ -139,6 +146,6 @@ public class DashBoard extends HttpServlet {
 		}
 		return order;
 	}
-	
+
 
 }

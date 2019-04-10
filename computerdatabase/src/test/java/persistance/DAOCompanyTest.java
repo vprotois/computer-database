@@ -23,6 +23,8 @@ public class DAOCompanyTest extends DBTestCase{
 	}
 	
 	
+	
+	
 	@Test
 	public void getCompanies() {
 		DAOCompany dao = DAOFactory.createDAOcompany();

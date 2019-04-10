@@ -1,10 +1,7 @@
 package app;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.GenericApplicationContext;
-
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -21,7 +18,7 @@ public class AppConfig {
 	
 	@Bean
 	public HikariConfig HikariConfig() {
-		return new HikariConfig("src/main/ressources/datasource.properties");
+		return new HikariConfig("/home/excilys/eclipse-workspace/computer-database/computerdatabase/src/main/ressources/datasource.properties");
 	}
 
 	@Bean

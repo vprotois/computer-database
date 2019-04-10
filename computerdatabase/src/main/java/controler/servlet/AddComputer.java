@@ -25,33 +25,40 @@ import services.ComputerServices;
 public class AddComputer extends HttpServlet {	
 
 	private static final long serialVersionUID = 6730501184846318246L;
+
+	private ComputerServices computerService;
+	private CompanyServices  companyService;
 	
+	public void init() {
+		computerService = ServletData.context.getBean(ComputerServices.class);
+		companyService  = ServletData.context.getBean(CompanyServices.class);
+
+	}
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		
-		CompanyServices companyService = new CompanyServices();
-		
+
+
 		Optional<List<Company>> list = companyService.listCompanies();
-		
+
 		if(list.isPresent()) {
 			req.setAttribute(ServletData.COMPANIES_ATTRIBUTE, list.get());
 		}else {
 			req.setAttribute(ServletData.COMPANIES_ATTRIBUTE, new ArrayList<Company>());
 		}
-		
+
 		this.getServletContext()
 		.getRequestDispatcher(ServletData.VIEW_ADD_COMPUTERS)
 		.forward(req, resp);
-		
+
 	}
-	
+
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
 		String name = req.getParameter(ServletData.COMPUTER_NAME);
 		String introduced = req.getParameter(ServletData.INTRODUCED_DATE);
 		String discontinued = req.getParameter(ServletData.DISCONTINUED_DATE);
 		String companyId = req.getParameter(ServletData.COMPANY_ID);
-		
-		ComputerServices computerService = new ComputerServices();
+
 		Optional<Timestamp> timestampIntr = TimeStampMapper.simpleStringToTimestamp(introduced);
 		Optional<Timestamp> timestampDisc = TimeStampMapper.simpleStringToTimestamp(discontinued);
 
@@ -59,14 +66,14 @@ public class AddComputer extends HttpServlet {
 		if(companyId != null && !"".equals(companyId)){
 			company = Optional.of(Long.parseLong(companyId));
 		}
-		
+
 		Computer c = new ComputerBuilder()
-						.withName(name)
-						.withCompanyId(company)
-						.withIntroduced(timestampIntr)
-						.withDiscontinued(timestampDisc)
-						.build();
-		
+				.withName(name)
+				.withCompanyId(company)
+				.withIntroduced(timestampIntr)
+				.withDiscontinued(timestampDisc)
+				.build();
+
 		try {
 			computerService.addComputer(c);
 			resp.sendRedirect(ServletData.REDIRECT_LIST_COMPUTERS);
@@ -76,9 +83,9 @@ public class AddComputer extends HttpServlet {
 			.getRequestDispatcher(ServletData.VIEW_ERROR_500)
 			.forward(req, resp);
 		}
-		
-		
-		
+
+
+
 	}
-	
+
 }
