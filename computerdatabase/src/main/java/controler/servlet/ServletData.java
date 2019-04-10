@@ -1,9 +1,5 @@
 package controler.servlet;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.GenericApplicationContext;
-
-import app.AppConfig;
 
 public abstract class ServletData {
 
@@ -20,6 +16,5 @@ public abstract class ServletData {
 
 	static final String REDIRECT_LIST_COMPUTERS = "/computerdatabase/dashboard";
 	
-	static final GenericApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
 }

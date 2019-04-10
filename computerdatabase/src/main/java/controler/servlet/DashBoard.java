@@ -6,17 +6,23 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+
 import exception.ComputerNotFoundException;
 import model.Pages;
 import model.dto.DTOComputer;
 import services.ComputerServices;
 
+@Configurable
 @WebServlet(name = "DashBoard",urlPatterns= {"/dashboard"})
 public class DashBoard extends HttpServlet {
 
@@ -34,11 +40,14 @@ public class DashBoard extends HttpServlet {
 	private static final int DEFAULT_INDEX_PAGE = 0;
 	private static final int DEFAULT_SIZE_PAGE = 10;
 
+	@Autowired
 	private ComputerServices computerService;
 
-	public void init() {
-		computerService = ServletData.context.getBean(ComputerServices.class);
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
 
+		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
+				config.getServletContext());
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

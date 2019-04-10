@@ -1,13 +1,9 @@
 package validator;
 
 import java.sql.Timestamp;
-import java.util.List;
-import java.util.Optional;
-
 import exception.ValidatorException;
 import model.Company;
 import model.Computer;
-import services.CompanyServices;
 
 public class Validator {
 	

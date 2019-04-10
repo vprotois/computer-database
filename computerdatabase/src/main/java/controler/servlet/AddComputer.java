@@ -6,11 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import exception.CreateComputerError;
 import exception.ValidatorException;
@@ -21,18 +26,22 @@ import model.builders.ComputerBuilder;
 import services.CompanyServices;
 import services.ComputerServices;
 
+@Configurable
 @WebServlet(name = "AddComputer",urlPatterns= {"/add"})
 public class AddComputer extends HttpServlet {	
 
 	private static final long serialVersionUID = 6730501184846318246L;
 
+	@Autowired
 	private ComputerServices computerService;
+	@Autowired
 	private CompanyServices  companyService;
 	
-	public void init() {
-		computerService = ServletData.context.getBean(ComputerServices.class);
-		companyService  = ServletData.context.getBean(CompanyServices.class);
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
 
+		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
+				config.getServletContext());
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
