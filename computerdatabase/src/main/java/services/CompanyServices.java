@@ -4,14 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import model.Company;
 import model.Pages;
 import model.builders.PagesBuilder;
 import persistance.DAOCompany;
 
-@Component
+@Service
 public class CompanyServices {
 
 	@Autowired
