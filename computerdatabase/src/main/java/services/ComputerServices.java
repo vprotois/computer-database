@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import exception.ComputerNotFoundException;
 import exception.CreateComputerError;
@@ -23,9 +25,12 @@ import model.dto.DTOComputer;
 import persistance.DAOComputer;
 import validator.Validator;
 
+@Component
 public class ComputerServices {
 
 	private static Logger log= LoggerFactory.getLogger(ComputerServices.class);
+	
+	@Autowired
 	private DAOComputer daoComputer;
 	
 	public static final String NAME = "name";
@@ -34,8 +39,7 @@ public class ComputerServices {
 	public static final String COMPANY_ID = "company_id";
 	public static final String EMPTY = "";
 	
-	public ComputerServices(DAOComputer daoComputer) {
-		this.daoComputer = daoComputer;
+	public ComputerServices() {
 	}
 
 	public void buildComputerWithId(String[] args) throws CreateComputerError, ValidatorException {

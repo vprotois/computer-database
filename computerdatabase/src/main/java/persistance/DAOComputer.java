@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import exception.CreateComputerError;
 import exception.UpdateComputerError;
@@ -17,15 +19,16 @@ import model.Computer;
 
 
 
-
+@Component
 public class DAOComputer {
 
 	private static Logger log= LoggerFactory.getLogger(DAOComputer.class);
+	
+	@Autowired
 	private DataSource dataSource;
 	
 	
-	public DAOComputer(DataSource dataSource2) {
-		this.dataSource = dataSource2;
+	public DAOComputer() {
 	}
 	
 	private static String selectAll = "SELECT cr.id, cr.name, cr.introduced, cr.discontinued, cr.company_id, cy.name FROM computer as cr "

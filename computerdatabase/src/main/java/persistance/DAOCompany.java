@@ -11,15 +11,18 @@ import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import mapper.CompanyMapper;
 import model.Company;
 
+@Component
 public class DAOCompany {
 
 	private static Logger log = LoggerFactory.getLogger(DAOCompany.class);
+	
+	@Autowired
 	private DataSource dataSource;
 
 	private static final String selectAll = "SELECT id,name FROM company;";
@@ -27,8 +30,7 @@ public class DAOCompany {
 	private static final String deleteFromId = "DELETE FROM company WHERE id = ?;";
 	private static final String deleteComputers = "DELETE FROM computer WHERE company_id = ?;";
 
-	public DAOCompany(DataSource dataSource2) {
-		this.dataSource = dataSource2;
+	public DAOCompany() {
 	}
 
 	public Optional<Company> getCompany(Long id) {

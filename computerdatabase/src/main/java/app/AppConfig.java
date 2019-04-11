@@ -5,18 +5,13 @@ import javax.sql.DataSource;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import persistance.DAOComputer;
-import persistance.DAOCompany;
-
-import services.CompanyServices;
-import services.ComputerServices;
-
-import controler.CLIControler;
 
 @Configuration
+@ComponentScan(basePackages = {"persistance","services","controler"})
 @PropertySource("classpath:/datasource.properties")
 public class AppConfig {
 
@@ -35,29 +30,5 @@ public class AppConfig {
 		 return dataSource;
 		 
 	}
-	
-	@Bean
-	public DAOComputer DAOComputer() {
-		return new DAOComputer(DataSource());
-	}
 
-	@Bean
-	public DAOCompany DAOCompany() {
-		return new DAOCompany(DataSource());
-	}
-	
-	@Bean
-	public CompanyServices CompanyServices() {
-		return new CompanyServices(DAOCompany());
-	}
-
-	@Bean
-	public ComputerServices computerServices() {
-		return new ComputerServices(DAOComputer());
-	}
-	
-	@Bean
-	public CLIControler CLIControler() {
-		return new CLIControler(computerServices(),CompanyServices());
-	}
 }

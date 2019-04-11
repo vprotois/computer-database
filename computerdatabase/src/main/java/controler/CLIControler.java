@@ -3,6 +3,9 @@ package controler;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import exception.ComputerNotFoundException;
 import exception.CreateComputerError;
 import exception.UpdateComputerError;
@@ -15,9 +18,13 @@ import services.CompanyServices;
 import services.ComputerServices;
 import ui.InterfaceConsole;
 
+@Component
 public class CLIControler {	
 	
+	@Autowired
 	private CompanyServices companyServices;
+	
+	@Autowired
 	private ComputerServices computerServices;
 	
 	private static final int ABORT = 0;
@@ -34,9 +41,7 @@ public class CLIControler {
 	private static final int PREVIOUS_PAGE = 1;
 	private static final int NEXT_PAGE = 2;
 	
-	public CLIControler(ComputerServices computerServices, CompanyServices companyServices) {
-		this.computerServices = computerServices;
-		this.companyServices = companyServices;
+	public CLIControler() {
 	}
 	
 	

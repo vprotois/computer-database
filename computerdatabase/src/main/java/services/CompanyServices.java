@@ -3,18 +3,21 @@ package services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import model.Company;
 import model.Pages;
 import model.builders.PagesBuilder;
 import persistance.DAOCompany;
 
+@Component
 public class CompanyServices {
 
+	@Autowired
 	private DAOCompany daoCompany;
 	
-	public CompanyServices (DAOCompany daoCompany) {
-		this.daoCompany = daoCompany;
+	public CompanyServices () {
 	}
 	
 	public Optional<List<Company>> listCompanies() {
