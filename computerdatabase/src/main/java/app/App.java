@@ -1,5 +1,6 @@
 package app;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -14,7 +15,6 @@ import controler.CLIControler;
 public class App 
 {
 	private static Logger log= LoggerFactory.getLogger(App.class);
-
 	
 	public static void main( String[] args )
     {

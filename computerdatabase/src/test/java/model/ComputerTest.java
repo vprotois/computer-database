@@ -15,7 +15,13 @@ public class ComputerTest {
 		Computer c2 = new Computer(1000L,"name",new Company(1000L,"name"),
 				new Timestamp(1000),new Timestamp(2000),289L);
 		
+		
 		assertTrue(c2.equals(c2));
+		
+		Computer c3 = new Computer(1000L,"name",new Company(1000L,"name"),
+				new Timestamp(1000),new Timestamp(2000),289L);
+		
+		assertTrue(c3.equals(c2));
 		
 		assertFalse(c1.equals(c2));
 	}
