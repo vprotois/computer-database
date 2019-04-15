@@ -31,10 +31,6 @@ public class DAOComputer {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-
-	public DAOComputer() {
-	}
-
 	private static String selectAll = "SELECT cr.id, cr.name, cr.introduced, cr.discontinued, cr.company_id, cy.name FROM computer as cr "
 			+ "LEFT JOIN company as cy ON cr.company_id=cy.id ";
 	private static String selectCompWithId  = selectAll + "WHERE cr.id =?";
@@ -50,7 +46,7 @@ public class DAOComputer {
 	public Optional<List<Computer>> listComputers(){
 		Object[] args = {};
 		return Optional.ofNullable(
-				jdbcTemplate.query(selectAll,args,new ComputerMapper())
+					jdbcTemplate.query(selectAll,args,new ComputerMapper())
 				);
 	}
 
@@ -59,7 +55,7 @@ public class DAOComputer {
 		Object[] args = {id}; 
 		try {
 			return Optional.of(
-					jdbcTemplate.queryForObject(selectCompWithId, args, new ComputerMapper())					
+						jdbcTemplate.queryForObject(selectCompWithId, args, new ComputerMapper())					
 					);
 		}catch(EmptyResultDataAccessException e) {
 			return Optional.empty();
@@ -70,7 +66,7 @@ public class DAOComputer {
 	public Optional<List<Computer>> getListFromName(String name){
 		Object[] args = {name};
 		return Optional.ofNullable(
-				jdbcTemplate.query(selectCompWithName,args,new ComputerMapper())
+					jdbcTemplate.query(selectCompWithName,args,new ComputerMapper())
 				);
 	}
 

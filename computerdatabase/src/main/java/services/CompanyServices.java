@@ -16,10 +16,7 @@ public class CompanyServices {
 
 	@Autowired
 	private DAOCompany daoCompany;
-	
-	public CompanyServices () {
-	}
-	
+
 	public Optional<List<Company>> listCompanies() {
 		Optional<List<Company>> companies = daoCompany.getCompanies();
 		return companies;

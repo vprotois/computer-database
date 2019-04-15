@@ -38,9 +38,7 @@ public class ComputerServices {
 	public static final String DISCONTINUED = "discontinued";
 	public static final String COMPANY_ID = "company_id";
 	public static final String EMPTY = "";
-	
-	public ComputerServices() {
-	}
+
 
 	public void buildComputerWithId(String[] args) throws CreateComputerError, ValidatorException {
 		ComputerBuilder cBuilder = new ComputerBuilder()

@@ -29,9 +29,6 @@ public class DAOCompany {
 	private static final String deleteFromId = "DELETE FROM company WHERE id = ?;";
 	private static final String deleteComputers = "DELETE FROM computer WHERE company_id = ?;";
 
-	public DAOCompany() {
-	}
-
 	@Transactional
 	public Optional<Company> getCompany(Long id) {
 		Object[] args = {id};
