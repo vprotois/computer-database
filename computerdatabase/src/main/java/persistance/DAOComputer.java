@@ -12,6 +12,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import exception.CreateComputerError;
 import exception.UpdateComputerError;
@@ -20,7 +21,6 @@ import java.util.Optional;
 
 import mapper.ComputerMapper;
 import model.Computer;
-
 
 
 @Repository
@@ -46,7 +46,7 @@ public class DAOComputer {
 	private static String delete = "DELETE FROM computer WHERE id =?";
 
 
-
+	@Transactional
 	public Optional<List<Computer>> listComputers(){
 		Object[] args = {};
 		return Optional.ofNullable(
@@ -54,7 +54,7 @@ public class DAOComputer {
 				);
 	}
 
-
+	@Transactional
 	public Optional<Computer> getCompDetails(Long id){
 		Object[] args = {id}; 
 		try {
@@ -66,6 +66,7 @@ public class DAOComputer {
 		}
 	}
 
+	@Transactional
 	public Optional<List<Computer>> getListFromName(String name){
 		Object[] args = {name};
 		return Optional.ofNullable(
@@ -73,6 +74,7 @@ public class DAOComputer {
 				);
 	}
 
+	@Transactional
 	public void createComputer(Computer c) throws CreateComputerError {
 		log.debug(""+c);
 		try {
@@ -83,9 +85,7 @@ public class DAOComputer {
 		} 
 	}
 
-
-
-
+	@Transactional
 	public void updateComputer(Computer c) throws UpdateComputerError{
 		try {
 			jdbcTemplate.update(update,StatementSetterFactory.statementUpdateComputer(c));
@@ -95,6 +95,7 @@ public class DAOComputer {
 		} 
 	}
 
+	@Transactional
 	public void deleteComputer(Long id) throws UpdateComputerError{
 		try {
 			jdbcTemplate.update(delete,StatementSetterFactory.statementId(id));
@@ -103,8 +104,4 @@ public class DAOComputer {
 			throw new UpdateComputerError("Couldn't delete computer "+id);
 		} 
 	}
-
-
-
-
 }

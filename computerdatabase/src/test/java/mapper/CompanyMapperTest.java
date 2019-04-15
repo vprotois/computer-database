@@ -49,4 +49,5 @@ class CompanyMapperTest  extends TestCase{
 		assertEquals("azaz1234",c.getName());
 	}
 	
+
 }

@@ -56,6 +56,12 @@ public class DAOCompanyTest extends TestCase{
 		assertFalse(c.isPresent());
 	}
 	
+	@Test
+	public void testDeleteCompany() {
+		daoCompany.deleteCompany(1L);
+		Optional<Company> c = daoCompany.getCompany(1L);
+		assertFalse(c.isPresent());
+	}
 
 	
 }
