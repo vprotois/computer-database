@@ -2,9 +2,6 @@ package mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,19 +44,9 @@ class CompanyMapperTest  extends TestCase{
 	
 	@Test
 	void testSingleCompany() throws SQLException {
-		Optional<Company> optc = CompanyMapper.mapSingleCompany(rs);
-		assertTrue(optc.isPresent());
-		Company c = optc.get();
+		Company c = new CompanyMapper().mapRow(rs,0);
 		assertEquals(new Long(1),c.getId());
 		assertEquals("azaz1234",c.getName());
 	}
 	
-	@Test
-	void testListComputer() throws SQLException {
-		List<Company> list = new ArrayList<Company>();
-		list.add(new Company(1L,"azaz1234"));
-		list.add(new Company(4L,"QWERT"));
-		List<Company> result = CompanyMapper.mapCompaniesList(rs);
-		assertEquals(list,result);
-	}
 }

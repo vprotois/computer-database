@@ -24,25 +24,29 @@ public class DAOComputerTest extends TestCase {
 	GenericApplicationContext context;
 	
 	@BeforeAll
-	public void setUp() {
+	public void setUp() throws UpdateComputerError {
 		context = new AnnotationConfigApplicationContext(AppConfig.class);
 		dao = context.getBean(DAOComputer.class);
+		dao.deleteComputer(-6L);
 	}
 	
 	@AfterAll
-	public void end() {
+	public void end() throws UpdateComputerError {
+		dao.deleteComputer(-6L);
 		context.close();
 	}
 	
 	
 	@Test
 	public void testcreateUpdateDelete() throws CreateComputerError, UpdateComputerError {
-		Computer c = new Computer(-7L,"neg",null,null,null,null);
+		Computer c = new Computer(-6L,"neg",null,null,null,null);
 		dao.createComputer(c);
-		assertEquals(Optional.of(c),dao.getCompDetails(-6L));
+		c.setCompanyId(0L);
+		assertEquals(Optional.of(c).toString(),dao.getCompDetails(-6L).toString());
 		c = new Computer(-6L,"neg",null,null,null,null);
 		dao.updateComputer(c);
-		assertEquals(Optional.of(c),dao.getCompDetails(-6L));
+		c.setCompanyId(0L);
+		assertEquals(Optional.of(c).toString(),dao.getCompDetails(-6L).toString());
 		dao.deleteComputer(-6L);
 		assertEquals(Optional.empty(),dao.getCompDetails(-6L));
 	}
@@ -73,12 +77,12 @@ public class DAOComputerTest extends TestCase {
 	
 	@Test
 	public void testCompDetails() {
-		Computer c1 = new Computer(3L,"name",null,null,null,2L);
-		Optional<Computer> c2 = dao.getCompDetails(3L);
+		Computer c1 = new Computer(14L,"CM-2",null,null,null,2L);
+		Optional<Computer> c2 = dao.getCompDetails(14L);
 		if(!c2.isPresent()) {
 			fail("tested Computer isn't in the base");
 		}
-		assertEquals(c1,c2.get());
+		assertEquals(c1.toString(),c2.get().toString());
 	}
 	
 	@Test

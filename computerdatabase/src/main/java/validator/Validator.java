@@ -17,6 +17,9 @@ public class Validator {
 	public static final String ERROR_COMPUTER_DISC_INFERIOR = "Can't have discontinued inferior than introduced";
 	
 	public static void computerValidator(Computer computer) throws ValidatorException {
+		if(computer == null) {
+			throw new ValidatorException("computer is null");
+		}
 		nameValid(computer);
 		intrAndDiscValid(computer);
 		companyValid(computer);

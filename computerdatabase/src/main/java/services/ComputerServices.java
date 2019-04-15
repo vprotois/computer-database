@@ -70,6 +70,7 @@ public class ComputerServices {
 	
 	public void addComputer(Computer comp) throws CreateComputerError, ValidatorException {
 		Validator.computerValidator(comp);
+		log.debug(""+comp);
 		daoComputer.createComputer(comp);
 	}
 

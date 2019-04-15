@@ -1,18 +1,17 @@
 package persistance;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import mapper.CompanyMapper;
 import model.Company;
@@ -23,7 +22,7 @@ public class DAOCompany {
 	private static Logger log = LoggerFactory.getLogger(DAOCompany.class);
 	
 	@Autowired
-	private DataSource dataSource;
+	private JdbcTemplate jdbcTemplate;
 
 	private static final String selectAll = "SELECT id,name FROM company;";
 	private static final String selectId = "SELECT id,name FROM company WHERE id = ?;";
@@ -33,68 +32,36 @@ public class DAOCompany {
 	public DAOCompany() {
 	}
 
+	@Transactional
 	public Optional<Company> getCompany(Long id) {
-		try (Connection conn = dataSource.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement(selectId);
-			stmt.setLong(1, id);
-			ResultSet results = stmt.executeQuery();
-
-			return CompanyMapper.mapSingleCompany(results);
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			log.error("Error when getting Company :" + id);
-		}
-		return Optional.empty();
-	}
-
-	public Optional<List<Company>> getCompanies() {
-		try (Connection conn = dataSource.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement(selectAll);
-			ResultSet results = stmt.executeQuery();
-			return Optional.of(CompanyMapper.mapCompaniesList(results));
-		} catch (SQLException e) {
-			log.error("Error when getting company list :" + e.getMessage());
-		}
-		return Optional.empty();
-	}
-
-	public void deleteCompany(Long id) {
-		Connection conn = null;
+		Object[] args = {id};
 		try {
-			conn = dataSource.getConnection();
-			try {
-
-				conn.setAutoCommit(false);
-				deleteComputerUpdate(id, conn);
-				deleteCompanyUpdate(id, conn);
-				conn.commit();
-
-			} catch (SQLException e) {
-				if (conn != null) {
-					conn.rollback();
-				}
-				log.error("Error when deleting company : " + e.getMessage());
-			} finally {
-				if (conn != null && !conn.isClosed()) {
-					conn.close();
-				}
-			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+			return Optional.of(	
+					jdbcTemplate.queryForObject(selectId,args,new CompanyMapper())
+					);
+		}catch (EmptyResultDataAccessException e) {
+			return Optional.empty();
 		}
 	}
 
-	private void deleteCompanyUpdate(Long id, Connection conn) throws SQLException {
-		PreparedStatement stmt;
-		stmt = conn.prepareStatement(deleteFromId);
-		stmt.setLong(1, id);
-		stmt.executeUpdate();
+	@Transactional
+	public Optional<List<Company>> getCompanies() {
+		Object[] args = {};
+		return Optional.of(
+				jdbcTemplate.query(selectAll,args,new CompanyMapper())
+				);
+	}
+	
+	@Transactional(rollbackFor = {DataAccessException.class})
+	public void deleteCompany(Long id) {
+		try {
+			jdbcTemplate.update(deleteComputers, StatementSetterFactory.statementId(id));
+			jdbcTemplate.update(deleteFromId,StatementSetterFactory.statementId(id));
+		} catch (DataAccessException e) {
+			log.error("Error when deleting company "+id+" : " + e.getMessage()+" \nTransaction was rollbacked");
+		}
+		
 	}
 
-	private void deleteComputerUpdate(Long id, Connection conn) throws SQLException {
-		PreparedStatement stmt = conn.prepareStatement(deleteComputers);
-		stmt.setLong(1, id);
-		stmt.executeUpdate();
-	}
 
 }

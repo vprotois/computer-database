@@ -83,7 +83,6 @@ public class AddComputer extends HttpServlet {
 				.withIntroduced(timestampIntr)
 				.withDiscontinued(timestampDisc)
 				.build();
-
 		try {
 			computerService.addComputer(c);
 			resp.sendRedirect(ServletData.REDIRECT_LIST_COMPUTERS);
