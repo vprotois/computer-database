@@ -1,4 +1,4 @@
-package controler.servlet;
+package controler.web;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-import exception.UpdateComputerError;
+import exception.CreateComputerError;
 import exception.ValidatorException;
 import mapper.TimeStampMapper;
 import model.Company;
@@ -27,16 +27,17 @@ import services.CompanyServices;
 import services.ComputerServices;
 
 @Configurable
-@WebServlet(name = "EditComputer",urlPatterns= {"/edit"})
-public class EditComputer extends HttpServlet {
+@WebServlet(name = "AddComputer",urlPatterns= {"/add"})
+public class AddComputer extends HttpServlet {	
 
-	private static final long serialVersionUID = -8458639712921797680L;
+	private static final long serialVersionUID = 6730501184846318246L;
 
-	@Autowired
-	private CompanyServices  companyService;
+	
 	@Autowired
 	private ComputerServices computerService;
-
+	@Autowired
+	private CompanyServices  companyService;
+	
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 
@@ -45,25 +46,19 @@ public class EditComputer extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		
-		Optional<Long> id = getParamId(req);
-		
+
+
 		Optional<List<Company>> list = companyService.listCompanies();
+
 		if(list.isPresent()) {
 			req.setAttribute(ServletData.COMPANIES_ATTRIBUTE, list.get());
 		}else {
 			req.setAttribute(ServletData.COMPANIES_ATTRIBUTE, new ArrayList<Company>());
 		}
-		
-		if(!id.isPresent()) {
-			resp.sendRedirect(ServletData.REDIRECT_LIST_COMPUTERS);
-		}else {
-			req.setAttribute("id_computer", id.get());
-			
-			this.getServletContext()
-			.getRequestDispatcher(ServletData.VIEW_EDIT_COMPUTER)
-			.forward(req, resp);
-		}
+
+		this.getServletContext()
+		.getRequestDispatcher(ServletData.VIEW_ADD_COMPUTERS)
+		.forward(req, resp);
 
 	}
 
@@ -73,7 +68,7 @@ public class EditComputer extends HttpServlet {
 		String introduced = req.getParameter(ServletData.INTRODUCED_DATE);
 		String discontinued = req.getParameter(ServletData.DISCONTINUED_DATE);
 		String companyId = req.getParameter(ServletData.COMPANY_ID);
-		
+
 		Optional<Timestamp> timestampIntr = TimeStampMapper.simpleStringToTimestamp(introduced);
 		Optional<Timestamp> timestampDisc = TimeStampMapper.simpleStringToTimestamp(discontinued);
 
@@ -81,37 +76,25 @@ public class EditComputer extends HttpServlet {
 		if(companyId != null && !"".equals(companyId)){
 			company = Optional.of(Long.parseLong(companyId));
 		}
-		
+
 		Computer c = new ComputerBuilder()
-						.withId(getParamId(req).get())
-						.withName(name)
-						.withCompanyId(company)
-						.withIntroduced(timestampIntr)
-						.withDiscontinued(timestampDisc)
-						.build();
-		
+				.withName(name)
+				.withCompanyId(company)
+				.withIntroduced(timestampIntr)
+				.withDiscontinued(timestampDisc)
+				.build();
 		try {
-			computerService.updateComputer(c);
+			computerService.addComputer(c);
 			resp.sendRedirect(ServletData.REDIRECT_LIST_COMPUTERS);
-		} catch (ValidatorException | UpdateComputerError e) {
+		} catch (CreateComputerError  | ValidatorException e) {
 			req.setAttribute("exception", e);
 			req.getServletContext()
 			.getRequestDispatcher(ServletData.VIEW_ERROR_500)
 			.forward(req, resp);
 		}
 
-	}
-	
-	
-	private Optional<Long> getParamId(HttpServletRequest req) {
-		Optional<Long> size;
-		if(req.getParameter("id")!=null) {
-			size = Optional.of(Long.parseLong(req.getParameter("id")));
-		}else{
-			size = Optional.empty();
-		}
-		return size;
-	}
 
+
+	}
 
 }

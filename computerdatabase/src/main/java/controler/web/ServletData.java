@@ -1,4 +1,4 @@
-package controler.servlet;
+package controler.web;
 
 
 public abstract class ServletData {

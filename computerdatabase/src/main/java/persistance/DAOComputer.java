@@ -64,7 +64,7 @@ public class DAOComputer {
 
 	@Transactional
 	public Optional<List<Computer>> getListFromName(String name){
-		Object[] args = {name};
+		Object[] args = {"%"+name+"%","%"+name+"%"};
 		return Optional.ofNullable(
 					jdbcTemplate.query(selectCompWithName,args,new ComputerMapper())
 				);
