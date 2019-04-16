@@ -6,17 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
-
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import exception.CreateComputerError;
 import exception.ValidatorException;
 import mapper.TimeStampMapper;
@@ -26,49 +22,38 @@ import model.builders.ComputerBuilder;
 import services.CompanyServices;
 import services.ComputerServices;
 
-@Configurable
-@WebServlet(name = "AddComputer",urlPatterns= {"/add"})
-public class AddComputer extends HttpServlet {	
-
-	private static final long serialVersionUID = 6730501184846318246L;
-
+@Controller
+public class AddComputer {	
 	
 	@Autowired
 	private ComputerServices computerService;
 	@Autowired
-	private CompanyServices  companyService;
+	private CompanyServices  companyService;	
 	
-	public void init(ServletConfig config) throws ServletException {
-		super.init(config);
-
-		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
-				config.getServletContext());
-	}
-
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+	@GetMapping("/add")
+	protected String showPage(Model model){
 
 
 		Optional<List<Company>> list = companyService.listCompanies();
 
 		if(list.isPresent()) {
-			req.setAttribute(ServletData.COMPANIES_ATTRIBUTE, list.get());
+			model.addAttribute(ServletData.COMPANIES_ATTRIBUTE, list.get());
 		}else {
-			req.setAttribute(ServletData.COMPANIES_ATTRIBUTE, new ArrayList<Company>());
+			model.addAttribute(ServletData.COMPANIES_ATTRIBUTE, new ArrayList<Company>());
 		}
 
-		this.getServletContext()
-		.getRequestDispatcher(ServletData.VIEW_ADD_COMPUTERS)
-		.forward(req, resp);
+		return "addComputer";
 
 	}
 
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-
-		String name = req.getParameter(ServletData.COMPUTER_NAME);
-		String introduced = req.getParameter(ServletData.INTRODUCED_DATE);
-		String discontinued = req.getParameter(ServletData.DISCONTINUED_DATE);
-		String companyId = req.getParameter(ServletData.COMPANY_ID);
-
+	@PostMapping
+	protected String add(Model model,
+			@RequestParam(name = ServletData.COMPUTER_NAME,required = true) String name,
+			@RequestParam(name = ServletData.INTRODUCED_DATE,required = false) String introduced,
+			@RequestParam(name = ServletData.DISCONTINUED_DATE,required = false) String discontinued,
+			@RequestParam(name = ServletData.COMPANY_ID,required = false) String companyId
+				) throws IOException, ServletException {
+		
 		Optional<Timestamp> timestampIntr = TimeStampMapper.simpleStringToTimestamp(introduced);
 		Optional<Timestamp> timestampDisc = TimeStampMapper.simpleStringToTimestamp(discontinued);
 
@@ -85,12 +70,10 @@ public class AddComputer extends HttpServlet {
 				.build();
 		try {
 			computerService.addComputer(c);
-			resp.sendRedirect(ServletData.REDIRECT_LIST_COMPUTERS);
+			return "addComputer";
 		} catch (CreateComputerError  | ValidatorException e) {
-			req.setAttribute("exception", e);
-			req.getServletContext()
-			.getRequestDispatcher(ServletData.VIEW_ERROR_500)
-			.forward(req, resp);
+			model.addAttribute("exception", e);
+			return "500";
 		}
 
 

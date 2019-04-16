@@ -55,7 +55,7 @@
 								</select>
 							</div>
 						</fieldset>
-						<div class="actions pull-right">
+						<div class="actions pull-right">	
 							<input type="submit" id="add_button" value="add"
 								class="btn btn-primary"> or <a href="dashboard"
 								id="cancel_button" class="btn btn-default">Cancel</a>

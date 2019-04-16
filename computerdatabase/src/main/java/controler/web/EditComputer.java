@@ -1,22 +1,16 @@
 package controler.web;
 
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
-
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import exception.UpdateComputerError;
 import exception.ValidatorException;
 import mapper.TimeStampMapper;
@@ -26,53 +20,48 @@ import model.builders.ComputerBuilder;
 import services.CompanyServices;
 import services.ComputerServices;
 
-@Configurable
-@WebServlet(name = "EditComputer",urlPatterns= {"/edit"})
-public class EditComputer extends HttpServlet {
+@Controller
+//@WebServlet(name = "EditComputer",urlPatterns= {"/edit"})
+public class EditComputer  {
 
-	private static final long serialVersionUID = -8458639712921797680L;
 
 	@Autowired
 	private CompanyServices  companyService;
 	@Autowired
 	private ComputerServices computerService;
 
-	public void init(ServletConfig config) throws ServletException {
-		super.init(config);
-
-		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
-				config.getServletContext());
-	}
-
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+	@GetMapping({"/edit"})
+	protected String editPage(Model model,
+			@RequestParam(name = "id",required = true) String idString
+			){
 		
-		Optional<Long> id = getParamId(req);
+		Optional<Long> id = Optional.ofNullable(Long.parseLong(idString));
 		
 		Optional<List<Company>> list = companyService.listCompanies();
 		if(list.isPresent()) {
-			req.setAttribute(ServletData.COMPANIES_ATTRIBUTE, list.get());
+			model.addAttribute(ServletData.COMPANIES_ATTRIBUTE, list.get());
 		}else {
-			req.setAttribute(ServletData.COMPANIES_ATTRIBUTE, new ArrayList<Company>());
+			model.addAttribute(ServletData.COMPANIES_ATTRIBUTE, new ArrayList<Company>());
 		}
 		
 		if(!id.isPresent()) {
-			resp.sendRedirect(ServletData.REDIRECT_LIST_COMPUTERS);
+			model.addAttribute("exception",new Exception("Should have an id"));
+			return "500";
 		}else {
-			req.setAttribute("id_computer", id.get());
-			
-			this.getServletContext()
-			.getRequestDispatcher(ServletData.VIEW_EDIT_COMPUTER)
-			.forward(req, resp);
+			model.addAttribute("id_computer", id.get());
+			return "editComputer";
 		}
 
 	}
 
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-
-		String name = req.getParameter(ServletData.COMPUTER_NAME);
-		String introduced = req.getParameter(ServletData.INTRODUCED_DATE);
-		String discontinued = req.getParameter(ServletData.DISCONTINUED_DATE);
-		String companyId = req.getParameter(ServletData.COMPANY_ID);
+	@PostMapping({"/edit"})
+	protected String editComputer(Model model,
+			@RequestParam(name = "id",required = true) String idString,
+			@RequestParam(name = ServletData.COMPUTER_NAME,required = true) String name,
+			@RequestParam(name = ServletData.INTRODUCED_DATE,required = false) String introduced,
+			@RequestParam(name = ServletData.DISCONTINUED_DATE,required = false) String discontinued,
+			@RequestParam(name = ServletData.COMPANY_ID,required = false) String companyId
+				)  {
 		
 		Optional<Timestamp> timestampIntr = TimeStampMapper.simpleStringToTimestamp(introduced);
 		Optional<Timestamp> timestampDisc = TimeStampMapper.simpleStringToTimestamp(discontinued);
@@ -83,7 +72,7 @@ public class EditComputer extends HttpServlet {
 		}
 		
 		Computer c = new ComputerBuilder()
-						.withId(getParamId(req).get())
+						.withId(Long.parseLong(idString))
 						.withName(name)
 						.withCompanyId(company)
 						.withIntroduced(timestampIntr)
@@ -92,25 +81,12 @@ public class EditComputer extends HttpServlet {
 		
 		try {
 			computerService.updateComputer(c);
-			resp.sendRedirect(ServletData.REDIRECT_LIST_COMPUTERS);
+			return "editComputer";
 		} catch (ValidatorException | UpdateComputerError e) {
-			req.setAttribute("exception", e);
-			req.getServletContext()
-			.getRequestDispatcher(ServletData.VIEW_ERROR_500)
-			.forward(req, resp);
+			model.addAttribute("exception", e);
+			return "500";
 		}
 
-	}
-	
-	
-	private Optional<Long> getParamId(HttpServletRequest req) {
-		Optional<Long> size;
-		if(req.getParameter("id")!=null) {
-			size = Optional.of(Long.parseLong(req.getParameter("id")));
-		}else{
-			size = Optional.empty();
-		}
-		return size;
 	}
 
 
