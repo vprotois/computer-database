@@ -84,6 +84,7 @@ public class EditComputer  {
 			return "editComputer";
 		} catch (ValidatorException | UpdateComputerError e) {
 			model.addAttribute("exception", e);
+		
 			return "500";
 		}
 

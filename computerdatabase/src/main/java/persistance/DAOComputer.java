@@ -43,10 +43,10 @@ public class DAOComputer {
 
 
 	@Transactional
-	public Optional<List<Computer>> listComputers(){
+	public Optional<List<Computer>> listComputers(String order){
 		Object[] args = {};
 		return Optional.ofNullable(
-					jdbcTemplate.query(selectAll,args,new ComputerMapper())
+					jdbcTemplate.query(selectAll+order,args,new ComputerMapper())
 				);
 	}
 
@@ -63,10 +63,10 @@ public class DAOComputer {
 	}
 
 	@Transactional
-	public Optional<List<Computer>> getListFromName(String name){
+	public Optional<List<Computer>> getListFromName(String name,String order){
 		Object[] args = {"%"+name+"%","%"+name+"%"};
 		return Optional.ofNullable(
-					jdbcTemplate.query(selectCompWithName,args,new ComputerMapper())
+					jdbcTemplate.query(selectCompWithName+order,args,new ComputerMapper())
 				);
 	}
 

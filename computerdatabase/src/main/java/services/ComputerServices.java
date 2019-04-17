@@ -1,7 +1,6 @@
 package services;
 
 import java.sql.Timestamp;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -85,13 +84,12 @@ public class ComputerServices {
 	}
 	
 	public Optional<Pages<DTOComputer>> pagesDTOComputer(Integer size, Integer index,String order,Boolean asc){
-		Optional<List<Computer>> list = listComputer();
+		Optional<List<Computer>> list = daoComputer.listComputers(getOrder(order, asc));
 		if(list.isPresent()) {
-			List<DTOComputer> listDTO =null;
-			listDTO = mapAndSortList(order,asc, list, listDTO);
-			if(listDTO == null) {
-				return Optional.empty();
-			}
+			List<DTOComputer> listDTO = list.get().stream()
+											.map(c -> DTOComputerMapper.mapComputerToDTO(c))
+											.collect(Collectors.toList());
+											
 			Pages<DTOComputer> pages = new PagesBuilder<DTOComputer>()
 					.withData(listDTO)
 					.withIndex(index)
@@ -103,7 +101,7 @@ public class ComputerServices {
 	}
 	
 	public Optional<List<Computer>> listComputer() {
-		Optional<List<Computer>> list = daoComputer.listComputers();
+		Optional<List<Computer>> list = daoComputer.listComputers("");
 		return list;
 	}
 	
@@ -123,17 +121,11 @@ public class ComputerServices {
 	}
 	
 	public Optional<Pages <DTOComputer>> pagesComputerWithName(String name, Integer size, Integer index,String order,Boolean asc) {
-		Optional<List<Computer>> list = daoComputer.getListFromName(name);
-		if(!list.isPresent()) {
-			return Optional.empty();
-		}
-		else {
-			List<DTOComputer> listDTO =null;
-			listDTO = mapAndSortList(order,asc, list, listDTO);
-			
-			if(listDTO == null) {
-				return Optional.empty();
-			}
+		Optional<List<Computer>> list = daoComputer.getListFromName(name,getOrder(order, asc));
+		if(list.isPresent()) {
+			List<DTOComputer> listDTO =list.get().stream()
+					.map(c -> DTOComputerMapper.mapComputerToDTO(c))
+					.collect(Collectors.toList());
 			
 			Pages <DTOComputer> pages = new PagesBuilder<DTOComputer>()
 					.withData(listDTO)
@@ -142,47 +134,25 @@ public class ComputerServices {
 					.build();
 			return Optional.of(pages);
 		}
+		return Optional.empty();
 	}
 
-	private List<DTOComputer> mapAndSortList(String order,Boolean asc, Optional<List<Computer>> list, List<DTOComputer> listDTO) {
+	private String getOrder(String order,Boolean asc){
 		switch(order) {
 		case EMPTY:
-			listDTO = list.get().stream()
-			.map(c -> DTOComputerMapper.mapComputerToDTO(c))
-			.collect(Collectors.toList());				
-			break;
+			return "";
 		case NAME:
-			listDTO = list.get().stream()
-			.map(c -> DTOComputerMapper.mapComputerToDTO(c))
-			.sorted((c1,c2) ->  c1.getName().compareTo(c2.getName()))
-			.collect(Collectors.toList());				
-			break;
+			return asc ? " ORDER BY cr.name ASC" : "ORDER BY cr.name DESC";
 		case INTRODUCED:
-			listDTO = list.get().stream()
-			.sorted((c1,c2) -> c1.getIntroduced() != null ? 
-					(c2.getIntroduced()  != null ? c1.getIntroduced().compareTo(c2.getIntroduced()):0 ): Integer.MIN_VALUE)
-			.map(c -> DTOComputerMapper.mapComputerToDTO(c))
-			.collect(Collectors.toList());				
-			break;
+			return asc ? " ORDER BY cr.introduced ASC" : "ORDER BY cr.introduced DESC";
 		case DISCONTINUED:
-			listDTO = list.get().stream()
-			.sorted((c1,c2) -> c1.getDiscontinued() != null ? c2.getDiscontinued() != null ? c1.getDiscontinued() .compareTo(c2.getDiscontinued()) : 0 :  Integer.MIN_VALUE)
-			.map(c -> DTOComputerMapper.mapComputerToDTO(c))
-			.collect(Collectors.toList());				
-			break;
+			return asc ? " ORDER BY cr.discontinued ASC" : "ORDER BY cr.discontinued DESC";
 		case COMPANY_ID:
-			listDTO = list.get().stream()
-			.map(c -> DTOComputerMapper.mapComputerToDTO(c))
-			.sorted((c1,c2) -> c1.getCompany()
-							.compareTo(c2.getCompany()))
-			.collect(Collectors.toList());				
-			break;
+			return asc ? " ORDER BY cy.name ASC" : "ORDER BY cy.name DESC";
 		default:
+			return "";
 		}
-		if(asc) {
-			Collections.reverse(listDTO);
-		}
-		return listDTO;
+		
 	}
 	
 	public DTOComputer getComputerDTO(Long id) throws ComputerNotFoundException {
