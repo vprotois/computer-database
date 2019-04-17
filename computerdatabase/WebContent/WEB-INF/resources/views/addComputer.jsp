@@ -7,17 +7,17 @@
 <title>Computer Database</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
-<link href=<c:url value ="/ressources/css/bootstrap.min.css"/>
+<link href=<c:url value ="/resources/css/bootstrap.min.css"/>
 	rel="stylesheet" media="screen">
-<link href=<c:url value ="/ressources/css/font-awesome.css"/>
+<link href=<c:url value ="/resources/css/font-awesome.css"/>
 	rel="stylesheet" media="screen">
-<link href=<c:url value = "/ressources/css/main.css"/> rel="stylesheet"
+<link href=<c:url value = "/resources/css/main.css"/> rel="stylesheet"
 	media="screen">
 </head>
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="dashboard.html"> Application -
+			<a class="navbar-brand" href="dashboard"> Application -
 				Computer Database </a>
 		</div>
 	</header>
@@ -66,9 +66,9 @@
 			</div>
 		</div>
 	</section>
-	<script src="ressources/js/jquery.min.js"></script>
-	<script src="ressources/js/bootstrap.min.js"></script>
-	<script src="ressources/js/validator.js"></script>
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/bootstrap.min.js"></script>
+	<script src="resources/js/validator.js"></script>
 
 </body>
 </html>
