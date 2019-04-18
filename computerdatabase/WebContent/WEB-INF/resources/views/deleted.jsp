@@ -34,7 +34,7 @@
 
 						<c:choose>
 							<c:when test="${notDeletedMap.isEmpty()}">
-    					  	<spring:message code="lang.deleted" />
+    					  	<spring:message code="lang.delete" />
    						</c:when>
 							<c:otherwise>
 								<table class="table table-striped table-bordered">
