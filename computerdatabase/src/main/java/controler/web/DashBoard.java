@@ -106,7 +106,7 @@ public class DashBoard {
 		});
 
 		model.addAttribute("notDeletedMap", notDeleted);
-		return "dashboard";
+		return "deleted";
 	}
 
 
