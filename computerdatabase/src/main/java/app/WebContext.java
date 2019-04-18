@@ -16,7 +16,6 @@ public class WebContext implements WebApplicationInitializer {
 	
 	public static AnnotationConfigWebApplicationContext context;
 	
-	@Override
 	public void onStartup(ServletContext container) throws ServletException {
 		context = new AnnotationConfigWebApplicationContext();
 		

@@ -21,24 +21,27 @@
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<a class="navbar-brand" href="dashboard"> 
-			<spring:message code="lang.title"/> </a>
+			<spring:message code="lang.title"/> 
+			 </a>
 		</div>
 	</header>
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle"> ${number_computers} Computers found</h1>
+			<h1 id="homeTitle"> ${number_computers} <spring:message code="lang.found"/> </h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="" method="GET" class="form-inline">
 						<input type="search" id="searchbox" name="search"
-							class="form-control" placeholder="Search name" value="${search}"/> 
-							<input type="submit" id="searchsubmit" value="Filter by name" class="btn btn-primary" />
+							class="form-control" placeholder="<spring:message code="lang.search"/>" value="${search}"/> 
+							<input type="submit" id="searchsubmit" value="<spring:message code="lang.filter"/>" class="btn btn-primary" />
 					</form>
 				</div>
 				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="add">Add Computer	</a> 
+					<a class="btn btn-success" id="addComputer" href="add">
+						<spring:message code="lang.addComp"/>
+					</a> 
 					<a class="btn btn-default" id="editComputer" href="#" onclick="$.fn.toggleEditMode();">
-						Edit
+						<spring:message code="lang.edit"/>
 					</a>
 				</div>
 			</div>
@@ -62,21 +65,21 @@
 							</a>
 						</span></th>
 						
-						<th>Computer name
+						<th><spring:message code="lang.name"/>
 						<a href="${urlPath}?index=${previous_page_index}&search=${search}&size=${size}&order=name&asc=false">
 						<i class="fa fa-arrow-down"></i></a>
 						<a href="${urlPath}?index=${previous_page_index}&search=${search}&size=${size}&order=name&asc=true">
 						<i class="fa fa-arrow-up"></i></a>
 						</th>
 						
-						<th>Introduced date
+						<th><spring:message code="lang.introduced"/>
 						<a href="${urlPath}?index=${previous_page_index}&search=${search}&size=${size}&order=introduced&asc=false">
 						<i class="fa fa-arrow-down"></i></a>
 						<a href="${urlPath}?index=${previous_page_index}&search=${search}&size=${size}&order=introduced&asc=true">
 						<i class="fa fa-arrow-up"></i></a>
 						</th>
 						
-						<th>Discontinued date
+						<th><spring:message code="lang.discontinued"/>
 						<a href="${urlPath}?index=${previous_page_index}&search=${search}&size=${size}&order=discontinued&asc=false">
 						<i class="fa fa-arrow-down"></i></a>
 						<a href="${urlPath}?index=${previous_page_index}&search=${search}&size=${size}&order=discontinued&asc=true">
@@ -84,7 +87,7 @@
 						</th>
 						
 						
-						<th>Company
+						<th><spring:message code="lang.company"/>
 						<a href="${urlPath}?index=${previous_page_index}&search=${search}&size=${size}&order=company_id&asc=false">
 						<i class="fa fa-arrow-down"></i></a>
 						<a href="${urlPath}?index=${previous_page_index}&search=${search}&size=${size}&order=company_id&asc=true">
@@ -121,6 +124,14 @@
 			  </a> 
 			<a href="${urlPath}?index=${previous_page_index}&search=${search}&size=100">
 			   <button type="button" class="btn btn-default"> 100</button>
+			  </a> 
+		</div>
+		<div class="btn-group btn-group-sm pull-left" role="group">
+			 <a href="${urlPath}?messages=fr">
+			   <button type="button" class="btn btn-default"> FR</button>
+			  </a> 
+			<a href="${urlPath}?messages=en">
+			   <button type="button" class="btn btn-default"> EN </button>
 			  </a> 
 		</div>
 		<div class="container text-center">

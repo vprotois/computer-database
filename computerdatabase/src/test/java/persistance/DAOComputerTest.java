@@ -87,7 +87,7 @@ public class DAOComputerTest extends TestCase {
 	
 	@Test
 	public void testListComputers() {
-		Optional<List<Computer>> list = dao.listComputers();
+		Optional<List<Computer>> list = dao.listComputers("");
 		assertNotNull(list.get());
 	}
 	
