@@ -1,12 +1,10 @@
 package controler.web;
 
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.ServletException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +39,6 @@ public class AddComputer {
 		}else {
 			model.addAttribute(ServletData.COMPANIES_ATTRIBUTE, new ArrayList<Company>());
 		}
-
 		return "addComputer";
 
 	}
@@ -52,7 +49,7 @@ public class AddComputer {
 			@RequestParam(name = ServletData.INTRODUCED_DATE,required = false) String introduced,
 			@RequestParam(name = ServletData.DISCONTINUED_DATE,required = false) String discontinued,
 			@RequestParam(name = ServletData.COMPANY_ID,required = false) String companyId
-				) throws IOException, ServletException {
+				) {
 		
 		Optional<Timestamp> timestampIntr = TimeStampMapper.simpleStringToTimestamp(introduced);
 		Optional<Timestamp> timestampDisc = TimeStampMapper.simpleStringToTimestamp(discontinued);

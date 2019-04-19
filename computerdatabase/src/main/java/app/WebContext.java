@@ -25,7 +25,7 @@ public class WebContext implements WebApplicationInitializer {
 		context.refresh();		
 
 		container.addListener(new ContextLoaderListener(context));
-		
+	
 		DispatcherServlet servlet = new DispatcherServlet(context);
 		ServletRegistration.Dynamic registration = container.addServlet("computerdatabase", servlet);
 		registration.setLoadOnStartup(1);

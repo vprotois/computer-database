@@ -36,7 +36,6 @@ public class EditComputer  {
 			){
 		
 		Optional<Long> id = Optional.ofNullable(Long.parseLong(idString));
-		
 		Optional<List<Company>> list = companyService.listCompanies();
 		if(list.isPresent()) {
 			model.addAttribute(ServletData.COMPANIES_ATTRIBUTE, list.get());
@@ -51,7 +50,6 @@ public class EditComputer  {
 			model.addAttribute("id_computer", id.get());
 			return "editComputer";
 		}
-
 	}
 
 	@PostMapping({"/edit"})
@@ -84,7 +82,6 @@ public class EditComputer  {
 			return "editComputer";
 		} catch (ValidatorException | UpdateComputerError e) {
 			model.addAttribute("exception", e);
-		
 			return "500";
 		}
 
