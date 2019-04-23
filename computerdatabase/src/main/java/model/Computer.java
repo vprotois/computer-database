@@ -2,10 +2,33 @@ package model;
 
 import java.sql.Timestamp;
 
-public class Computer extends Entity{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "computer")
+public class Computer {
+	
+	@Column(name = "id")
+	private Long id;
+	
+	@Column(name = "name")
 	private String name;
+	
+	@ManyToOne(optional = true)
+	@JoinColumn(name = "company_id")
 	private Company company;
-	private Timestamp introduced, discontinued;
+	
+	@Column(name = "introduced",nullable = true)
+	private Timestamp introduced;
+	
+	@Column(name = "introduced",nullable = true)
+	private Timestamp discontinued;
+	
+	@Column(name = "company_id")
 	private Long companyId;
 	
 	public Computer() {
@@ -125,6 +148,13 @@ public class Computer extends Entity{
 		this.companyId = companyId;
 	}
 
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = new Long(id);
+	}
 	
 	
 	
