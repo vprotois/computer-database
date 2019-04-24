@@ -49,7 +49,7 @@ public class DAOComputer {
 					jdbcTemplate.query(selectAll+order,args,new ComputerMapper())
 				);
 	}
-
+	
 	@Transactional
 	public Optional<Computer> getCompDetails(Long id){
 		Object[] args = {id}; 

@@ -4,6 +4,10 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -12,7 +16,9 @@ import javax.persistence.Table;
 @Table(name = "computer")
 public class Computer {
 	
+	@Id
 	@Column(name = "id")
+	@GeneratedValue(strategy = IDENTITY)
 	private Long id;
 	
 	@Column(name = "name")
@@ -25,10 +31,9 @@ public class Computer {
 	@Column(name = "introduced",nullable = true)
 	private Timestamp introduced;
 	
-	@Column(name = "introduced",nullable = true)
+	@Column(name = "discontinued",nullable = true)
 	private Timestamp discontinued;
 	
-	@Column(name = "company_id")
 	private Long companyId;
 	
 	public Computer() {
