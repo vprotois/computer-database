@@ -49,6 +49,7 @@
 
 		<form id="deleteForm" action="delete" method="POST">
 			<input type="hidden" name="selection" value="">
+			
 		</form>
 
 		<div class="container" style="margin-top: 10px;">

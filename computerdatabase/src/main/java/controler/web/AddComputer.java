@@ -48,20 +48,22 @@ public class AddComputer {
 			@RequestParam(name = ServletData.COMPUTER_NAME,required = true) String name,
 			@RequestParam(name = ServletData.INTRODUCED_DATE,required = false) String introduced,
 			@RequestParam(name = ServletData.DISCONTINUED_DATE,required = false) String discontinued,
-			@RequestParam(name = ServletData.COMPANY_ID,required = false) String companyId
+			@RequestParam(name = ServletData.COMPANY_ID,required = false) String companyString
 				) {
 		
 		Optional<Timestamp> timestampIntr = TimeStampMapper.simpleStringToTimestamp(introduced);
 		Optional<Timestamp> timestampDisc = TimeStampMapper.simpleStringToTimestamp(discontinued);
 
-		Optional<Long> company = Optional.empty();
-		if(companyId != null && !"".equals(companyId)){
-			company = Optional.of(Long.parseLong(companyId));
+		Optional<Company> company = Optional.empty();
+		if(!"".equals(companyString)) {
+			String[] companyArgs = companyString.split(" : ");
+			company = Optional.of(new Company(Long.parseLong(companyArgs[0]),companyArgs[1]));
 		}
+		
 
 		Computer c = new ComputerBuilder()
 				.withName(name)
-				.withCompanyId(company)
+				.withCompany(company)
 				.withIntroduced(timestampIntr)
 				.withDiscontinued(timestampDisc)
 				.build();

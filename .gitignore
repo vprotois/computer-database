@@ -12,7 +12,6 @@ local.properties
 .loadpath
 .recommenders
 
-
 # External tool builders
 .externalToolBuilders/
 
@@ -50,6 +49,8 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+
+hibernate.properties
 
 ### Eclipse Patch ###
 # Eclipse Core		

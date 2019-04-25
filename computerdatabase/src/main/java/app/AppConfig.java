@@ -11,6 +11,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
+
 @Configuration
 @ComponentScan(basePackages = {"persistance","services","controler"})
 @PropertySource("classpath:/datasource.properties")
@@ -34,9 +36,15 @@ public class AppConfig {
 	 @Bean
 	  public LocalSessionFactoryBean sessionFactory() {
 	      LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+	      
 	      sessionFactory.setDataSource(DataSource());
 	      sessionFactory.setPackagesToScan("model");
 	      return sessionFactory;
 	  }
+	 
+	 @Bean
+	 public JPAQueryFactory queryFactory() {
+		 return new JPAQueryFactory(sessionFactory().getObject().createEntityManager());
+	 }
 	
 }
