@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.querydsl.core.types.OrderSpecifier;
+
 import exception.ComputerNotFoundException;
 import exception.CreateComputerError;
 import exception.UpdateComputerError;
@@ -18,6 +20,7 @@ import mapper.DTOComputerMapper;
 import mapper.TimeStampMapper;
 import model.Computer;
 import model.Pages;
+import model.QComputer;
 import model.builders.ComputerBuilder;
 import model.builders.PagesBuilder;
 import model.dto.DTOComputer;
@@ -101,7 +104,7 @@ public class ComputerServices {
 	}
 	
 	public Optional<List<Computer>> listComputer() {
-		Optional<List<Computer>> list = daoComputer.listComputers("");
+		Optional<List<Computer>> list = daoComputer.listComputers(getOrder("", true));
 		return list;
 	}
 	
@@ -137,20 +140,20 @@ public class ComputerServices {
 		return Optional.empty();
 	}
 
-	private String getOrder(String order,Boolean asc){
+	private OrderSpecifier<?> getOrder(String order,Boolean asc){
 		switch(order) {
 		case EMPTY:
-			return "";
+			return QComputer.computer.id.asc();
 		case NAME:
-			return asc ? " ORDER BY cr.name ASC" : "ORDER BY cr.name DESC";
+			return asc ? QComputer.computer.name.asc() :QComputer.computer.name.desc();
 		case INTRODUCED:
-			return asc ? " ORDER BY cr.introduced ASC" : "ORDER BY cr.introduced DESC";
+			return asc ? QComputer.computer.introduced.asc() : QComputer.computer.introduced.desc();
 		case DISCONTINUED:
-			return asc ? " ORDER BY cr.discontinued ASC" : "ORDER BY cr.discontinued DESC";
+			return asc ?QComputer.computer.discontinued.asc() : QComputer.computer.discontinued.desc();
 		case COMPANY_ID:
-			return asc ? " ORDER BY cy.name ASC" : "ORDER BY cy.name DESC";
+			return asc ? QComputer.computer.company.id.asc() : QComputer.computer.company.id.desc();
 		default:
-			return "";
+			return QComputer.computer.id.asc();
 		}
 		
 	}
@@ -188,7 +191,7 @@ public class ComputerServices {
 			computer.setDiscontinued(t);
 			break;
 		case COMPANY_ID:
-			computer.setCompanyId(Long.parseLong(args[2]));
+			//computer.setCompanyId(Long.parseLong(args[2]));
 			break;
 		default:
 			log.error("Not a valid column : "+ args[1]);

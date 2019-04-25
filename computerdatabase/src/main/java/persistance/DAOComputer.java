@@ -1,26 +1,28 @@
 package persistance;
 
-import java.sql.SQLException;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.jpa.hibernate.HibernateDeleteClause;
+import com.querydsl.jpa.hibernate.HibernateQuery;
+import com.querydsl.jpa.hibernate.HibernateQueryFactory;
 
 import exception.CreateComputerError;
 import exception.UpdateComputerError;
 
 import java.util.Optional;
 
-import mapper.ComputerMapper;
 import model.Computer;
+import model.QComputer;
 
 
 @Repository
@@ -29,75 +31,69 @@ public class DAOComputer {
 	private static Logger log= LoggerFactory.getLogger(DAOComputer.class);
 
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private LocalSessionFactoryBean sessionFactory;
 
-	private static String selectAll = "SELECT cr.id, cr.name, cr.introduced, cr.discontinued, cr.company_id, cy.name FROM computer as cr "
-			+ "LEFT JOIN company as cy ON cr.company_id=cy.id ";
-	private static String selectCompWithId  = selectAll + "WHERE cr.id =?";
-	private static String selectCompWithName  = selectAll + "WHERE cr.name LIKE ? OR cy.name LIKE ?";
-	private static String InsertComputer = "INSERT INTO computer "
-			+ "(id, name, introduced, discontinued,company_id) VALUES "
-			+ "(?,?,?,?,?);";
-	private static String update = "UPDATE computer SET name=?,introduced=?,discontinued=?,company_id=? WHERE id = ?";
-	private static String delete = "DELETE FROM computer WHERE id =?";
-
-
-	@Transactional
-	public Optional<List<Computer>> listComputers(String order){
-		Object[] args = {};
-		return Optional.ofNullable(
-					jdbcTemplate.query(selectAll+order,args,new ComputerMapper())
-				);
+	
+	public Optional<List<Computer>> listComputers(OrderSpecifier<?> order){
+		Session session = sessionFactory.getObject().openSession();
+		List<Computer> computers = new HibernateQuery<Computer>(session)
+										.from(QComputer.computer)
+										.orderBy(order)
+										.fetch();
+		session.close();
+		return Optional.ofNullable(computers);
+		
 	}
 	
-	@Transactional
+
 	public Optional<Computer> getCompDetails(Long id){
-		Object[] args = {id}; 
-		try {
-			return Optional.of(
-						jdbcTemplate.queryForObject(selectCompWithId, args, new ComputerMapper())					
-					);
-		}catch(EmptyResultDataAccessException e) {
-			return Optional.empty();
-		}
+		Session session = sessionFactory.getObject().openSession();
+		List<Computer> computer = new HibernateQuery<Computer>(session)
+											.from(QComputer.computer)
+											.where(QComputer.computer.id.eq(id))
+											.fetch();
+		session.close();
+		return Optional.of(computer.get(0));
 	}
 
-	@Transactional
-	public Optional<List<Computer>> getListFromName(String name,String order){
-		Object[] args = {"%"+name+"%","%"+name+"%"};
-		return Optional.ofNullable(
-					jdbcTemplate.query(selectCompWithName+order,args,new ComputerMapper())
-				);
+
+	public Optional<List<Computer>> getListFromName(String name,OrderSpecifier<?> order){
+		Session session = sessionFactory.getObject().openSession();
+		List<Computer> computers = new HibernateQuery<Computer>(session)
+				.from(QComputer.computer)
+				.where(QComputer.computer.name.contains(name).or(QComputer.computer.company.name.contains(name)))
+				.orderBy(order)
+				.fetch();
+		session.close();
+		return Optional.ofNullable(computers);
 	}
 
-	@Transactional
-	public void createComputer(Computer c) throws CreateComputerError {
-		log.debug(""+c);
-		try {
-			jdbcTemplate.update(InsertComputer,StatementSetterFactory.statementInsertComputer(c));
-		} catch (DataAccessException | SQLException e) {
-			log.error("Error when creating " + c + " : " +e.getMessage());
-			throw new CreateComputerError("Couldn't create "+c);
-		} 
+
+	public void createComputer(Computer computer) throws CreateComputerError {
+		log.info("CREATE "+computer);
+		Session session = sessionFactory.getObject().openSession();
+		session.save(computer);
+		session.close();
 	}
 
-	@Transactional
-	public void updateComputer(Computer c) throws UpdateComputerError{
-		try {
-			jdbcTemplate.update(update,StatementSetterFactory.statementUpdateComputer(c));
-		} catch (DataAccessException | SQLException e) {
-			log.error("Error when creating " + c + " : " +e.getMessage());
-			throw new UpdateComputerError("Couldn't update "+c);
-		} 
+	public void updateComputer(Computer computer) throws UpdateComputerError{
+		Session session = sessionFactory.getObject().openSession();
+		HibernateQueryFactory query = new HibernateQueryFactory(session);
+		query.update(QComputer.computer)
+		.where(QComputer.computer.id.eq(computer.getId()))
+		.set(QComputer.computer.name, computer.getName())
+        .set(QComputer.computer.introduced, computer.getIntroduced())
+        .set(QComputer.computer.discontinued, computer.getDiscontinued())
+        .set(QComputer.computer.company, computer.getCompany())
+        .execute();
+		session.close();
 	}
 
-	@Transactional
+
 	public void deleteComputer(Long id) throws UpdateComputerError{
-		try {
-			jdbcTemplate.update(delete,StatementSetterFactory.statementId(id));
-		} catch (DataAccessException e) {
-			log.error("Error when creating computer " + id + " : " +e.getMessage());
-			throw new UpdateComputerError("Couldn't delete computer "+id);
-		} 
+		Session session = sessionFactory.getObject().openSession();
+		new HibernateDeleteClause(session, QComputer.computer)
+				.where(QComputer.computer.id.eq(id));
+		session.close();
 	}
 }

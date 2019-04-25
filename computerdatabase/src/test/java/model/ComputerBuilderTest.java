@@ -42,7 +42,6 @@ public class ComputerBuilderTest extends TestCase{
 		assertEquals(c2.getIntroduced(),t1);
 		assertEquals(c2.getDiscontinued(),t2);
 		assertNull(c2.getCompany());
-		assertNull(c2.getCompanyId());
 	}
 	
 	

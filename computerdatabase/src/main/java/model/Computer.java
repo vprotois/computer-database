@@ -17,7 +17,6 @@ import javax.persistence.Table;
 public class Computer {
 	
 	@Id
-	@Column(name = "id")
 	@GeneratedValue(strategy = IDENTITY)
 	private Long id;
 	
@@ -34,8 +33,6 @@ public class Computer {
 	@Column(name = "discontinued",nullable = true)
 	private Timestamp discontinued;
 	
-	private Long companyId;
-	
 	public Computer() {
 	}
 
@@ -45,7 +42,6 @@ public class Computer {
 		this.company = company;
 		this.introduced = introduced;
 		this.discontinued = discontinued;
-		this.companyId = companyId;
 	}
 	
 	@Override
@@ -57,8 +53,7 @@ public class Computer {
 			&& nameEquals(o)
 			&& companyEquals(o)
 			&& introducedEquals(o)
-			&& discontinuedEquals(o)
-			&& companyIdEquals(o);
+			&& discontinuedEquals(o);
 				
 	}
 
@@ -97,12 +92,7 @@ public class Computer {
 			return this.discontinued.equals( ((Computer) o).discontinued);
 	}
 	
-	private boolean companyIdEquals(Object o) {
-		if (this.companyId== null)
-			return (((Computer) o).companyId==null);
-		else
-			return this.companyId.equals( ((Computer) o).companyId);
-	}
+	
 	
 	@Override
 	public String toString() {
@@ -146,11 +136,9 @@ public class Computer {
 	}
 
 	public Long getCompanyId() {
-		return companyId;
-	}
-
-	public void setCompanyId(Long companyId) {
-		this.companyId = companyId;
+		if(this.company==null)
+			return null;
+		return this.company.getId();
 	}
 
 	public Long getId() {

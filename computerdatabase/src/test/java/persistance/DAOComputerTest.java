@@ -15,7 +15,9 @@ import app.AppConfig;
 import exception.CreateComputerError;
 import exception.UpdateComputerError;
 import junit.framework.TestCase;
+import model.Company;
 import model.Computer;
+import model.QComputer;
 
 @ExtendWith(MockitoExtension.class)
 public class DAOComputerTest extends TestCase {
@@ -41,43 +43,28 @@ public class DAOComputerTest extends TestCase {
 	public void testcreateUpdateDelete() throws CreateComputerError, UpdateComputerError {
 		Computer c = new Computer(-6L,"neg",null,null,null,null);
 		dao.createComputer(c);
-		c.setCompanyId(0L);
 		assertEquals(Optional.of(c).toString(),dao.getCompDetails(-6L).toString());
 		c = new Computer(-6L,"neg",null,null,null,null);
 		dao.updateComputer(c);
-		c.setCompanyId(0L);
 		assertEquals(Optional.of(c).toString(),dao.getCompDetails(-6L).toString());
 		dao.deleteComputer(-6L);
 		assertEquals(Optional.empty(),dao.getCompDetails(-6L));
 	}
 	
 	public void testFailedCreate() {
-		//this id is already taken in the base
-		Computer c = new Computer(14L,"neg",null,null,null,2L);
+		Computer c = new Computer(14L,"neg",null,null,null,null);
 		try {
 			dao.createComputer(c);
 		} catch (Exception e) {
-			assertEquals(e.getClass(),CreateComputerError.class);
+			assertEquals(CreateComputerError.class,e.getClass());
 		}
 	}
 	
-//	public void testFailedUpdate() {
-//		DAOComputer dao = DAOFactory.createDAOcomputer();
-//		//this computer isn't in the base
-//		Computer c = new Computer(-3L,"neg",null,null,null,2L);
-//		assertFalse(dao.updateComputer(c));
-//	}
-	
-//	public void testFailedDelete() {
-//		DAOComputer dao = DAOFactory.createDAOcomputer();
-//		//this computer isn't in the base
-//		assertFalse(dao.deleteComputer(-3L));
-//	}
 	
 	
 	@Test
 	public void testCompDetails() {
-		Computer c1 = new Computer(14L,"CM-2",null,null,null,2L);
+		Computer c1 = new Computer(14L,"CM-2",new Company(2L,"name"),null,null,null);
 		Optional<Computer> c2 = dao.getCompDetails(14L);
 		if(!c2.isPresent()) {
 			fail("tested Computer isn't in the base");
@@ -87,7 +74,7 @@ public class DAOComputerTest extends TestCase {
 	
 	@Test
 	public void testListComputers() {
-		Optional<List<Computer>> list = dao.listComputers("");
+		Optional<List<Computer>> list = dao.listComputers(QComputer.computer.id.desc());
 		assertNotNull(list.get());
 	}
 	
