@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.excilys</groupId>
+  <artifactId>computer-database</artifactId>
+  <packaging>pom</packaging>
+  <version>0.0</version>
+  <name>computer-database</name>
+  <url>http://maven.apache.org</url>
+
+
+
+<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<mysql-connector>8.0.15 </mysql-connector>
+		<slf4j-log4j12>1.8.0-beta4</slf4j-log4j12>
+		<slf4j-api>1.8.0-beta4</slf4j-api>
+		<selenium-java>3.141.59</selenium-java>
+		<jstl>1.2</jstl>
+		<servlet-api>2.5</servlet-api>
+		<taglibs-standard-impl>1.2.5</taglibs-standard-impl>
+		<mockito-junit-jupiter>2.23.0</mockito-junit-jupiter>
+		<HikariCP>3.3.1</HikariCP>
+		<spring.version>5.1.5.RELEASE</spring.version>
+		<javax>4.0.1</javax>
+		<junit>4.12</junit>
+		<hibernate.version>5.4.2.Final</hibernate.version>
+		<querydsl.version>4.2.1</querydsl.version>
+		<javax.persistence>2.2</javax.persistence>
+	</properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j-log4j12}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j-api}</version>
+		</dependency>
+  </dependencies>
+  <modules>
+    <module>core</module>
+    <module>persistance</module>
+    <module>service</module>
+    <module>binding</module>
+    <module>webapp</module>
+    <module>console</module>
+  </modules>
+</project>
