@@ -8,26 +8,20 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-	  private static final String[] AUTH_WHITELIST = {
-			  "/login",
-			  "/logout"
-			  
-	  };
 	
 	 protected void configure(final HttpSecurity http) throws Exception {
 	        http
 	        .csrf().disable()
 	        .authorizeRequests()
-	        .antMatchers(AUTH_WHITELIST).permitAll() 
-	        .anyRequest().authenticated()
+	        .antMatchers("/add","/edit","/delete").hasAuthority("MANAGER")
+	        .antMatchers("/dashboard").authenticated()
+	        .antMatchers("/login").permitAll()
 	        .and()
-	        .formLogin()  
-	        .defaultSuccessUrl("/", true)
-	        .and()
-	        .logout()
-	        .logoutUrl("/logout")
-	        .deleteCookies("JSESSIONID");
+	        .formLogin().loginPage("/login")
+	        .loginProcessingUrl("/logged")
+	        .usernameParameter("login")	
+	        .passwordParameter("password")
+	        .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login");
 	    }
-	
+	 
 }
