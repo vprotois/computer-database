@@ -1,8 +1,8 @@
 package com.excilys.exception;
 
-public class UpdateComputerError extends Exception {
+public class UpdateComputerException extends Exception {
 
-	public UpdateComputerError(String string) {
+	public UpdateComputerException(String string) {
 		super(string);
 	}
 	

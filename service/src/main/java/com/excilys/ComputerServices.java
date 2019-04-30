@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 import com.querydsl.core.types.OrderSpecifier;
 
 import com.excilys.exception.ComputerNotFoundException;
-import com.excilys.exception.CreateComputerError;
-import com.excilys.exception.UpdateComputerError;
+import com.excilys.exception.CreateComputerException;
+import com.excilys.exception.UpdateComputerException;
 import com.excilys.exception.ValidatorException;
 import com.excilys.mapper.DTOComputerMapper;
 import com.excilys.mapper.TimeStampMapper;
@@ -42,7 +42,7 @@ public class ComputerServices {
 	public static final String EMPTY = "";
 
 
-	public void buildComputerWithId(String[] args) throws CreateComputerError, ValidatorException {
+	public void buildComputerWithId(String[] args) throws CreateComputerException, ValidatorException {
 		ComputerBuilder cBuilder = new ComputerBuilder()
 				.withId(Optional.of(Long.parseLong(args[0])))
 				.withName(Optional.of(args[1]))
@@ -55,7 +55,7 @@ public class ComputerServices {
 		daoComputer.createComputer(computer);
 	}
 	
-	public void buildComputer(String name,String introduced,String discontinued,String companyId) throws CreateComputerError, ValidatorException {
+	public void buildComputer(String name,String introduced,String discontinued,String companyId) throws CreateComputerException, ValidatorException {
 		ComputerBuilder compBuilder = new ComputerBuilder()
 				.withName(Optional.of(name))
 				.withIntroduced(TimeStampMapper.stringToTimestamp(introduced))
@@ -68,7 +68,7 @@ public class ComputerServices {
 
 	}
 	
-	public void addComputer(Computer comp) throws CreateComputerError, ValidatorException {
+	public void addComputer(Computer comp) throws CreateComputerException, ValidatorException {
 		Validator.computerValidator(comp);
 		log.debug(""+comp);
 		daoComputer.createComputer(comp);
@@ -167,16 +167,16 @@ public class ComputerServices {
 		return DTOComputerMapper.mapComputerToDTO(c.get());
 	}
 
-	public void deleteComputer(Long id) throws UpdateComputerError  {
+	public void deleteComputer(Long id) throws UpdateComputerException  {
 		daoComputer.deleteComputer(id);
 	}
 
-	public void updateComputer(String[] args) throws UpdateComputerError, ValidatorException{
+	public void updateComputer(String[] args) throws UpdateComputerException, ValidatorException{
 
 		Long id = Long.parseLong(args[0]);
 		Optional<Computer> optcomputer = daoComputer.getCompDetails(id);
 		if(!optcomputer.isPresent()) {
-			throw new UpdateComputerError("Computer not in base");
+			throw new UpdateComputerException("Computer not in base");
 		}
 		Computer computer = optcomputer.get();
 		switch (args[1]) {
@@ -201,7 +201,7 @@ public class ComputerServices {
 		daoComputer.updateComputer(computer);
 	}
 	
-	public void updateComputer(Computer computer) throws UpdateComputerError, ValidatorException{
+	public void updateComputer(Computer computer) throws UpdateComputerException, ValidatorException{
 		Validator.computerValidator(computer);
 		daoComputer.updateComputer(computer);
 	}

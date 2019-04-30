@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.excilys.exception.ComputerNotFoundException;
-import com.excilys.exception.CreateComputerError;
-import com.excilys.exception.UpdateComputerError;
+import com.excilys.exception.CreateComputerException;
+import com.excilys.exception.UpdateComputerException;
 import com.excilys.exception.ValidatorException;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
@@ -99,7 +99,7 @@ public class CLIControler {
 	private void deleteComputer(Long input) {
 		try {
 			computerServices.deleteComputer(input);
-		} catch (UpdateComputerError e) {
+		} catch (UpdateComputerException e) {
 			InterfaceConsole.display("Failed to delete computer : " + e.getMessage());
 		}
 	}
@@ -108,7 +108,7 @@ public class CLIControler {
 		try {
 			computerServices.updateComputer(inputArgs);
 			InterfaceConsole.display("ComputerUpdated");
-		} catch (UpdateComputerError e) {
+		} catch (UpdateComputerException e) {
 			InterfaceConsole.display("Failed to update computer :"+ e.getMessage());
 		} catch (ValidatorException e) {
 			InterfaceConsole.display(e.getMessage());
@@ -119,7 +119,7 @@ public class CLIControler {
 		try {
 			computerServices.buildComputerWithId(inputArgs);
 			InterfaceConsole.display("ComputerCreated");
-		} catch (CreateComputerError e) {
+		} catch (CreateComputerException e) {
 			InterfaceConsole.display("Failed to create computer :"+ e.getMessage());
 		} catch (ValidatorException e) {
 			InterfaceConsole.display(e.getMessage());

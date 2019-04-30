@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
-import com.excilys.exception.CreateComputerError;
-import com.excilys.exception.UpdateComputerError;
+import com.excilys.exception.CreateComputerException;
+import com.excilys.exception.UpdateComputerException;
 
 import java.util.Optional;
 
@@ -66,7 +66,7 @@ public class DAOComputer {
 	}
 
 
-	public void createComputer(Computer computer) throws CreateComputerError {
+	public void createComputer(Computer computer) throws CreateComputerException {
 		Session session = sessionFactory.getObject().openSession();
 		session.save(computer);
 		session.close();
@@ -74,7 +74,7 @@ public class DAOComputer {
 
 	
 	@Transactional
-	public void updateComputer(Computer computer) throws UpdateComputerError{
+	public void updateComputer(Computer computer) throws UpdateComputerException{
 		queryFactory
 		.update(QComputer.computer)
 		.where(QComputer.computer.id.eq(computer.getId()))
@@ -86,7 +86,7 @@ public class DAOComputer {
 	}
 
 	@Transactional
-	public void deleteComputer(Long id) throws UpdateComputerError{
+	public void deleteComputer(Long id) throws UpdateComputerException{
 		log.info("DELETE "+id);
 		queryFactory
 		.delete(QComputer.computer)

@@ -1,8 +1,8 @@
 package com.excilys.exception;
 
-public class CreateComputerError extends Exception{
+public class CreateComputerException extends Exception{
 
-	public CreateComputerError(String string) {
+	public CreateComputerException(String string) {
 		super(string);
 	}
 	
