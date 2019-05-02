@@ -133,7 +133,12 @@
 			  </a> 
 			<a href="${urlPath}?messages=en">
 			   <button type="button" class="btn btn-default"> EN </button>
-			  </a> 
+			  </a>
+			  <a href="/logout">
+			  	<button type="button" class="btn btn-default">
+			  		<spring:message code="lang.logout"/>
+			  	</button>
+			  </a>
 		</div>
 		<div class="container text-center">
 			<ul class="pagination">
