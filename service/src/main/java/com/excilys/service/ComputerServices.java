@@ -1,4 +1,4 @@
-package com.excilys;
+package com.excilys.service;
 
 import java.sql.Timestamp;
 import java.util.List;

@@ -13,9 +13,9 @@ import com.excilys.exception.ValidatorException;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
 import com.excilys.model.Pages;
+import com.excilys.service.CompanyServices;
+import com.excilys.service.ComputerServices;
 import com.excilys.dto.DTOComputer;
-import com.excilys.CompanyServices;
-import com.excilys.ComputerServices;
 
 @Component
 public class CLIControler {	

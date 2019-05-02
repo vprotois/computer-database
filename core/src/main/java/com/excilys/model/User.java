@@ -2,8 +2,6 @@ package com.excilys.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
 	@Id
@@ -22,14 +20,11 @@ public class User {
 	@Column(name = "login")
 	private String login;
 	
-	@Column(name = "password")
+	@Column(name = "psswrd")
 	private String password;
 	
-	@Column(name = "token")
-	private String token;
-	
-	@Column(name  = "timer")
-	private Timestamp timer;
+	@Column(name = "role")
+	private Integer role;
 
 	public Long getId() {
 		return id;
@@ -55,26 +50,14 @@ public class User {
 		this.password = password;
 	}
 
-	public String getToken() {
-		return token;
+	
+
+	public Integer getRole() {
+		return role;
 	}
 
-	public void setToken(String token) {
-		this.token = token;
-	}
-
-	public Timestamp getTimer() {
-		return timer;
-	}
-
-	public void setTimer(Timestamp timer) {
-		this.timer = timer;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", login=" + login + ", password=" + password + ", token=" + token + ", timer="
-				+ timer + "]";
+	public void setRole(Integer role) {
+		this.role = role;
 	}
 
 	@Override
@@ -84,6 +67,7 @@ public class User {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		return result;
 	}
 
@@ -111,8 +95,20 @@ public class User {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
+		if (role == null) {
+			if (other.role != null)
+				return false;
+		} else if (!role.equals(other.role))
+			return false;
+		
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", login=" + login + ", password=" + password + ", role=" + role + "]";
+	}
+
+	
 
 }

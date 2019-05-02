@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.excilys.CompanyServices;
-import com.excilys.ComputerServices;
 import com.excilys.builders.ComputerBuilder;
 import com.excilys.dto.DTOComputer;
 import com.excilys.exception.ComputerNotFoundException;
@@ -28,6 +26,8 @@ import com.excilys.mapper.TimeStampMapper;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
 import com.excilys.model.Pages;
+import com.excilys.service.CompanyServices;
+import com.excilys.service.ComputerServices;
 
 @Controller
 public class ComputerControler {

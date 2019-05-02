@@ -27,12 +27,12 @@
 	</header>
 	<section id="main">
 		<div class="pull-left">
-			<form id="auth" action="" method="POST" class="form-horizontal">
-				<input type=text id="login_box" name="login" class="form-control"
+			<form id="loginForm" action="/authenticate" method="POST" class="form-horizontal">
+				<input type=text name="username" class="form-control"
 					placeholder="<spring:message code="lang.login"/>" /> 
-				<input type=password id="password_box" name="password"
+				<input type=password name="password"
 					class="form-control"placeholder="<spring:message code="lang.password"/>"> 
-				<input type=submit id="submit_button" value="login"class="btn btn-primary">
+				<input type=submit id="submit_button" value="submit"class="btn btn-primary">
 			</form>
 		</div>
 	</section>

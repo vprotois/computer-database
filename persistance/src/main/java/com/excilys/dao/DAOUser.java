@@ -34,6 +34,15 @@ public class DAOUser {
 		return Optional.ofNullable(list);
 	}
 	
+	public Optional<User> getUserByName(String login) {
+		log.debug("getting user : " +login);
+		User user = queryFactory
+				.selectFrom(QUser.user)
+				.where(QUser.user.login.eq(login))
+				.fetchOne();
+		return Optional.ofNullable(user);
+	}
+	
 	public void verifyUser(String login,String password) throws InvalidUserException {
 		User user = queryFactory
 				.selectFrom(QUser.user)
