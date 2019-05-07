@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
@@ -27,6 +28,7 @@
 	</header>
 	<section id="main">
 		<div class="pull-left">
+			<c:if test="${param.failed}"><spring:message	code="lang.incorrect" /></c:if>
 			<form id="loginForm" action="/authenticate" method="POST" class="form-horizontal">
 				<input type=text name="username" class="form-control"
 					placeholder="<spring:message code="lang.login"/>" /> 

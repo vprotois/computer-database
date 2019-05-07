@@ -29,7 +29,7 @@ import com.excilys.model.Pages;
 import com.excilys.service.CompanyServices;
 import com.excilys.service.ComputerServices;
 
-@Controller
+@Controller("/computer")
 public class ComputerControler {
 
 	private static final String PAGE_COMPUTERS = "computerPage";

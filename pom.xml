@@ -29,6 +29,7 @@
 		<hibernate.version>5.4.2.Final</hibernate.version>
 		<querydsl.version>4.2.1</querydsl.version>
 		<javax.persistence>2.2</javax.persistence>
+		<jackson.version>2.9.8</jackson.version>
 	</properties>
 
   <dependencies>

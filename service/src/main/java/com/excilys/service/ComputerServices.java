@@ -140,6 +140,21 @@ public class ComputerServices {
 		return Optional.empty();
 	}
 
+	
+	public Optional<List <DTOComputer>> listComputerWithName(String name,String order,Boolean asc) {
+		Optional<List<Computer>> list = daoComputer.getListFromName(name,getOrder(order, asc));
+		if(list.isPresent()) {
+			List<DTOComputer> listDTO =list.get().stream()
+					.map(c -> DTOComputerMapper.mapComputerToDTO(c))
+					.collect(Collectors.toList());
+			
+			return Optional.of(listDTO);
+			
+		}
+		return Optional.empty();
+	}
+	
+	
 	private OrderSpecifier<?> getOrder(String order,Boolean asc){
 		switch(order) {
 		case EMPTY:
