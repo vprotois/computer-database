@@ -45,53 +45,53 @@ public class Computer {
 	}
 	
 	@Override
-	public boolean equals(Object o) {
-		if (!(o instanceof Computer)) {
-			return false;
-		}
-		return idEquals(o) 
-			&& nameEquals(o)
-			&& companyEquals(o)
-			&& introducedEquals(o)
-			&& discontinuedEquals(o);
-				
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((company == null) ? 0 : company.hashCode());
+		result = prime * result + ((discontinued == null) ? 0 : discontinued.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
 	}
 
-	private boolean idEquals(Object o) {
-		if (this.id == null)
-			return (((Computer) o).id ==null);
-		else
-			return this.id.equals( ((Computer) o).id);
-	}
-	
-	private boolean nameEquals(Object o) {
-		if (this.name == null)
-			return (((Computer) o).name==null);
-		else
-			return this.name.equals( ((Computer) o).name);
-	}
-	
-	private boolean companyEquals(Object o) {
-		if (this.company == null)
-			return (((Computer) o).company==null);
-		else
-			return this.company.equals( ((Computer) o).company);
-	}
-	
-	private boolean introducedEquals(Object o) {
-		if (this.introduced== null)
-			return (((Computer) o).introduced==null);
-		else
-			return this.introduced.equals( ((Computer) o).introduced);
-	}
-	
-	private boolean discontinuedEquals(Object o) {
-		if (this.discontinued== null)
-			return (((Computer) o).discontinued==null);
-		else
-			return this.discontinued.equals( ((Computer) o).discontinued);
-	}
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Computer other = (Computer) obj;
+		if (company == null) {
+			if (other.company != null)
+				return false;
+		} else if (!company.equals(other.company))
+			return false;
+		if (discontinued == null) {
+			if (other.discontinued != null)
+				return false;
+		} else if (!discontinued.equals(other.discontinued))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (introduced == null) {
+			if (other.introduced != null)
+				return false;
+		} else if (!introduced.equals(other.introduced))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}	
 	
 	
 	@Override

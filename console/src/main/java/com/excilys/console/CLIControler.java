@@ -40,8 +40,6 @@ public class CLIControler {
 	private static final int PREVIOUS_PAGE = 1;
 	private static final int NEXT_PAGE = 2;
 	
-	public CLIControler() {
-	}
 	
 	
 	public void start() {
