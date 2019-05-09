@@ -50,7 +50,7 @@ public class ComputerControler {
 
 	
 	@GetMapping({"/dashboard"})
-	protected String listComputer(Model model,
+	public String listComputer(Model model,
 						@RequestParam(name = "index",required = false,defaultValue="0") String index,
 						@RequestParam(name = "size",required = false, defaultValue="10") String size,
 						@RequestParam(name = "order",required = false,defaultValue="")String order,
@@ -69,7 +69,7 @@ public class ComputerControler {
 			return "500";
 		}
 		else {
-			setDashboardAttributes(model, sizeInt, search, order, optpages);
+			setDashboardAttributes(model, sizeInt, search, order, optpages.get());
 			return "dashboard"; 	
 		}
 	}
@@ -86,8 +86,7 @@ public class ComputerControler {
 	}
 
 	private void setDashboardAttributes(Model model,Integer size, String search, String order,
-			Optional<Pages<DTOComputer>> optpages) {
-		Pages<DTOComputer> p = optpages.get();
+			Pages<DTOComputer> p) {
 		model.addAttribute(PAGE_COMPUTERS, p);
 		model.addAttribute(NUMBER_COMPUTERS, p.getDataSize());
 		model.addAttribute(PAGE_DATA, p.getPageData());
@@ -100,7 +99,7 @@ public class ComputerControler {
 
 	
 	@PostMapping({"/delete"})
-	protected String deleteComputers(Model model,
+	public String deleteComputers(Model model,
 				@RequestParam(name = "selection",required = true) String toDeleteList){
 
 
@@ -122,7 +121,7 @@ public class ComputerControler {
 	}
 	
 	@GetMapping("/add")
-	protected String showPage(Model model){
+	public String showPage(Model model){
 
 
 		Optional<List<Company>> list = companyService.listCompanies();
@@ -137,7 +136,7 @@ public class ComputerControler {
 	}
 
 	@PostMapping("/add")
-	protected String add(Model model,
+	public String add(Model model,
 			@RequestParam(name = ServletData.COMPUTER_NAME,required = true) String name,
 			@RequestParam(name = ServletData.INTRODUCED_DATE,required = false) String introduced,
 			@RequestParam(name = ServletData.DISCONTINUED_DATE,required = false) String discontinued,
@@ -170,7 +169,7 @@ public class ComputerControler {
 	}
 	
 	@GetMapping({"/edit"})
-	protected String editPage(Model model,
+	public String editPage(Model model,
 			@RequestParam(name = "id",required = true) String idString
 			){
 		
@@ -192,7 +191,7 @@ public class ComputerControler {
 	}
 
 	@PostMapping({"/edit"})
-	protected String editComputer(Model model,
+	public String editComputer(Model model,
 			@RequestParam(name = "id",required = true) String idString,
 			@RequestParam(name = ServletData.COMPUTER_NAME,required = true) String name,
 			@RequestParam(name = ServletData.INTRODUCED_DATE,required = false) String introduced,

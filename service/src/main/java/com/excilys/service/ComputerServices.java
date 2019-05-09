@@ -190,6 +190,7 @@ public class ComputerServices {
 
 		Long id = Long.parseLong(args[0]);
 		Optional<Computer> optcomputer = daoComputer.getCompDetails(id);
+		Optional<Timestamp> optTime;
 		if(!optcomputer.isPresent()) {
 			throw new UpdateComputerException("Computer not in base");
 		}
@@ -199,11 +200,16 @@ public class ComputerServices {
 			computer.setName(args[2]);
 			break;
 		case INTRODUCED:
-			computer.setIntroduced(TimeStampMapper.stringToTimestamp(args[2]).get());
+			optTime = TimeStampMapper.stringToTimestamp(args[2]);
+			if(optTime.isPresent()) {
+				computer.setIntroduced(optTime.get());
+			}
 			break;
 		case DISCONTINUED:
-			Timestamp t = TimeStampMapper.stringToTimestamp(args[2]).get();
-			computer.setDiscontinued(t);
+			optTime = TimeStampMapper.stringToTimestamp(args[2]);
+			if(optTime.isPresent()) {
+				computer.setDiscontinued(optTime.get());				
+			}
 			break;
 		case COMPANY_ID:
 			//computer.setCompanyId(Long.parseLong(args[2]));

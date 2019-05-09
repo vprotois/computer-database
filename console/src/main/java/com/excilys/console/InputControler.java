@@ -70,7 +70,7 @@ public class InputControler {
 				System.out.println(e.getMessage());
 			}
 		}
-		while (inputString.length != number);
+		while (inputString == null || inputString.length != number);
 		return inputString;
 	}
 

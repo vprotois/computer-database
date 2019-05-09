@@ -7,6 +7,10 @@ import com.excilys.model.Computer;
 
 public class Validator {
 	
+	private Validator() {
+		
+	}
+	
 	public static final String ERROR_COMPUTER_COMPANIES = "Can't find companies in base";
 	public static final String ERROR_COMPANY_NOT_FOUND = "Company doesn't exist in base";
 	public static final String ERROR_COMPANY_INVALID_NAME = "Company must have a name";

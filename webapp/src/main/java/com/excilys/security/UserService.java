@@ -34,22 +34,22 @@ public class UserService implements UserDetailsService {
 			throw new UsernameNotFoundException("User not found");
 		}
 		
-        List<GrantedAuthority> authorities = getAuth(user);
+        List<GrantedAuthority> authorities = getAuth(user.get());
 		
-	    return buildUser(user, authorities);
+	    return buildUser(user.get(), authorities);
 	        
 	}
 
-	private User buildUser(Optional<com.excilys.model.User> user, List<GrantedAuthority> authorities) {
-		return new User(user.get().getLogin(), user.get().getPassword(), true, true, true, true, authorities);
+	private User buildUser(com.excilys.model.User user, List<GrantedAuthority> authorities) {
+		return new User(user.getLogin(), user.getPassword(), true, true, true, true, authorities);
 	}
 
-	private List<GrantedAuthority> getAuth(Optional<com.excilys.model.User> user) {
+	private List<GrantedAuthority> getAuth(com.excilys.model.User user) {
 		
 		  List<GrantedAuthority> setAuths = new ArrayList<GrantedAuthority>();
 		  setAuths.add(new SimpleGrantedAuthority("USER"));
 		  
-		  if(user.get().getRole() == 1) {
+		  if(user.getRole() == 1) {
 			  setAuths.add(new SimpleGrantedAuthority("MANAGER"));
 		  }
 
