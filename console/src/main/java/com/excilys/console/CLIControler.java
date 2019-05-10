@@ -184,6 +184,9 @@ public class CLIControler {
 				pages.previousPage();
 				break;
 			case NEXT_PAGE:
+				pages.nextPage();
+				break;
+			default:
 				break;
 			}
 		}while (pageInput != 0);

@@ -212,7 +212,7 @@ public class ComputerServices {
 			}
 			break;
 		case COMPANY_ID:
-			//computer.setCompanyId(Long.parseLong(args[2]));
+			// not supported : computer.setCompanyId(Long.parseLong(args[2]));
 			break;
 		default:
 			log.error("Not a valid column : "+ args[1]);

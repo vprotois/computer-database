@@ -15,7 +15,7 @@ import com.excilys.app.AppConfig;
 @Configuration
 public class WebContext implements WebApplicationInitializer {
 	
-	public static AnnotationConfigWebApplicationContext context;
+	private AnnotationConfigWebApplicationContext context;
 	
 	public void onStartup(ServletContext container) throws ServletException {
 		context = new AnnotationConfigWebApplicationContext();

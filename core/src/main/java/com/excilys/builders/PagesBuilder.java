@@ -21,10 +21,10 @@ public class PagesBuilder<T> {
 			return null;
 		}
 		if(index == null || index < 0) {
-			index = new Integer(0);
+			index = 0;
 		}
 		if(size == null || size < 0) {
-			size = new Integer(10);
+			size = 10;
 		}
 		return new Pages<T>(data,index,size);
 	}

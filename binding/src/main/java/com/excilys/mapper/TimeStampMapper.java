@@ -15,6 +15,10 @@ import org.slf4j.LoggerFactory;
 
 public class TimeStampMapper {
 	
+	private TimeStampMapper() {
+		
+	}
+	
 	private static Logger log= LoggerFactory.getLogger(TimeStampMapper.class);
 	
 	public static Optional<Timestamp> stringToTimestamp(String stringDate){

@@ -8,9 +8,10 @@ import java.util.List;
 
 public class InterfaceConsole {
 	
-	public InterfaceConsole() {
-	
+	private InterfaceConsole() {
+		
 	}
+	
 	
 	public static void displayMenu() {
 		System.out.println("Choose input :");

@@ -4,6 +4,10 @@ import com.excilys.model.Computer;
 import com.excilys.dto.DTOComputer;
 
 public class DTOComputerMapper {
+	
+	private DTOComputerMapper() {
+		
+	}
 
 	private static final String EMPTY = "";
 	

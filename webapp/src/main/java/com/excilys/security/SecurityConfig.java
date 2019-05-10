@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.www.DigestAuthenticationF
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	private static final String LOGGIN_URL = "/login";
 	
 	@Override
 	 protected void configure(final HttpSecurity http) throws Exception {
@@ -22,15 +23,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        .authorizeRequests()
 	        .antMatchers("/add","/edit","/delete").hasAuthority("MANAGER")
 	        .antMatchers("/dashboard").authenticated()
-	        .antMatchers("/login").permitAll()
+	        .antMatchers(LOGGIN_URL).permitAll()
 	        .and()
-	        .formLogin().loginPage("/login")
+	        .formLogin().loginPage(LOGGIN_URL)
 	        .loginProcessingUrl("/authenticate")
 	        .usernameParameter("username")	
 	        .passwordParameter("password")
 	        .successHandler(authenticationHandler())
             .failureHandler(authenticationHandler())
-	        .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login");
+	        .and().logout().logoutUrl("/logout").logoutSuccessUrl(LOGGIN_URL);
 	    }
 	 
 	 @Bean

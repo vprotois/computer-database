@@ -12,9 +12,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.querydsl.jpa.hibernate.HibernateQuery;
-
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.excilys.model.Company;
 import com.excilys.model.QCompany;
+import com.excilys.model.QComputer;
 
 
 @Repository
@@ -24,8 +25,12 @@ public class DAOCompany {
 	
 	@Autowired
 	private LocalSessionFactoryBean sessionFactory;
+	
 
-	@Transactional
+	@Autowired
+	private JPAQueryFactory queryFactory;
+
+	
 	public Optional<Company> getCompany(Long id) {
 		Session session = sessionFactory.getObject().openSession();
 		Company company = new HibernateQuery<Company>(session)
@@ -47,8 +52,18 @@ public class DAOCompany {
 		return Optional.of(company);
 	}
 	
+	@Transactional
 	public void deleteCompany(Long id) {
 		
+		queryFactory
+		.delete(QComputer.computer)
+		.where(QComputer.computer.company.id.eq(id))
+		.execute();
+		
+		queryFactory
+		.delete(QCompany.company)
+		.where(QCompany.company.id.eq(id))
+		.execute();
 	}
 
 

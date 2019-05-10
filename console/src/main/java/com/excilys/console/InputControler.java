@@ -6,6 +6,10 @@ import java.io.InputStreamReader;
 
 public class InputControler {
 
+	private InputControler() {
+		
+	}
+	
 	public static Integer getInputInt() {
 		BufferedReader bufferReader = new BufferedReader(new InputStreamReader(System.in));
 		Integer inputInt = null;

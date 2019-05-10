@@ -1,6 +1,7 @@
 package com.excilys.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Pages<T> {
 
@@ -82,10 +83,7 @@ public class Pages<T> {
 	
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((data == null) ? 0 : data.hashCode());
-		return result;
+		return Objects.hash(data);
 	}
 
 	@Override
@@ -97,12 +95,7 @@ public class Pages<T> {
 		if (getClass() != obj.getClass())
 			return false;
 		Pages<?> other = (Pages<?>) obj;
-		if (data == null) {
-			if (other.data != null)
-				return false;
-		} else if (!data.equals(other.data))
-			return false;
-		return true;
+		return Objects.equals(data, other.data);
 	}
 	
 }

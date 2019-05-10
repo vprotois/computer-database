@@ -84,14 +84,14 @@ public class ComputerBuilder {
 	
 	public ComputerBuilder withId(Long i) {
 		if(i != null) {
-			this.id = Optional.of(new Long(i));
+			this.id = Optional.of(i);
 		}
 		return this;
 	}
 	
 	public ComputerBuilder withCompanyId(Long i) {
 		if(i != null) {
-			this.companyId = Optional.of(new Long(i));
+			this.companyId = Optional.of(i);
 		}
 		return this;
 	}

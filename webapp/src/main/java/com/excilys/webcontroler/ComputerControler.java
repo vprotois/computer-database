@@ -33,6 +33,7 @@ import com.excilys.service.ComputerServices;
 public class ComputerControler {
 
 	private static final String PAGE_COMPUTERS = "computerPage";
+	private static final String EXCEPTION = "exception";
 	private static final String NUMBER_COMPUTERS = "number_computers";
 	private static final String NEXT_PAGE = "next_page_index";
 	private static final String PREVIOUS_PAGE = "previous_page_index";
@@ -40,6 +41,7 @@ public class ComputerControler {
 	private static final String PAGE_SIZE = "size";
 	private static final String PAGE_ORDER = "order";
 	private static final String PAGE_SEARCH = "search";
+	
 
 
 	@Autowired
@@ -60,12 +62,12 @@ public class ComputerControler {
 		Integer sizeInt = Integer.parseInt(size);
 		Integer indexInt= Integer.parseInt(index);
 
-		Optional<Pages<DTOComputer>> optpages = Optional.empty();
+		Optional<Pages<DTOComputer>> optpages;
 
 		optpages = getOptPages(sizeInt, indexInt, search, order, asc, computerService);
 
 		if(!optpages.isPresent()) {
-			model.addAttribute("exception", new ComputerNotFoundException("Error while getting the computer list"));
+			model.addAttribute(EXCEPTION, new ComputerNotFoundException("Error while getting the computer list"));
 			return "500";
 		}
 		else {
@@ -163,7 +165,7 @@ public class ComputerControler {
 			computerService.addComputer(c);
 			return "addComputer";
 		} catch (CreateComputerException  | ValidatorException e) {
-			model.addAttribute("exception", e);
+			model.addAttribute(EXCEPTION, e);
 			return "500";
 		}
 	}
@@ -182,7 +184,7 @@ public class ComputerControler {
 		}
 		
 		if(!id.isPresent()) {
-			model.addAttribute("exception",new Exception("Should have an id"));
+			model.addAttribute(EXCEPTION,new Exception("Should have an id"));
 			return "500";
 		}else {
 			model.addAttribute("id_computer", id.get());
@@ -219,7 +221,7 @@ public class ComputerControler {
 			computerService.updateComputer(c);
 			return "editComputer";
 		} catch (ValidatorException | UpdateComputerException e) {
-			model.addAttribute("exception", e);
+			model.addAttribute(EXCEPTION, e);
 			return "500";
 		}
 

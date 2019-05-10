@@ -1,6 +1,7 @@
 package com.excilys.model;
 
 import java.sql.Timestamp;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,14 +47,7 @@ public class Computer {
 	
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((company == null) ? 0 : company.hashCode());
-		result = prime * result + ((discontinued == null) ? 0 : discontinued.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
+		return Objects.hash(company, discontinued, id, introduced, name);
 	}
 
 	@Override
@@ -65,32 +59,9 @@ public class Computer {
 		if (getClass() != obj.getClass())
 			return false;
 		Computer other = (Computer) obj;
-		if (company == null) {
-			if (other.company != null)
-				return false;
-		} else if (!company.equals(other.company))
-			return false;
-		if (discontinued == null) {
-			if (other.discontinued != null)
-				return false;
-		} else if (!discontinued.equals(other.discontinued))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (introduced == null) {
-			if (other.introduced != null)
-				return false;
-		} else if (!introduced.equals(other.introduced))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
+		return Objects.equals(company, other.company) && Objects.equals(discontinued, other.discontinued)
+				&& Objects.equals(id, other.id) && Objects.equals(introduced, other.introduced)
+				&& Objects.equals(name, other.name);
 	}	
 	
 	
@@ -145,8 +116,8 @@ public class Computer {
 		return id;
 	}
 	
-	public void setId(Long id) {
-		this.id = new Long(id);
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	
