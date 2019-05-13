@@ -3,6 +3,12 @@ package com.excilys.console;
 import java.util.List;
 import java.util.Optional;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +32,8 @@ public class CLIControler {
 	@Autowired
 	private ComputerServices computerServices;
 	
+	private Client client;
+	
 	private static final int ABORT = 0;
 	private static final int LIST_COMPUTERS = 1;
 	private static final int LIST_COMPANIES = 2;
@@ -40,6 +48,9 @@ public class CLIControler {
 	private static final int PREVIOUS_PAGE = 1;
 	private static final int NEXT_PAGE = 2;
 	
+	public CLIControler() {
+		client = ClientBuilder.newClient();
+	}
 	
 	
 	public void start() {
@@ -155,12 +166,11 @@ public class CLIControler {
 	}
 
 	private void listComputer() {
-		Optional<List<Computer>> list = computerServices.listComputer();
-		if(list.isPresent()) {
-			InterfaceConsole.displayList(list.get());			
-		}else {
-			InterfaceConsole.display("List not found");
-		}
+		Invocation.Builder invocationBuilder;
+		invocationBuilder = client.target("http://localhost:8080/api/computer")
+				.request(MediaType.APPLICATION_JSON);
+		List<DTOComputer> listDTO =  invocationBuilder.get(new GenericType<List<DTOComputer>>() {});
+		listDTO.forEach(c -> InterfaceConsole.display(c));
 	}
 
 	private void showDetailsComputer(Long input) {
